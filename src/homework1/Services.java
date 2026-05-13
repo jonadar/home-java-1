@@ -1,9 +1,6 @@
 package homework1;
 
-import java.util.Iterator;
-
 import Utils.UserInput;
-import Utils.Validation;
 
 public class Services {
 	
@@ -17,9 +14,11 @@ public class Services {
 				new Order(2, res, 0, null, 0, null)
 		};
 		r.setOrders(o);
+		
 		updateOrderStatus(r);
 	}
 
+	
 	public static void updateOrderStatus(Rider rider) {
 		Order[] orders = rider.getOrders();
 		
@@ -46,42 +45,31 @@ public class Services {
 			System.out.println("order not found.");
 			return;
 		}
-		
+
 		// choose order status (on the way), (delivered)
-		
-		
 		String[] options = {"on the way", "delivered"};
 		String deliveryOption = UserInput.getStringFromOptions(options);
+		
 		order.setDeliveryStatus(deliveryOption);
 		
 		// if chose (delivered) update order delivery date
-		
 		if (deliveryOption.equals("delivered")) {
-			order.setOrderDate("2/2/5"); //TODO user input
-		}
+			String deliveryDate = UserInput.getDate("delivery date");
+			order.setDeliveryDate(deliveryDate);
+		}	
 	}
 	
-	public static void displayAllOrders(Rider rider) {
-		Order[] orders = rider.getOrders();
-		
-		if(orders == null || orders.length == 0) {
-			System.out.println("no orders to display");
-			return;
-		}
-		
-		System.out.println("your orders are: ");
-		for (int i = 0; i < orders.length; i++) {
-			System.out.println((i+1) + ". " + orders[i]);
-		}
+	public static void createNewOrder(Customer customer) {
+		// TODO
 	}
 	
-	public static void displayAllOrders(Customer customer) {}
+	public static void updatePersonalInfo() {
+		// TODO
+	}
 	
-	public static void createNewOrder() {}
-	
-	public static void updatePersonalInfo() {}
-	
-	public static void displayRestaurantDetails() {}
+	public static void displayRestaurantDetails() {
+		// TODO
+	}
 	
 	
 }

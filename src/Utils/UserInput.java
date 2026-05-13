@@ -111,8 +111,8 @@ public class UserInput {
 	}
 	
 	/**
-	 * @param valueName name of value being received for user prompt
-	 * @return true if user entered 1 or false if user entered 2
+	 * @param options array of strings to pick from
+	 * @return user selected option or empty string if no options where given
 	 */
 	public static String getStringFromOptions(String[] options) {		
 		if (options == null || options.length == 0) {
@@ -132,14 +132,30 @@ public class UserInput {
 			
 			// check for input
 			if(s.hasNextInt()) {				
-				userValue = s.nextInt();
+				userValue = s.nextInt() - 1;
 				s.nextLine(); // avoid issues with newline
 				if(userValue < options.length && userValue >= 0) return options[userValue];
-			} else {				
+			} else {
 				s.next();
 			}
 			
 			System.out.println("invalid option. choose between 1 and " + options.length);
+		}
+	}
+	
+	/**
+	 * @param valueName name of value being received for user prompt
+	 * @return date String
+	 */
+	public static String getDate(String valueName) {		
+		String userValue = "";
+				
+		// keep asking until user provides correct value 
+		while(true) {
+			System.out.println("enter " + valueName + ": ");
+			userValue = s.nextLine();
+			if(Validation.validDate(userValue)) return userValue;
+			System.out.println("invalid date. must in dd/mm/yyyy format");
 		}
 	}
 	

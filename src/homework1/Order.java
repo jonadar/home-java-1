@@ -69,27 +69,25 @@ public class Order {
 	}
 	
 	public void setOrderDate(String orderDate) {
-		boolean valid = Validation.validate(orderDate, "invalid order date");
-		if(valid) this.orderDate = orderDate;
+		if(Validation.validDate(orderDate)) this.orderDate = orderDate;
 	}
 	
 	public void setDeliveryDate(String deliveryDate) {
-		boolean valid = Validation.validate(orderDate, "invalid delivery date");
-		if(valid) this.deliveryDate = deliveryDate;
+		if(Validation.validDate(deliveryDate)) this.deliveryDate = deliveryDate;
 	}
 	
 	public void setBasePrice(double basePrice) {
-		boolean valid = Validation.validate(orderDate, "invalid base price");
+		boolean valid = Validation.validate(basePrice, "invalid base price");
 		if(valid) this.basePrice = basePrice;
 }
 	
 	public void setFinalPrice(double finalPrice) {
-		boolean valid = Validation.validate(orderDate, "invalid final price");
+		boolean valid = Validation.validate(finalPrice, "invalid final price");
 		if(valid) this.finalPrice = finalPrice;
 		}
 	
 	public void setDeliveryStatus(String deliveryStatus) {
-		boolean valid = Validation.validate(orderDate, "invalid delivery status");
+		boolean valid = Validation.validate(deliveryStatus, "invalid delivery status");
 		if(valid) this.deliveryStatus = deliveryStatus;
 	}
 	
