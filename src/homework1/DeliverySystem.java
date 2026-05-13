@@ -38,7 +38,7 @@ public class DeliverySystem {
 		// check if already in array
 		boolean valid = Validation.validateNotInArray(customer, this.customers, "customer already registered");
 		
-		if(valid) {			
+		if(valid) {
 			// add
 			this.customers = Arrays.copyOf(this.customers, this.customerCount + 1);
 			this.customers[++this.customerCount] = customer;
@@ -62,7 +62,7 @@ public class DeliverySystem {
 		// check if already in array
 		boolean valid = Validation.validateNotInArray(restaurant, this.restaurants, "restaurant already registered");
 		
-		if(valid) {			
+		if(valid) {
 			// add
 			this.restaurants = Arrays.copyOf(this.restaurants, this.restaurantCount + 1);
 			this.restaurants[++this.restaurantCount] = restaurant;

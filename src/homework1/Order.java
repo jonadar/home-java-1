@@ -5,18 +5,20 @@ import Utils.Validation;
 public class Order {
 	private int orderCode;
 	private int customerCode;
-	private Restaurant rest;
+	private Restaurant restaurant;
 	private int restaurantCode;
 	private int driverId;
 	private String orderDate;
 	private String deliveryDate;
 	private double basePrice;
 	private double finalPrice;
-	private String deliveryStatus;
+	private String deliveryStatus = "sent"; // sent, on the way, delivered
+	
+	private static int orderCount = 1;
 	
 	public int getOrderCode() {return orderCode;}
 	public int getCustomerCode() {return customerCode;}
-	public Restaurant getRest() {return rest;}
+	public Restaurant getRest() {return restaurant;}
 	public int getRestaurantCode() {return restaurantCode;}
 	public int getDriverId() {return driverId;}
 	public String getOrderDate() {return orderDate;}
@@ -25,6 +27,18 @@ public class Order {
 	public double getFinalPrice() {return finalPrice;}
 	public String getDeliveryStatus() {return deliveryStatus;}
 	
+	
+	public Order(int customerCode, Restaurant restaurant, int driverId, String orderDate, double basePrice, String deliveryStatus) {
+		this.orderCode = orderCount++;
+		this.customerCode = customerCode;
+		this.restaurant = restaurant;
+		this.restaurantCode = restaurant.getRestaurantCode();
+		this.driverId = driverId;
+		this.orderDate = orderDate;
+		this.deliveryDate = "0";
+		this.basePrice = basePrice;
+		// make function to set price and calculate final price
+	}
 	
 	public void setOrderCode(int orderCode) {
 		boolean valid = Validation.validate(customerCode, "invalid order code");
@@ -36,9 +50,9 @@ public class Order {
 		if(valid) this.customerCode = customerCode;
 	}
 	
-	public void setRest(Restaurant rest) {
+	public void setRestaurant(Restaurant rest) {
 		if (rest != null) {
-			this.rest = rest;
+			this.restaurant = rest;
 		}
 		else {System.out.println("invalid field");
 		}
@@ -79,5 +93,20 @@ public class Order {
 		if(valid) this.deliveryStatus = deliveryStatus;
 	}
 	
+	@Override
+	public String toString() {
+		return "Order [orderCode=" + orderCode + ", customerCode=" + customerCode + ", restaurant=" + restaurant
+				+ ", restaurantCode=" + restaurantCode + ", driverId=" + driverId + ", orderDate=" + orderDate
+				+ ", deliveryDate=" + deliveryDate + ", basePrice=" + basePrice + ", finalPrice=" + finalPrice
+				+ ", deliveryStatus=" + deliveryStatus + "]";
+	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj != null && obj instanceof Order) {
+			Order other = (Order) obj;
+			return other.orderCode == this.orderCode;
+		}
+		return false;
+	}
 }

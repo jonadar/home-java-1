@@ -10,7 +10,7 @@ public class Restaurant {
 	private boolean isOpen;
 	private double deliveryFee;
 	
-	private static int restaurantCount = 0;
+	private static int restaurantCount = 1;
 	
 	public int getRestaurantCode() { return restaurantCode; }
 	public String getName() { return name; }
@@ -68,15 +68,16 @@ public class Restaurant {
 	}
 	
 	public void setDeliveryFee(double deliveryFee) {
-		//special validation?
-		this.deliveryFee = deliveryFee;
+		boolean valid = Validation.validate(rating, "invalid rating");
+		
+		if(valid) this.deliveryFee = deliveryFee;
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof Restaurant) {
 			Restaurant other = (Restaurant) obj;
-			return other.restaurantCode == this.restaurantCode && other.name.equals(this.name);
+			return other.restaurantCode == this.restaurantCode;
 		}
 		return false;
 	}

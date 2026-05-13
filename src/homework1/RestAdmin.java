@@ -12,9 +12,8 @@ public class RestAdmin extends Admin{
 		this.restaurantCount = restaurantCount;
 	}
 
-	public Restaurant[] getRestaurants() {return restaurants;}
-	public int getRestaurantCount() {return restaurantCount;}
-	
+	public Restaurant[] getRestaurants() { return restaurants; }
+	public int getRestaurantCount() { return restaurantCount; }
 	
 	public void setRestaurants(Restaurant[] restaurants) {
 		if (restaurants != null) {

@@ -31,14 +31,15 @@ public class UserInput {
 		int userValue = -1;
 		
 		// keep asking until user provides correct value 
-		while(true) {			
+		while(true) {	
 			System.out.println("enter " + valueName + ": ");
-			if(s.hasNextInt()) {				
+			if(s.hasNextInt()) {
 				userValue = s.nextInt();
 				s.nextLine(); // avoid issues with newline
 				if(userValue >= 0) return userValue;
+			} else {
+				s.next();
 			}
-			s.next();
 			System.out.println("invalid " + valueName + ". must be positive int");
 		}
 	}
@@ -106,6 +107,39 @@ public class UserInput {
 			}
 			s.next();
 			System.out.println("invalid value. choose (1 - yes, 2 - no)");
+		}
+	}
+	
+	/**
+	 * @param valueName name of value being received for user prompt
+	 * @return true if user entered 1 or false if user entered 2
+	 */
+	public static String getStringFromOptions(String[] options) {		
+		if (options == null || options.length == 0) {
+			System.out.println("no options to pick from");
+			return "";
+		}
+		
+		int userValue = 0;
+		
+		// keep asking until user provides correct value
+		while(true) {
+			// display options
+			System.out.println("choose option:");
+			for (int i = 0; i < options.length; i++) {
+				System.out.println((i+1) + ". " + options[i]);
+			}
+			
+			// check for input
+			if(s.hasNextInt()) {				
+				userValue = s.nextInt();
+				s.nextLine(); // avoid issues with newline
+				if(userValue < options.length && userValue >= 0) return options[userValue];
+			} else {				
+				s.next();
+			}
+			
+			System.out.println("invalid option. choose between 1 and " + options.length);
 		}
 	}
 	

@@ -3,6 +3,7 @@ package homework1;
 import Utils.Validation;
 
 public class Rider {
+	private static int counter = 1;
 	private int id;
 	private String fullName;
 	private int phoneNumber;
@@ -10,18 +11,21 @@ public class Rider {
 	private boolean isAvailable;
 	private Order[] orders;
 	
-	
-	public int getId() {return id;}
-	public String getFullName() {return fullName;}
-	public int getPhoneNumber() {return phoneNumber;}
-	public String getVehicle() {return vehicle;}
-	public boolean isAvailable() {return isAvailable;}
-	public Order[] getOrders() {return orders;}
-
-	
-	public void setId(int id) {
-		this.id = id;
+	public Rider(String fullName, int phoneNumber, String vehicle) {
+		this.id = counter++; // supposed to be id 9 digits not automatic
+		this.fullName = fullName;
+		this.phoneNumber = phoneNumber;
+		this.vehicle = vehicle;
+		this.orders = new Order[0];
+		this.isAvailable = true;
 	}
+	
+	public int getId() { return id; }
+	public String getFullName() { return fullName; }
+	public int getPhoneNumber() { return phoneNumber; }
+	public String getVehicle() { return vehicle; }
+	public boolean isAvailable() { return isAvailable; }
+	public Order[] getOrders() { return orders; }
 
 	public void setFullName(String fullName) {
 		boolean valid = Validation.validate(fullName, "invalid full name");
@@ -45,7 +49,6 @@ public class Rider {
 	public void setOrders(Order[] orders) {
 		if (orders != null) this.orders = orders;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {

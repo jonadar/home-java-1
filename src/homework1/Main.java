@@ -2,18 +2,20 @@ package homework1;
 
 import java.util.Scanner;
 
+import Utils.UserInput;
+
 public class Main {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		
 		DeliverySystem DS = new DeliverySystem();
-		
+
 		// 5 riders
-		DS.addRider(new Rider());
-		DS.addRider(new Rider());
-		DS.addRider(new Rider());
-		DS.addRider(new Rider());
-		DS.addRider(new Rider());
+		DS.addRider(new Rider("Jhon man", 126591, "car"));
+		DS.addRider(new Rider("miriam", 126591, "car"));
+		DS.addRider(new Rider("eden", 126591, "skateboard"));
+		DS.addRider(new Rider("gregor", 126591, "car"));
+		DS.addRider(new Rider("michelle", 126591, "corkinet"));
 		
 		// 10 customers
 		DS.addCustomer(new Customer("Jonathan", "Mil", "1 green place", "053-2981-2925-12", "jafsaf@gmail.com"));
@@ -55,6 +57,8 @@ public class Main {
 			System.out.println("3. rider login");
 			System.out.println("4. customer login");
 			int option = input.nextInt();
+			
+			
 //			if (input.hasNextInt()) {
 //				// has int to scan
 //			} else {

@@ -12,7 +12,7 @@ public class Customer {
 	private String email;
 	private double remainingCredit;
 	
-	private static int customerCount = 0;
+	private static int customerCount = 1;
 	
 	public int getCustomerCode() { return customerCode; }
 	public String getfirstName() { return firstName; }
