@@ -1,0 +1,82 @@
+package homework1;
+
+import Utils.Validation;
+
+public class Customer {
+
+	private int customerCode;
+	private String firstName;
+	private String lastName;
+	private String adress;
+	private String phoneNumber;
+	private String email;
+	private double remainingCredit;
+	
+	private static int customerCount = 0;
+	
+	public int getCustomerCode() { return customerCode; }
+	public String getfirstName() { return firstName; }
+	public String getLastName() { return lastName; }
+	public String getAdress() { return adress; }
+	public String getPhoneNumber() { return phoneNumber; }
+	public String getEmail() { return email; }
+	public double getRemainingCredit() { return remainingCredit; }
+
+	
+	public Customer(String firstName, String lastName, String adress, String phoneNumber, String email) {
+		this.customerCode = customerCount++;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.adress = adress;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.remainingCredit = 0;
+	}
+	
+	
+	public void setCustomerCode(int customerCode) {
+		boolean valid = Validation.validate(customerCode, "invalid customer code");
+		
+		if (valid) this.customerCode = customerCode;
+	}
+	public void setfirstName(String firstName) {
+		boolean valid = Validation.validate(firstName, "invalid firstName");
+		
+		if (valid) this.firstName = firstName;
+	}
+	public void setLastName(String lastName) {
+		boolean valid = Validation.validate(lastName, "invalid lastName");
+		
+		if (valid) this.lastName = lastName;
+	}
+	public void setAdress(String adress) {
+		boolean valid = Validation.validate(adress, "invalid adress");
+		
+		if (valid) this.adress = adress;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		boolean valid = Validation.validate(phoneNumber, "invalid phoneNumber");
+		
+		if (valid) this.phoneNumber = phoneNumber;
+	}
+	public void setEmail(String email) {
+		boolean valid = Validation.validate(email, "invalid email");
+		
+		if (valid) this.email = email;
+	}
+	public void setRemainingCredit(double remainingCredit) {
+		boolean valid = Validation.validate(remainingCredit, "invalid remainingCredit");
+		
+		if (valid) this.remainingCredit = remainingCredit;
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj != null && obj instanceof Customer) {
+			Customer other = (Customer) obj;
+			return other.customerCode == this.customerCode;
+		}
+		return false;
+	}
+}
