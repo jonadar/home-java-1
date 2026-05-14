@@ -37,9 +37,24 @@ public class RestAdmin extends Admin{
 			System.out.println("2. create new order");
 			System.out.println("3. add rider");
 			System.out.println("4. assign rider to order");
-			int restAdminOption = UserInput.getInt("option");
-			if(restAdminOption == 4) break;
-			// validate option
+			System.out.println("5. logout");
+			
+			int option = UserInput.getIntFromRange(1, 5, "option");
+			if(option == 5) break;
+			
+			switch (option) {
+				case 1:
+					Services.addCustomer(UserInput.s, DS.getCustomers()); // doesnt actually add yet, just creates
+					break;
+				case 2:
+					Customer customer = DS.chooseCustomer();
+					Services.createNewOrder(customer, DS.getRestaurants());
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+			}
 		}
 	}
 	

@@ -68,14 +68,31 @@ public class Customer {
 	
 	public void menu(DeliverySystem DS) {
 		System.out.println("you are customer");
+		
 		while(true) {
 			System.out.println("1. create new order");
 			System.out.println("2. view my orders");
 			System.out.println("3. update my personal info");
 			System.out.println("4. view restaurant info");
-			int customerOption = UserInput.getInt("option");
-			if(customerOption == 7) break;
-			// validate option
+			System.out.println("5. logout");
+			
+			int option = UserInput.getIntFromRange(1,5, "option");
+			if(option == 5) break;
+			
+			switch (option) {
+				case 1:
+					Services.createNewOrder(this, DS.getRestaurants());
+					break;
+				case 2:
+					DS.displayAllOrders(this);
+					break;
+				case 3:
+					Services.updatePersonalInfo(this);
+					break;
+				case 4:
+					DS.displayRestaurantDetailsByCode();
+					break;
+			}
 		}
 	}
 	

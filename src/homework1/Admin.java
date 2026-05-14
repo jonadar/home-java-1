@@ -39,6 +39,10 @@ public class Admin {
 		return this.username.equals(username) && this.password.equals(password);
 	}
 	
+	public Restaurant addR() {
+		return null;
+	}
+	
 	public void menu(DeliverySystem DS) {
 		while(true) {
 			System.out.println("1. add customer");
@@ -47,10 +51,34 @@ public class Admin {
 			System.out.println("4. add restaurant");
 			System.out.println("5. add rider");
 			System.out.println("6. assign rider to order");
-			int adminOption = UserInput.getInt("option");
-			if(adminOption == 7) break;
-			// validate option
+			System.out.println("7. logout");
+			
+			int option = UserInput.getIntFromRange(1, 7, "option");
+			if(option == 7) break;
+			
+			switch (option) {
+				case 1:
+					Services.addCustomer(UserInput.s, DS.getCustomers()); // doesnt actually add yet, just creates
+					break;
+				case 2:
+					Services.addRestAdmin(UserInput.s, DS.getRestaurantAdmins()); // doesnt actually add yet, just creates
+					break;
+				case 3:
+					Services.assignRestAdminToRestaurant(DS.getRestaurantAdmins(), DS.getRestaurants());
+					break;
+				case 4:
+					Services.addRestaurant(UserInput.s);
+					break;
+				case 5:
+					System.out.println("not yet implemented");
+					break;
+				case 6:
+					System.out.println("not yet implemented");
+					break;
+			}
 		}
+		
+		
 		// inner loop for admin options
 	}
 	

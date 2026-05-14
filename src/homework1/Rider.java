@@ -56,10 +56,21 @@ public class Rider {
 		while(true) {
 			System.out.println("1. update order status");
 			System.out.println("2. view orders");
-			int riderOption = UserInput.getInt("option");
-			if(riderOption == 7) break;
-			// validate option
+			System.out.println("3. logout");
+			int option = UserInput.getIntFromRange(1,3, "option");
+			if(option == 3) break;
+			
+			switch (option) {
+				case 1:
+					Services.updateOrderStatus(this);
+					break;
+				case 2:
+					DS.displayAllOrders(this);
+					break;
+			}
 		}
+		
+		
 	}
 	
 	@Override

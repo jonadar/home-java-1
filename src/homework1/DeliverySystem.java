@@ -129,7 +129,7 @@ public class DeliverySystem {
 	}
 	
 	// get restaurant code and display its info
-	public void displayRestaurantDetails() {
+	public void displayRestaurantDetailsByCode() {
 		int restaurantCode = UserInput.getInt("restaurant code");
 		
 		Restaurant restaurant = null;

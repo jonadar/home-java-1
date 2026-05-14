@@ -126,7 +126,7 @@ public class Services {
 		return true;
 	}
 	
-	public Customer addCustomer(Scanner scan, Customer[] CustomerArry) {
+	public static Customer addCustomer(Scanner scan, Customer[] CustomerArry) {
 		String name;
 		while (true) {
 			if (scan.hasNextLine()) {
@@ -207,7 +207,7 @@ public class Services {
 		
 		
 		
-	public RestAdmin addRestAdmin(Scanner scan, RestAdmin[] RestAdminArry) {
+	public static RestAdmin addRestAdmin(Scanner scan, RestAdmin[] RestAdminArry) {
 		String username; // זה מחרוזת לתקן
 		while(true) {
 			System.out.println("enter resturnt admin username");
@@ -257,7 +257,7 @@ public class Services {
 	}
 		
 		
-	public RestAdmin findRestAdmin(String username, RestAdmin[] restaurantAdmins) {
+	public static RestAdmin findRestAdmin(String username, RestAdmin[] restaurantAdmins) {
 		for (int i = 0 ; i<restaurantAdmins.length ; i++) {
 			if (restaurantAdmins[i] != null) {
 				if (username.equals(restaurantAdmins[i].getUsername())) {
@@ -268,7 +268,7 @@ public class Services {
 		return null;
 	}
 	
-	public Restaurant findRestaurant(int restCode, Restaurant[] restaurants) {
+	public static Restaurant findRestaurant(int restCode, Restaurant[] restaurants) {
 		for (int i = 0 ; i<restaurants.length ; i++) {
 			if (restaurants[i] != null) {
 				if (restCode == restaurants[i].getRestaurantCode()) {
@@ -279,7 +279,7 @@ public class Services {
 		return null;
 	}
 	
-	public boolean assignRestAdminToRestaurant(RestAdmin[] restaurantAdmins, Restaurant[] restaurants) {
+	public static boolean assignRestAdminToRestaurant(RestAdmin[] restaurantAdmins, Restaurant[] restaurants) {
 		RestAdmin restAdmin = findRestAdmin(UserInput.getUserName(), restaurantAdmins);
 		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
 		if (restAdmin!= null && restaurant!=null) {
@@ -307,7 +307,7 @@ public class Services {
 		}
 	}
 	
-	public Restaurant addRestaurant(Scanner scan) {
+	public static Restaurant addRestaurant(Scanner scan) {
 		String restName;
 		while(true) {
 			if(scan.hasNextLine()) {
