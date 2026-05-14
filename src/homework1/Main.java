@@ -44,9 +44,9 @@ public class Main {
 		DS.addRetaurant(new PremiumRestaurant("sparrow", "big", 5, true, 10, 100, 10));
 		
 		//3 restaurant admins
-		DS.addRestaurantAdmin(new RestAdmin("jon", "supfax", "secretpass&52"));
+		DS.addRestaurantAdmin(new RestAdmin("jon", "supfax", "secretpass52"));
 		DS.addRestaurantAdmin(new RestAdmin("eden", "gasca", "IH8Michelle"));
-		DS.addRestaurantAdmin(new RestAdmin("bill", "lapdaz", "sec51pass&52"));
+		DS.addRestaurantAdmin(new RestAdmin("bill", "lapdaz", "sec51pass52"));
 		
 		Admin admin = new Admin("Steve", "admin", "12345");
 		
@@ -58,66 +58,83 @@ public class Main {
 			System.out.println("4. customer login");
 			
 			int option = UserInput.getIntFromRange(1, 4, "option");
+			System.out.println(option);
 			
 			switch(option) {
 				case(1):
+					String adminUsername = UserInput.getUserName();
+					String adminPassword = UserInput.getPassword();
 					// login as admin
-					System.out.println("you are admin");
-					
-					while(true) {
-						System.out.println("1. add customer");
-						System.out.println("2. add restaurant admin");
-						System.out.println("3. assign restaurant admin to restaurant");
-						System.out.println("4. add restaurant");
-						System.out.println("5. add rider");
-						System.out.println("6. assign rider to order");
-						int adminOption = input.nextInt();
-						if(adminOption == 7) break;
-						// validate option
+					if(admin.login(adminUsername, adminPassword)) {
+						System.out.println("you are admin");
+						admin.menu(DS);
 					}
-					// inner loop for admin options
+					
 					break;
 				case(2):
 					// restAdmin login using password and username
-					System.out.println("you are restaurant admin");
+					String username = UserInput.getUserName();
+					String password = UserInput.getPassword();
 				
-					while(true) {
-						System.out.println("1. add customer");
-						System.out.println("2. create new order");
-						System.out.println("3. add rider");
-						System.out.println("4. assign rider to order");
-						int restAdminOption = input.nextInt();
-						if(restAdminOption == 4) break;
-						// validate option
+					RestAdmin restaurantAdmin = null;
+					for (RestAdmin ra: DS.getRestaurantAdmins()) {
+						if(ra.getUsername().equals(username)) {
+							restaurantAdmin = ra;
+							break;
+						}
 					}
+					
+					if(restaurantAdmin == null) {
+						System.out.println("restaurant admin not found.");
+						break;
+					}
+					
+					
+					if(restaurantAdmin.login(username, password)) {
+						System.out.println("you are restaurant admin");
+						restaurantAdmin.menu(DS);
+					}
+					
 					break;
 				case(3):
 					// rider login using id
-					System.out.println("you are rider");
+					int id = UserInput.getInt("rider id");
 				
-					while(true) {
-						System.out.println("1. update order status");
-						System.out.println("2. view orders");
-						int riderOption = input.nextInt();
-						if(riderOption == 7) break;
-						// validate option
+					Rider rider = null;
+					for (Rider r: DS.getRiders()) {
+						if(r.getId() == id) {
+							rider = r;
+							break;
+						}
 					}
+					
+					if(rider == null) {
+						System.out.println("rider not found.");
+						break;
+					}
+					
+					rider.menu(DS);
+					
 					break;
 				case(4):
-					
 					// customer login with customer code
-					System.out.println("you are customer");
+					int code = UserInput.getInt("customer code");
 				
-				
-					while(true) {
-						System.out.println("1. create new order");
-						System.out.println("2. view my orders");
-						System.out.println("3. update my personal info");
-						System.out.println("4. view restaurant info");
-						int customerOption = input.nextInt();
-						if(customerOption == 7) break;
-						// validate option
+					Customer customer = null;
+					for (Customer c: DS.getCustomers()) {
+						if(c.getCustomerCode() == code) {
+							customer = c;
+							break;
+						}
 					}
+					
+					if(customer == null) {
+						System.out.println("customer not found.");
+						break;
+					}
+					
+					customer.menu(DS);
+				
 					break;
 				default:
 					break;

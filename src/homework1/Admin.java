@@ -1,5 +1,6 @@
 package homework1;
 
+import Utils.UserInput;
 import Utils.Validation;
 
 public class Admin {
@@ -35,11 +36,22 @@ public class Admin {
 
 
 	public boolean login(String username, String password) {
-		return username.equals(this.username) && password.equals(this.password);
+		return this.username.equals(username) && this.password.equals(password);
 	}
 	
 	public void menu(DeliverySystem DS) {
-		// submenu of admin options	
+		while(true) {
+			System.out.println("1. add customer");
+			System.out.println("2. add restaurant admin");
+			System.out.println("3. assign restaurant admin to restaurant");
+			System.out.println("4. add restaurant");
+			System.out.println("5. add rider");
+			System.out.println("6. assign rider to order");
+			int adminOption = UserInput.getInt("option");
+			if(adminOption == 7) break;
+			// validate option
+		}
+		// inner loop for admin options
 	}
 	
 	@Override

@@ -247,4 +247,16 @@ public class UserInput {
 			System.out.println("invalid username. must be none empty string");
 		}
 	}
+	
+	public static String getPassword() {			
+		String userValue = "";
+		
+		// keep asking until user provides correct value 
+		while(true) {
+			System.out.println("enter password:");
+			userValue = s.nextLine();
+			if(Validation.isOnlyNumbersAndChars(userValue) && userValue.length() > 3) return userValue;
+			System.out.println("invalid password. must be none empty string of length 3 or more and only using letters and digits");
+		}
+	}
 }

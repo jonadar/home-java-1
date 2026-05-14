@@ -1,5 +1,7 @@
 package homework1;
 
+import Utils.User;
+import Utils.UserInput;
 import Utils.Validation;
 
 public class Customer {
@@ -64,6 +66,18 @@ public class Customer {
 		if (valid) this.remainingCredit = remainingCredit;
 	}
 	
+	public void menu(DeliverySystem DS) {
+		System.out.println("you are customer");
+		while(true) {
+			System.out.println("1. create new order");
+			System.out.println("2. view my orders");
+			System.out.println("3. update my personal info");
+			System.out.println("4. view restaurant info");
+			int customerOption = UserInput.getInt("option");
+			if(customerOption == 7) break;
+			// validate option
+		}
+	}
 	
 	@Override
 	public boolean equals(Object obj) {

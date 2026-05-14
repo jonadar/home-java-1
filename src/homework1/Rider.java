@@ -1,5 +1,6 @@
 package homework1;
 
+import Utils.UserInput;
 import Utils.Validation;
 
 public class Rider {
@@ -49,7 +50,18 @@ public class Rider {
 	public void setOrders(Order[] orders) {
 		if (orders != null) this.orders = orders;
 	}
-
+	
+	public void menu(DeliverySystem DS) {
+		System.out.println("you are rider");
+		while(true) {
+			System.out.println("1. update order status");
+			System.out.println("2. view orders");
+			int riderOption = UserInput.getInt("option");
+			if(riderOption == 7) break;
+			// validate option
+		}
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof Rider) {

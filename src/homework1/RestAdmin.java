@@ -2,6 +2,8 @@ package homework1;
 
 import java.util.Arrays;
 
+import Utils.UserInput;
+
 public class RestAdmin extends Admin{
 	private Restaurant[] restaurants;
 	private int restaurantCount;
@@ -26,6 +28,19 @@ public class RestAdmin extends Admin{
 		this.restaurants =	Arrays.copyOf(this.restaurants, this.restaurantCount+1);
 		this.restaurants[this.restaurantCount++] = rest;
 		return true;
+	}
+	
+	@Override
+	public void menu(DeliverySystem DS) {
+		while(true) {
+			System.out.println("1. add customer");
+			System.out.println("2. create new order");
+			System.out.println("3. add rider");
+			System.out.println("4. assign rider to order");
+			int restAdminOption = UserInput.getInt("option");
+			if(restAdminOption == 4) break;
+			// validate option
+		}
 	}
 	
 }

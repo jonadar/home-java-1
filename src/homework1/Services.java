@@ -307,7 +307,7 @@ public class Services {
 		}
 	}
 	
-	public boolean addRestaurant(Scanner scan) {
+	public Restaurant addRestaurant(Scanner scan) {
 		String restName;
 		while(true) {
 			if(scan.hasNextLine()) {
@@ -356,7 +356,7 @@ public class Services {
 		while(true) {
 			if(scan.hasNextDouble()) {
 				Double item = scan.nextDouble();
-				if (item!=null) {
+				if (item != null) {
 					deliveryFee = item;
 					scan.nextLine();
 					System.out.println("the restaurant delivery fee is " + deliveryFee);
@@ -368,6 +368,6 @@ public class Services {
 			}
 		}
 		
-		return true;
+		return new Restaurant(restName, kitchenType, rating, isOpen, deliveryFee);
 	}
 }

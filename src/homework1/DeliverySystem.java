@@ -35,6 +35,14 @@ public class DeliverySystem {
 		this.orderCount = 0;
 	}
 	
+	public Customer[] getCustomers() {return customers;}
+	public RestAdmin[] getRestaurantAdmins() {return restaurantAdmins;}
+	public Restaurant[] getRestaurants() {return restaurants;}
+	public Rider[] getRiders() {return riders;}
+	public Order[] getOrders() {return orders;}
+
+
+
 	public void addCustomer(Customer customer){
 		// check if already in array
 		boolean valid = Validation.validateNotInArray(customer, this.customers, "customer already registered");
