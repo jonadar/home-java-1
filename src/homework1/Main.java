@@ -56,27 +56,21 @@ public class Main {
 			System.out.println("2. restaurant admin login");
 			System.out.println("3. rider login");
 			System.out.println("4. customer login");
-			int option = input.nextInt();
 			
-			
-//			if (input.hasNextInt()) {
-//				// has int to scan
-//			} else {
-//				// invalid input, ask again for valid input
-//			}
-			
-			// validate option
+			int option = UserInput.getIntFromRange(1, 4, "option");
 			
 			switch(option) {
 				case(1):
+					// login as admin
 					System.out.println("you are admin");
+					
 					while(true) {
 						System.out.println("1. add customer");
 						System.out.println("2. add restaurant admin");
-						System.out.println("3. add restaurant admin to restaurant");
+						System.out.println("3. assign restaurant admin to restaurant");
 						System.out.println("4. add restaurant");
 						System.out.println("5. add rider");
-						System.out.println("6. add rider to order");
+						System.out.println("6. assign rider to order");
 						int adminOption = input.nextInt();
 						if(adminOption == 7) break;
 						// validate option
@@ -84,35 +78,42 @@ public class Main {
 					// inner loop for admin options
 					break;
 				case(2):
+					// restAdmin login using password and username
 					System.out.println("you are restaurant admin");
+				
 					while(true) {
 						System.out.println("1. add customer");
-						System.out.println("2. add rider");
-						System.out.println("3. add rider to order");
+						System.out.println("2. create new order");
+						System.out.println("3. add rider");
+						System.out.println("4. assign rider to order");
 						int restAdminOption = input.nextInt();
 						if(restAdminOption == 4) break;
 						// validate option
 					}
 					break;
 				case(3):
+					// rider login using id
 					System.out.println("you are rider");
+				
 					while(true) {
-						System.out.println("1. add customer");
-						System.out.println("2. add restaurant admin");
-						System.out.println("3. add restaurant admin to restaurant");
-						System.out.println("4. add restaurant");
-						System.out.println("5. add rider");
-						System.out.println("6. add rider to order");
+						System.out.println("1. update order status");
+						System.out.println("2. view orders");
 						int riderOption = input.nextInt();
 						if(riderOption == 7) break;
 						// validate option
 					}
 					break;
 				case(4):
+					
+					// customer login with customer code
 					System.out.println("you are customer");
+				
+				
 					while(true) {
-						System.out.println("1. make order");
-						System.out.println("2. get order details");
+						System.out.println("1. create new order");
+						System.out.println("2. view my orders");
+						System.out.println("3. update my personal info");
+						System.out.println("4. view restaurant info");
 						int customerOption = input.nextInt();
 						if(customerOption == 7) break;
 						// validate option

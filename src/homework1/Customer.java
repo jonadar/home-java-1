@@ -48,9 +48,10 @@ public class Customer {
 		if (valid) this.adress = adress;
 	}
 	public void setPhoneNumber(String phoneNumber) {
-		boolean valid = Validation.validate(phoneNumber, "invalid phoneNumber");
+		boolean valid = Validation.isPhoneNumber(phoneNumber);
 		
 		if (valid) this.phoneNumber = phoneNumber;
+		else System.out.println("invalid phone number entered");
 	}
 	public void setEmail(String email) {
 		boolean valid = Validation.validate(email, "invalid email");

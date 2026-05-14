@@ -37,6 +37,11 @@ public class FastFoodRestaurant extends Restaurant {
 	}
 	
 	@Override
+	public double calculatePrice(double base) {
+		return base + deliveryFee + fastDeliveryFee;
+	}
+	
+	@Override
 	public String toString() {
 		return "FastFoodRestaurant [averageCookTime=" + averageCookTime + ", fastDeliveryFee=" + fastDeliveryFee
 				+ ", restaurantCode=" + restaurantCode + ", name=" + name + ", kitchenType=" + kitchenType + ", rating="

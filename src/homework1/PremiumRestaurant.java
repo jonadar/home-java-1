@@ -34,6 +34,12 @@ public class PremiumRestaurant extends Restaurant {
 		if(valid) this.orderFeePercentage = orderFeePercentage;
 	}
 	
+
+	@Override
+	public double calculatePrice(double base) {
+		return base + deliveryFee + (base * (1 + orderFeePercentage / 100)); // base + delivery fee + percentage of base
+	}
+	
 	@Override
 	public String toString() {
 		return "PremiumRestaurant [minOrderValue=" + minOrderValue + ", orderFeePercentage=" + orderFeePercentage

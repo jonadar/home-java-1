@@ -3,13 +3,7 @@ package Utils;
 import java.util.Arrays;
 
 public class Validation {
-	public static void main(String[] args) {
-		System.out.println(validDate(""));
-		System.out.println(validDate("///"));
-		System.out.println(validDate("0/0/0"));
-		System.out.println(validDate("12/1/2001"));
-		System.out.println(validDate("2152"));
-	}
+	public static void main(String[] args) {}
 	
 	/**
 	 * @param str String to check
@@ -158,6 +152,43 @@ public class Validation {
 		if (str.contains("@") && str.indexOf('@') == str.lastIndexOf('@')) return true;
 		
 		return false;
-		
 	}
+	
+	/**
+	 * @param str String to check
+	 * @return true if str is valid adress, otherwise false
+	 */
+	public static boolean isCity(String str) {
+		if (str == null || str.isBlank()) return false;
+		
+		for (char ch: str.toCharArray()) {
+			if (!(Character.isAlphabetic(ch) || ch == ' ')) {
+			}
+		}
+		
+		return true;
+	}
+	
+	public static boolean isStreet(String str) {
+		if (str == null || str.isBlank()) return false;
+		
+		// street city mikud
+		for (char ch: str.toCharArray()) {
+			if (!(Character.isLetterOrDigit(ch) || ch == ' ')) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public static boolean isMikud(String str) {
+		return isOnlyDigits(str);
+	}
+	
+	public static boolean isPhoneNumber(String phoneNumber) {
+		return isOnlyDigits(phoneNumber) && phoneNumber.length() == 10;
+	}
+	
+	
 }

@@ -28,15 +28,16 @@ public class Order {
 	public String getDeliveryStatus() {return deliveryStatus;}
 	
 	
-	public Order(int customerCode, Restaurant restaurant, int driverId, String orderDate, double basePrice, String deliveryStatus) {
+	public Order(int customerCode, Restaurant restaurant, double basePrice, double finalPrice, String orderDate) {
 		this.orderCode = orderCount++;
 		this.customerCode = customerCode;
 		this.restaurant = restaurant;
 		this.restaurantCode = restaurant.getRestaurantCode();
-		this.driverId = driverId;
+		this.driverId = -1;
 		this.orderDate = orderDate;
 		this.deliveryDate = "0";
 		this.basePrice = basePrice;
+		this.finalPrice = finalPrice;
 		// make function to set price and calculate final price
 	}
 	

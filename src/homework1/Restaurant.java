@@ -73,6 +73,14 @@ public class Restaurant {
 		if(valid) this.deliveryFee = deliveryFee;
 	}
 	
+	/**
+	 * @param base price
+	 * @return calculated price
+	 */
+	public double calculatePrice(double base) {
+		return base + deliveryFee;
+	}
+	
 	@Override
 	public String toString() {
 		return "Restaurant [restaurantCode=" + restaurantCode + ", name=" + name + ", kitchenType=" + kitchenType

@@ -155,7 +155,58 @@ public class UserInput {
 			System.out.println("enter " + valueName + ": ");
 			userValue = s.nextLine();
 			if(Validation.validDate(userValue)) return userValue;
-			System.out.println("invalid date. must in dd/mm/yyyy format");
+			System.out.println("invalid date. must be in dd/mm/yyyy format between the years 2000 and 2026");
+		}
+	}
+	
+	/**
+	 * @param valueName name of value being received for user prompt
+	 * @return date String
+	 */
+	public static String getAdress() {		
+		String city = "";
+		String street = "";
+		String mikud = "";
+				
+		// keep asking until user provides correct value 
+		while(true) {
+			System.out.println("enter city: ");
+			city = s.nextLine();
+			if(Validation.isCity(city)) break;
+			System.out.println("invalid city, must be none empty string with no numbers or symbols");
+		}
+		
+		while(true) {
+			System.out.println("enter street: ");
+			street = s.nextLine();
+			if(Validation.isStreet(street)) break;
+			System.out.println("invalid street, must be none empty string with no symbols");
+		}
+		
+		while(true) {
+			System.out.println("enter mikud: ");
+			mikud = s.nextLine();
+			if(Validation.isMikud(mikud)) break;
+			System.out.println("invalid mikud. must be not empty only digits");
+		}
+		
+		return street + " " + city + " " + mikud; 
+	}
+	
+	public static String getPhoneNumber() {		
+		int userValue = -1;
+		
+		// keep asking until user provides correct value 
+		while(true) {	
+			System.out.println("enter phone number: ");
+			if(s.hasNextInt()) {
+				userValue = s.nextInt();
+				s.nextLine(); // avoid issues with newline
+				if(Validation.isPhoneNumber(userValue+"")) return userValue+"";
+			} else {
+				s.next();
+			}
+			System.out.println("invalid phone number. must be 10 digits");
 		}
 	}
 	

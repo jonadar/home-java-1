@@ -7,19 +7,7 @@ import Utils.Validation;
 
 public class Services {
 	
-	public static void main(String[] args) {
-		Rider r = new Rider("creig", 251924, "car");
-
-		Restaurant res = new Restaurant("the big fat whale", "big", 5, true, 10);
-		Order[] o = {
-				new Order(2, res, 0, null, 0, null),
-				new Order(2, res, 0, null, 0, null),
-				new Order(2, res, 0, null, 0, null)
-		};
-		r.setOrders(o);
-		
-		updateOrderStatus(r);
-	}
+	public static void main(String[] args) {}
 
 	
 	public static void updateOrderStatus(Rider rider) {
@@ -63,12 +51,56 @@ public class Services {
 	}
 	
 	public static void updatePersonalInfo(Customer customer) {
-		// TODO
+		System.out.println("what would you like to update?");
+		String[] options = {"phone number", "adress", "none"};
+		String userSelection = UserInput.getStringFromOptions(options);
+		
+		if(userSelection.equals(options[0])) { // phone number
+			String phoneNumber = UserInput.getPhoneNumber();
+			customer.setPhoneNumber(phoneNumber);
+		}
+		
+		else if (userSelection.equals(options[1])){ // adress
+			String adress = UserInput.getAdress();
+			customer.setAdress(adress);
+		}
 		
 	}
 	
-	public static void createNewOrder(Customer customer) {
+	/**
+	 * @param customer who's order it is
+	 * @param restaurants array of available restaurants
+	 * @return Order if created successfully otherwise null
+	 */
+	public static Order createNewOrder(Customer customer, Restaurant[] restaurants) {
 		// TODO
+		
+		//print options
+		for (int i = 0; i < restaurants.length; i++) {
+			System.out.println(i + ". " + restaurants[i]);
+		}
+		
+		// choose restaurant
+		int restaurantIndex = UserInput.getIntFromRange(1, restaurants.length, "restaurant");
+		Restaurant restaurant = restaurants[restaurantIndex];
+		
+		// get base amount
+		double baseCost = UserInput.getDouble("base cost");
+		
+		// calculate price`
+		double price = restaurant.calculatePrice(baseCost);
+		
+		if (restaurant instanceof PremiumRestaurant) {
+			if(price < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
+				System.out.println("cost too low for order, must be more than " + ((PremiumRestaurant) restaurant).getMinOrderValue());
+				return null;	
+			}
+		}
+		
+		// get date
+		String date = UserInput.getDate("todays date");
+		
+		return new Order(customer.getCustomerCode(), restaurant, baseCost, price, date);
 	}
 	
 	
@@ -93,7 +125,6 @@ public class Services {
 		}
 		return true;
 	}
-	
 	
 	public Customer addCustomer(Scanner scan, Customer[] CustomerArry) {
 		String name;
@@ -174,59 +205,59 @@ public class Services {
 				scan.next();
 			}
 		}// לוודא מה לעשות לקוד ולריימנינג קרדיט
-		return new Customer(name, famillyName, adress, phoneNumber, email, remainingCredit);
+		return new Customer(name, famillyName, "", phoneNumber, email, remainingCredit);
 	}
 		
 		
 		
-		public RestAdmin addRestAdmin(Scanner scan, RestAdmin[] RestAdminArry) {
-			String username; // זה מחרוזת לתקן
-			while(true) {
-				System.out.println("enter resturnt admin username");
-				if(scan.hasNextLine()) {
-					String item = scan.nextLine();
-					if (notInAnArry(item, RestAdminArry)) {
-						username = item;
-						break;
-					}
+	public RestAdmin addRestAdmin(Scanner scan, RestAdmin[] RestAdminArry) {
+		String username; // זה מחרוזת לתקן
+		while(true) {
+			System.out.println("enter resturnt admin username");
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (notInAnArry(item, RestAdminArry)) {
+					username = item;
+					break;
+				}
+			} else {
+				System.out.println("invaled feald");
+			}
+		}
+	
+		String restAdminName;
+		while(true) {
+			System.out.println("enter resturnt admin name");
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
+					restAdminName = item;
+					break;
 				} else {
 					System.out.println("invaled feald");
+					scan.nextInt();
 				}
 			}
-		
-			String restAdminName;
-			while(true) {
-				System.out.println("enter resturnt admin name");
-				if(scan.hasNextLine()) {
-					String item = scan.nextLine();
-					if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
-						restAdminName = item;
-						break;
-					} else {
-						System.out.println("invaled feald");
-						scan.nextInt();
-					}
-				}
-					
-			}
-			
-			String password;
-			while(true) {
-				System.out.println("enter resturnt admin username");
-				if(scan.hasNextLine()) {
-					String item = scan.nextLine();
-					if (!Validation.isEmptyString(item) && Validation.isOnlyNumbersAndChars(item)) {
-						password = item;
-						break;
-					} else {
-						System.out.println("invaled feald");
-						scan.next();
-					}
-				}
-			}
-			
-			return new RestAdmin(restAdminName, username, password);
+				
 		}
+		
+		String password;
+		while(true) {
+			System.out.println("enter resturnt admin username");
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyNumbersAndChars(item)) {
+					password = item;
+					break;
+				} else {
+					System.out.println("invaled feald");
+					scan.next();
+				}
+			}
+		}
+		
+		return new RestAdmin(restAdminName, username, password);
+	}
 	
 	
 }
