@@ -34,6 +34,13 @@ public class PremiumRestaurant extends Restaurant {
 		if(valid) this.orderFeePercentage = orderFeePercentage;
 	}
 	
+	@Override
+	public String toString() {
+		return "PremiumRestaurant [minOrderValue=" + minOrderValue + ", orderFeePercentage=" + orderFeePercentage
+				+ ", restaurantCode=" + restaurantCode + ", name=" + name + ", kitchenType=" + kitchenType + ", rating="
+				+ rating + ", isOpen=" + isOpen + ", deliveryFee=" + deliveryFee + "]";
+	}
+	
 	
 	
 }

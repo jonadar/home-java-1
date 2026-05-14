@@ -24,17 +24,27 @@ public class FastFoodRestaurant extends Restaurant {
 		this.fastDeliveryFee = 0;
 	}
 
-
 	public void setAverageCookTime(double averageCookTime) {
 		boolean valid = Validation.validate(averageCookTime, "invalid averageCookTime");
 		
 		if(valid) this.averageCookTime = averageCookTime;
 	}
+	
 	public void setFastDeliveryFee(double fastDeliveryFee) {
 		boolean valid = Validation.validate(fastDeliveryFee, "invalid fastDeliveryFee");
 		
 		if(valid) this.fastDeliveryFee = fastDeliveryFee;
 	}
+	
+	@Override
+	public String toString() {
+		return "FastFoodRestaurant [averageCookTime=" + averageCookTime + ", fastDeliveryFee=" + fastDeliveryFee
+				+ ", restaurantCode=" + restaurantCode + ", name=" + name + ", kitchenType=" + kitchenType + ", rating="
+				+ rating + ", isOpen=" + isOpen + ", deliveryFee=" + deliveryFee + "]";
+	}
+	
+	
+	
 	
 	
 }

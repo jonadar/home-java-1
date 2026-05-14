@@ -3,7 +3,6 @@ package homework1;
 import Utils.Validation;
 
 public class Customer {
-
 	private int customerCode;
 	private String firstName;
 	private String lastName;
@@ -23,22 +22,16 @@ public class Customer {
 	public double getRemainingCredit() { return remainingCredit; }
 
 	
-	public Customer(String firstName, String lastName, String adress, String phoneNumber, String email) {
+	public Customer(String firstName, String lastName, String adress, String phoneNumber, String email, double remainingCredit) {
 		this.customerCode = customerCount++;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.adress = adress;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
-		this.remainingCredit = 0;
+		this.remainingCredit = remainingCredit;
 	}
 	
-	
-	public void setCustomerCode(int customerCode) {
-		boolean valid = Validation.validate(customerCode, "invalid customer code");
-		
-		if (valid) this.customerCode = customerCode;
-	}
 	public void setfirstName(String firstName) {
 		boolean valid = Validation.validate(firstName, "invalid firstName");
 		

@@ -3,12 +3,12 @@ package homework1;
 import Utils.Validation;
 
 public class Restaurant {
-	private int restaurantCode;
-	private String name;
-	private String kitchenType;
-	private double rating;
-	private boolean isOpen;
-	private double deliveryFee;
+	protected int restaurantCode;
+	protected String name;
+	protected String kitchenType;
+	protected double rating;
+	protected boolean isOpen;
+	protected double deliveryFee;
 	
 	private static int restaurantCount = 1;
 	
@@ -71,6 +71,12 @@ public class Restaurant {
 		boolean valid = Validation.validate(rating, "invalid rating");
 		
 		if(valid) this.deliveryFee = deliveryFee;
+	}
+	
+	@Override
+	public String toString() {
+		return "Restaurant [restaurantCode=" + restaurantCode + ", name=" + name + ", kitchenType=" + kitchenType
+				+ ", rating=" + rating + ", isOpen=" + isOpen + ", deliveryFee=" + deliveryFee + "]";
 	}
 	
 	@Override

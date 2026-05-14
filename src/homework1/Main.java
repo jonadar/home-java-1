@@ -18,16 +18,16 @@ public class Main {
 		DS.addRider(new Rider("michelle", 126591, "corkinet"));
 		
 		// 10 customers
-		DS.addCustomer(new Customer("Jonathan", "Mil", "1 green place", "053-2981-2925-12", "jafsaf@gmail.com"));
-		DS.addCustomer(new Customer("Moulda", "lol", "2 green place", "053-2981-2925-12", "jafsaf@gmail.com"));
-		DS.addCustomer(new Customer("Jack", "Popler", "3 green place", "053-2981-2925-12", "jafsaf@gmail.com"));
-		DS.addCustomer(new Customer("iris", "cook", "4 green place", "053-2981-2925-12", "jafsaf@gmail.com"));
-		DS.addCustomer(new Customer("jalta", "katz", "5 fajksf", "053-2981-2925-12", "jafsaf@gmail.com"));
-		DS.addCustomer(new Customer("david", "haddad", "6 green place", "053-2981-2925-12", "jafsaf@gmail.com"));
-		DS.addCustomer(new Customer("ron", "ald", "7 green place", "053-2981-2925-12", "jafsaf@gmail.com"));
-		DS.addCustomer(new Customer("bob", "dirichle", "8 laf kkfwao", "053-2981-2925-12", "jafsaf@gmail.com"));
-		DS.addCustomer(new Customer("greg", "leibnitz", "9 green place", "053-2981-2925-12", "jafsaf@gmail.com"));
-		DS.addCustomer(new Customer("some", "guy", "10 green place", "053-2981-2925-12", "jafsaf@gmail.com"));
+		DS.addCustomer(new Customer("Jonathan", "Mil", "1 green place", "053-2981-2925-12", "cafsaf@gmail.com",0));
+		DS.addCustomer(new Customer("Moulda", "lol", "2 green place", "053-2981-2925-12", "safsaf@gmail.com", 200));
+		DS.addCustomer(new Customer("Jack", "Popler", "3 green place", "053-2981-2925-12", "ra521af@gmail.com", 0));
+		DS.addCustomer(new Customer("iris", "cook", "4 green place", "053-2981-2925-12", "eafssfaf@gmail.com", 20));
+		DS.addCustomer(new Customer("jalta", "katz", "5 fajksf", "053-2981-2925-12", "v2af@gmail.com",1));
+		DS.addCustomer(new Customer("david", "haddad", "6 green place", "053-2981-2925-12", "jafsaf@gmail.com",0));
+		DS.addCustomer(new Customer("ron", "ald", "7 green place", "053-2981-2925-12", "xafsaf@gmail.com",0));
+		DS.addCustomer(new Customer("bob", "dirichle", "8 laf kkfwao", "053-2981-2925-12", "jafsykjaf@gmail.com",0));
+		DS.addCustomer(new Customer("greg", "leibnitz", "9 green place", "053-2981-2925-12", "uabfsaf@gmail.com",0));
+		DS.addCustomer(new Customer("some", "guy", "10 green place", "053-2981-2925-12", "oyaftsaf@gmail.com",0));
 		
 		//10 restaurants
 		DS.addRetaurant(new Restaurant("the big fat whale", "big", 5, true, 10));
@@ -44,9 +44,9 @@ public class Main {
 		DS.addRetaurant(new PremiumRestaurant("sparrow", "big", 5, true, 10, 100, 10));
 		
 		//3 restaurant admins
-		DS.addRestaurantAdmin(new RestAdmin("jon", "secretpass&52", null, null, 0));
-		DS.addRestaurantAdmin(new RestAdmin("eden", "IH8Michelle", null, null, 0));
-		DS.addRestaurantAdmin(new RestAdmin("bill", "sec51pass&52", null, null, 0));
+		DS.addRestaurantAdmin(new RestAdmin("jon", "supfax", "secretpass&52"));
+		DS.addRestaurantAdmin(new RestAdmin("eden", "gasca", "IH8Michelle"));
+		DS.addRestaurantAdmin(new RestAdmin("bill", "lapdaz", "sec51pass&52"));
 		
 		Admin admin = new Admin("Steve", "admin", "12345");
 		

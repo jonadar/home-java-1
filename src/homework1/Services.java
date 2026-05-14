@@ -59,17 +59,17 @@ public class Services {
 		}	
 	}
 	
+	public static void updatePersonalInfo(Customer customer) {
+		// TODO
+		
+	}
+	
 	public static void createNewOrder(Customer customer) {
 		// TODO
 	}
 	
-	public static void updatePersonalInfo() {
-		// TODO
-	}
 	
-	public static void displayRestaurantDetails() {
-		// TODO
-	}
+	
 	
 	
 }

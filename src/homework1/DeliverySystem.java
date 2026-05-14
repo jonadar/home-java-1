@@ -2,6 +2,7 @@ package homework1;
 
 import java.util.Arrays;
 
+import Utils.UserInput;
 import Utils.Validation;
 
 public class DeliverySystem {
@@ -40,7 +41,7 @@ public class DeliverySystem {
 		
 		if(valid) {
 			this.customers = Arrays.copyOf(this.customers, this.customerCount + 1);
-			this.customers[++this.customerCount] = customer;
+			this.customers[this.customerCount++] = customer;
 		}
 	}
 	
@@ -50,7 +51,7 @@ public class DeliverySystem {
 		
 		if(valid) {			
 			this.restaurantAdmins = Arrays.copyOf(this.restaurantAdmins, this.restaurantAdminCount + 1);
-			this.restaurantAdmins[++this.restaurantAdminCount] = restaurantAdmin;
+			this.restaurantAdmins[this.restaurantAdminCount++] = restaurantAdmin;
 		}
 	}
 	
@@ -60,7 +61,7 @@ public class DeliverySystem {
 		
 		if(valid) {
 			this.restaurants = Arrays.copyOf(this.restaurants, this.restaurantCount + 1);
-			this.restaurants[++this.restaurantCount] = restaurant;
+			this.restaurants[this.restaurantCount++] = restaurant;
 		}	
 	}
 	
@@ -70,7 +71,7 @@ public class DeliverySystem {
 		
 		if(valid) {			
 			this.riders = Arrays.copyOf(this.riders, this.riderCount + 1);
-			this.riders[++this.riderCount] = rider;
+			this.riders[this.riderCount++] = rider;
 		}
 	}
 	
@@ -80,7 +81,7 @@ public class DeliverySystem {
 		
 		if(valid) {
 			this.orders = Arrays.copyOf(this.orders, this.orderCount + 1);
-			this.orders[++this.orderCount] = order;
+			this.orders[this.orderCount++] = order;
 		}
 	}
 	
@@ -117,6 +118,25 @@ public class DeliverySystem {
 		for (int i = 0; i < orders.length; i++) {
 			System.out.println((i+1) + ". " + orders[i]);
 		}
+	}
+	
+	// get restaurant code and display its info
+	public void displayRestaurantDetails() {
+		int restaurantCode = UserInput.getInt("restaurant code");
+		
+		Restaurant restaurant = null;
+		for (Restaurant r: this.restaurants) {
+			if(r.getRestaurantCode() == restaurantCode) {
+				restaurant = r;
+				break;
+			}
+		}
+		
+		if(restaurant == null) {
+			System.out.println("restaurant not found.");
+			return;
+		}
+		System.out.println(restaurant);
 	}
 	
 }
