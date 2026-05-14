@@ -235,4 +235,16 @@ public class UserInput {
 	public static Order getOrder() {
 		return null;
 	}
+	
+	public static String getUserName() {			
+		String userValue = "";
+		
+		// keep asking until user provides correct value 
+		while(true) {
+			System.out.println("enter username:");
+			userValue = s.nextLine();
+			if(!userValue.trim().isEmpty() && Validation.isOnlyNumbersAndChars(userValue)) return userValue.trim();
+			System.out.println("invalid username. must be none empty string");
+		}
+	}
 }

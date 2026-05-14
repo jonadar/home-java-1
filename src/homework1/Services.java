@@ -140,7 +140,6 @@ public class Services {
 			}
 			else { 
 				System.out.println("not a valid name");
-				scan.next();
 			}
 		}
 		
@@ -155,11 +154,9 @@ public class Services {
 				}
 			} else {
 				System.out.println("not a valid familly name");
-				scan.next();
 			}
 		}
-		String adress;
-		//להוסיף ולידציה לכתובת
+		String adress = UserInput.getAdress();
 		
 		String phoneNumber;
 		while(true) {
@@ -205,7 +202,7 @@ public class Services {
 				scan.next();
 			}
 		}// לוודא מה לעשות לקוד ולריימנינג קרדיט
-		return new Customer(name, famillyName, "", phoneNumber, email, remainingCredit);
+		return new Customer(name, famillyName, adress, phoneNumber, email, remainingCredit);
 	}
 		
 		
@@ -258,6 +255,119 @@ public class Services {
 		
 		return new RestAdmin(restAdminName, username, password);
 	}
+		
+		
+	public RestAdmin findRestAdmin(String username, RestAdmin[] restaurantAdmins) {
+		for (int i = 0 ; i<restaurantAdmins.length ; i++) {
+			if (restaurantAdmins[i] != null) {
+				if (username.equals(restaurantAdmins[i].getUsername())) {
+					return restaurantAdmins[i];
+				}
+			}
+		}
+		return null;
+	}
 	
+	public Restaurant findRestaurant(int restCode, Restaurant[] restaurants) {
+		for (int i = 0 ; i<restaurants.length ; i++) {
+			if (restaurants[i] != null) {
+				if (restCode == restaurants[i].getRestaurantCode()) {
+					return restaurants[i];
+				}
+			}
+		}
+		return null;
+	}
 	
+	public boolean assignRestAdminToRestaurant(RestAdmin[] restaurantAdmins, Restaurant[] restaurants) {
+		RestAdmin restAdmin = findRestAdmin(UserInput.getUserName(), restaurantAdmins);
+		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
+		if (restAdmin!= null && restaurant!=null) {
+			restAdmin.addRestaurant(restaurant);
+			return true;
+		}
+		System.out.println("the restaurant admin or the restaurant can not be found");
+		return false;
+	}
+	
+	public void chooseRest(int num) {
+		int restaurant = 0;
+		switch (restaurant) {
+		case 1:
+				// הוספת מסעדה רגילה
+			break;
+		case 2:
+			//	 הוספת מסעדה מהירה
+			break;
+		case 3:
+			// הוספת מסעדת יוקרה
+			break;
+		default:
+			System.out.println("invalid number");
+		}
+	}
+	
+	public boolean addRestaurant(Scanner scan) {
+		String restName;
+		while(true) {
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
+					restName = item;
+					System.out.println("the restaurant name is " + restName);
+					break;
+				}
+			}else { 
+				System.out.println("not a valid restaurant name");	
+			}
+		}
+		String kitchenType;
+		while(true) {
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
+					kitchenType = item;
+					System.out.println("the kitchen type is " + kitchenType);
+					break;
+				}
+			} else { 
+				System.out.println("not a valid kitchen type");
+			}
+		}
+		
+		double rating;
+		while(true) {
+			if(scan.hasNextDouble()) {
+				Double item = scan.nextDouble();
+				if (item!=null) {
+					rating = item;
+					scan.nextLine();
+					System.out.println("the restaurant rating is " + rating);
+					break;
+				}
+			} else { 
+				System.out.println("not a valid restaurant rating");
+				scan.next();
+			}
+		}
+		boolean isOpen = UserInput.getBoolean("is restaurant open");
+		
+		double deliveryFee;
+		while(true) {
+			if(scan.hasNextDouble()) {
+				Double item = scan.nextDouble();
+				if (item!=null) {
+					deliveryFee = item;
+					scan.nextLine();
+					System.out.println("the restaurant delivery fee is " + deliveryFee);
+					break;
+				}
+			} else { 
+				System.out.println("not a valid restaurant delivery fee");
+				scan.next();
+			}
+		}
+		
+		return true;
+	}
 }
