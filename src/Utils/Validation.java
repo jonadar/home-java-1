@@ -90,18 +90,74 @@ public class Validation {
 		return true;
 	}
 	
+	/**
+	 * @param str String to check
+	 * @return true if not null or only whitespaces
+	 */
+	public static boolean isEmptyString(String str) {
+		return str == null || str.isBlank();
+	}
 	
 	/**
 	 * @param str String to check
-	 * @param failMessage String message if validation fails
-	 * @return true if str is not null or empty
+	 * @return true if only contains alphabetic and number chars
+	 */
+	public static boolean isOnlyNumbersAndChars(String str) {
+		if (str == null || str.isBlank()) return false;
+		
+		for (char ch: str.toCharArray()) {
+			if (!Character.isLetterOrDigit(ch)) return false;
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * @param str String to check
+	 * @return true if only contains alphabetic chars
+	 */
+	public static boolean isOnlyChars(String str) {
+		if (str == null || str.isBlank()) return false;
+		
+		for (char ch: str.toCharArray()) {
+			if (!Character.isAlphabetic(ch)) return false;
+		}
+	
+		return true;	
+	}
+
+	/**
+	 * @param str String to check
+	 * @return true if only contains digits
+	 */
+	public static boolean isOnlyDigits(String str) {
+		if (str == null || str.isBlank()) return false;
+		
+		for (char ch: str.toCharArray()) {
+			if (!Character.isDigit(ch)) return false;
+		}
+	
+		return true;	
+	}
+	
+	
+	/**
+	 * @param str String to check
+	 * @return true if str is valid email, otherwise false
 	 */
 	public static boolean isEmail(String str) {
-		// <pre>@<domain>
-		// <pre> is up to 64 letters and can be _-.(1-9)(a-z)
-		// <domain> is first part up to 20 letters and contains -(1-9)(a-z) followed by . and 2 or more characters (.com)
+		if (str == null || str.isBlank()) return false;
 		
-		//TODO
-		return true;
+		for (char ch: str.toCharArray()) {
+			if (!(Character.isLetterOrDigit(ch) || ch == '@')) {
+				return false;
+			}
+		}
+		
+		// has a '@' and only 1.
+		if (str.contains("@") && str.indexOf('@') == str.lastIndexOf('@')) return true;
+		
+		return false;
+		
 	}
 }

@@ -1,6 +1,9 @@
 package homework1;
 
+import java.util.Scanner;
+
 import Utils.UserInput;
+import Utils.Validation;
 
 public class Services {
 	
@@ -69,7 +72,161 @@ public class Services {
 	}
 	
 	
+	// TODO, cleanup
+	public static boolean notInAnArry(int code, Customer[] customerArry) {
+		for (int i = 0; i < customerArry.length; i++) {
+			if (customerArry[i] != null && customerArry[i].getCustomerCode() == code) {
+				System.out.println("invalid feald");
+				return false;
+			}
+		}
+		return true;
+	}
 	
+	// TODO, cleanup
+	public static boolean notInAnArry(String code, RestAdmin[] RestAdminArry) {
+		for (int i = 0; i < RestAdminArry.length; i++) {
+			if (RestAdminArry[i] != null && RestAdminArry[i].getUsername().equals(code)) {
+				System.out.println("invalid feald");
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	public Customer addCustomer(Scanner scan, Customer[] CustomerArry) {
+		String name;
+		while (true) {
+			if (scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
+					name = item;
+					System.out.println("the name is " + name);
+					break;
+				}
+				scan.next();
+			}
+			else { 
+				System.out.println("not a valid name");
+				scan.next();
+			}
+		}
+		
+		String famillyName;
+		while (true) {
+			if (scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
+					famillyName = item;
+					System.out.println("the familly name is " + famillyName);
+					break;
+				}
+			} else {
+				System.out.println("not a valid familly name");
+				scan.next();
+			}
+		}
+		String adress;
+		//להוסיף ולידציה לכתובת
+		
+		String phoneNumber;
+		while(true) {
+			System.out.println("enter phone number");
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyDigits(item) && item.length() == 10) {
+					phoneNumber = item;
+					break;
+				} else { 
+					System.out.println("invalid phone number");
+				}
+			}
+		}
+		
+		String email;
+		while(true) {
+			System.out.println("enter email");
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (Validation.isEmail(item)) {
+					email = item;
+					break;
+				} else {
+					System.out.println("invalid email");
+				}
+			}
+		}
+		
+		double remainingCredit;
+		while(true) {
+			System.out.println("enter remaining credit");
+			if(scan.hasNextDouble()) {
+				Double item = scan.nextDouble();
+				if (item > -1) {
+					remainingCredit = item;
+						break;
+				} else {
+					System.out.println("invalid remaining credit");
+				}
+			} else { 
+				System.out.println("invalid remaining credit");
+				scan.next();
+			}
+		}// לוודא מה לעשות לקוד ולריימנינג קרדיט
+		return new Customer(name, famillyName, adress, phoneNumber, email, remainingCredit);
+	}
+		
+		
+		
+		public RestAdmin addRestAdmin(Scanner scan, RestAdmin[] RestAdminArry) {
+			String username; // זה מחרוזת לתקן
+			while(true) {
+				System.out.println("enter resturnt admin username");
+				if(scan.hasNextLine()) {
+					String item = scan.nextLine();
+					if (notInAnArry(item, RestAdminArry)) {
+						username = item;
+						break;
+					}
+				} else {
+					System.out.println("invaled feald");
+				}
+			}
+		
+			String restAdminName;
+			while(true) {
+				System.out.println("enter resturnt admin name");
+				if(scan.hasNextLine()) {
+					String item = scan.nextLine();
+					if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
+						restAdminName = item;
+						break;
+					} else {
+						System.out.println("invaled feald");
+						scan.nextInt();
+					}
+				}
+					
+			}
+			
+			String password;
+			while(true) {
+				System.out.println("enter resturnt admin username");
+				if(scan.hasNextLine()) {
+					String item = scan.nextLine();
+					if (!Validation.isEmptyString(item) && Validation.isOnlyNumbersAndChars(item)) {
+						password = item;
+						break;
+					} else {
+						System.out.println("invaled feald");
+						scan.next();
+					}
+				}
+			}
+			
+			return new RestAdmin(restAdminName, username, password);
+		}
 	
 	
 }
