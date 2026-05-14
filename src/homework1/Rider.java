@@ -4,38 +4,47 @@ import Utils.UserInput;
 import Utils.Validation;
 
 public class Rider {
-	private static int counter = 1;
-	private int id;
+	private String id;
 	private String fullName;
-	private int phoneNumber;
+	private String phoneNumber;
 	private String vehicle;
 	private boolean isAvailable;
 	private Order[] orders;
 	
-	public Rider(String fullName, int phoneNumber, String vehicle) {
-		this.id = counter++; // supposed to be id 9 digits not automatic
+	public Rider(String id, String fullName, String phoneNumber, String vehicle, boolean isAvailable) {
+		this.id = id;
 		this.fullName = fullName;
 		this.phoneNumber = phoneNumber;
 		this.vehicle = vehicle;
 		this.orders = new Order[0];
-		this.isAvailable = true;
+		this.isAvailable = isAvailable;
 	}
 	
-	public int getId() { return id; }
+	public String getId() { return id; }
 	public String getFullName() { return fullName; }
-	public int getPhoneNumber() { return phoneNumber; }
+	public String getPhoneNumber() { return phoneNumber; }
 	public String getVehicle() { return vehicle; }
-	public boolean isAvailable() { return isAvailable; }
 	public Order[] getOrders() { return orders; }
 
+	public void setId(String id) {
+		boolean valid = Validation.isId(fullName);
+		if (valid) this.id = id;
+		else {
+			System.out.println("invalid id");
+		}
+	}
+	
 	public void setFullName(String fullName) {
 		boolean valid = Validation.validate(fullName, "invalid full name");
 		if (valid) this.fullName = fullName;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
-		boolean valid = Validation.validate(phoneNumber, "invalid phone number");
+	public void setPhoneNumber(String phoneNumber) {
+		boolean valid = Validation.isPhoneNumber(phoneNumber);
 		if (valid) this.phoneNumber = phoneNumber;
+		else {
+			System.out.println("invalid phone number");
+		}
 	}
 
 	public void setVehicle(String vehicle) {
@@ -57,7 +66,7 @@ public class Rider {
 			System.out.println("1. update order status");
 			System.out.println("2. view orders");
 			System.out.println("3. logout");
-			int option = UserInput.getIntFromRange(1,3, "option");
+			int option = UserInput.getIntFromRange(1, 3, "option");
 			if(option == 3) break;
 			
 			switch (option) {
@@ -69,8 +78,6 @@ public class Rider {
 					break;
 			}
 		}
-		
-		
 	}
 	
 	@Override

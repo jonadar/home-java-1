@@ -11,11 +11,11 @@ public class Main {
 		DeliverySystem DS = new DeliverySystem();
 
 		// 5 riders
-		DS.addRider(new Rider("Jhon man", 126591, "car"));
-		DS.addRider(new Rider("miriam", 126591, "car"));
-		DS.addRider(new Rider("eden", 126591, "skateboard"));
-		DS.addRider(new Rider("gregor", 126591, "car"));
-		DS.addRider(new Rider("michelle", 126591, "corkinet"));
+		DS.addRider(new Rider("1242154","Jhon man", "126591", "car", true));
+		DS.addRider(new Rider("163262","miriam", "126591", "car", false));
+		DS.addRider(new Rider("21252152","eden", "126591", "skateboard", true));
+		DS.addRider(new Rider("16261242","gregor", "126591", "car", true));
+		DS.addRider(new Rider("5126161","michelle", "126591", "corkinet", false));
 		
 		// 10 customers
 		DS.addCustomer(new Customer("Jonathan", "Mil", "1 green place", "053-2981-2925-12", "cafsaf@gmail.com",0));
@@ -98,11 +98,11 @@ public class Main {
 					break;
 				case(3):
 					// rider login using id
-					int id = UserInput.getInt("rider id");
+					String id = UserInput.getName("rider id");
 				
 					Rider rider = null;
 					for (Rider r: DS.getRiders()) {
-						if(r.getId() == id) {
+						if(r.getId().equals(id)) {
 							rider = r;
 							break;
 						}

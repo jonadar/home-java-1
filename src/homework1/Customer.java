@@ -32,6 +32,8 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.remainingCredit = remainingCredit;
+		
+		System.out.println("customer with code: " + this.customerCode + " has been created.");
 	}
 	
 	public void setfirstName(String firstName) {

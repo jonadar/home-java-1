@@ -186,8 +186,25 @@ public class Validation {
 		return isOnlyDigits(str);
 	}
 	
+	// not empty, 10 digits
 	public static boolean isPhoneNumber(String phoneNumber) {
 		return isOnlyDigits(phoneNumber) && phoneNumber.length() == 10;
+	}
+	
+	// not empty, numbers only, length of 9
+	public static boolean isId(String id) {
+		return isOnlyDigits(id) && id.length() == 9;
+	}
+	
+	// not empty, not only spaces, letters only
+	public static boolean isName(String name) {
+		if (name == null || name.isBlank()) return false;
+		
+		for (char ch: name.toCharArray()) {
+			if (!(Character.isAlphabetic(ch) || ch == ' ')) return false;
+		}
+	
+		return true;
 	}
 	
 	

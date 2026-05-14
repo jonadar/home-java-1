@@ -15,7 +15,7 @@ public class Admin {
 	}
 	
 	public String getName() { return name; }
-	public String getUsername() { return username;}
+	public String getUsername() { return username; }
 	
 	
 	public void setName(String name) {
@@ -32,8 +32,6 @@ public class Admin {
 		boolean valid = Validation.validate(password, "invalid name");
 		if (valid) this.password = password;
 	}
-
-
 
 	public boolean login(String username, String password) {
 		return this.username.equals(username) && this.password.equals(password);

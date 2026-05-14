@@ -47,8 +47,8 @@ public class RestAdmin extends Admin{
 					Services.addCustomer(UserInput.s, DS.getCustomers()); // doesnt actually add yet, just creates
 					break;
 				case 2:
-					Customer customer = DS.chooseCustomer();
-					Services.createNewOrder(customer, DS.getRestaurants());
+//					Customer customer = DS.chooseCustomer();
+//					Services.createNewOrder(customer, DS.getRestaurants());
 					break;
 				case 3:
 					break;
