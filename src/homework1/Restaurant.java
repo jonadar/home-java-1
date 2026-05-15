@@ -39,12 +39,6 @@ public class Restaurant {
 		this.deliveryFee = 0;
 	}
 	
-	public void setRestaurantCode(int restaurantCode) {
-		boolean valid = Validation.validate(restaurantCode, "invalid restaurantCode");
-		
-		if(valid) this.restaurantCode = restaurantCode;
-	}
-	
 	public void setName(String name) {
 		boolean valid = Validation.validate(name, "invalid restaurant name");
 		
@@ -52,13 +46,12 @@ public class Restaurant {
 	}
 	
 	public void setKitchenType(String kitchenType) {
-		boolean valid = Validation.validate(kitchenType, "invalid kitchenType");
-		
-		if(valid) this.kitchenType = kitchenType;
+		if(Validation.isName(kitchenType)) this.kitchenType = kitchenType;
+		else System.out.println("invalid kitchen type");
 	}
 	
 	public void setRating(double rating) {
-		boolean valid = Validation.validate(rating, "invalid rating");
+		boolean valid = Validation.isNumberInRange(0, 10, rating, "rating");
 		
 		if(valid) this.rating = rating;
 	}
@@ -68,7 +61,7 @@ public class Restaurant {
 	}
 	
 	public void setDeliveryFee(double deliveryFee) {
-		boolean valid = Validation.validate(rating, "invalid rating");
+		boolean valid = Validation.validate(deliveryFee, "invalid rating");
 		
 		if(valid) this.deliveryFee = deliveryFee;
 	}

@@ -70,24 +70,27 @@ public class Order {
 	}
 	
 	public void setOrderDate(String orderDate) {
-		if(Validation.validDate(orderDate)) this.orderDate = orderDate;
+		if(Validation.isDate(orderDate)) this.orderDate = orderDate;
+		else System.out.println("invalid order date");
 	}
 	
 	public void setDeliveryDate(String deliveryDate) {
-		if(Validation.validDate(deliveryDate)) this.deliveryDate = deliveryDate;
+		if(Validation.isDate(deliveryDate)) this.deliveryDate = deliveryDate;
+		else System.out.println("invalid delivery date");
 	}
 	
 	public void setBasePrice(double basePrice) {
 		boolean valid = Validation.validate(basePrice, "invalid base price");
 		if(valid) this.basePrice = basePrice;
-}
+	}
 	
 	public void setFinalPrice(double finalPrice) {
 		boolean valid = Validation.validate(finalPrice, "invalid final price");
 		if(valid) this.finalPrice = finalPrice;
-		}
+	}
 	
 	public void setDeliveryStatus(String deliveryStatus) {
+		String[] statuses = {"sent", "on the way", "delivered"};
 		boolean valid = Validation.validate(deliveryStatus, "invalid delivery status");
 		if(valid) this.deliveryStatus = deliveryStatus;
 	}

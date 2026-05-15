@@ -45,52 +45,57 @@ public class DeliverySystem {
 
 	public void addCustomer(Customer customer){
 		// check if already in array
-		boolean valid = Validation.validateNotInArray(customer, this.customers, "customer already registered");
+		boolean valid = Validation.validateNotInArray(customer, this.customers);
 		
 		if(valid) {
 			this.customers = Arrays.copyOf(this.customers, this.customerCount + 1);
 			this.customers[this.customerCount++] = customer;
 		}
+		else System.out.println("invalid, customer already registered");
 	}
 	
 	public void addRestaurantAdmin(RestAdmin restaurantAdmin){
 		// check if already in array
-		boolean valid = Validation.validateNotInArray(restaurantAdmin, this.restaurantAdmins, "restaurantAdmin already registered");
+		boolean valid = Validation.validateNotInArray(restaurantAdmin, this.restaurantAdmins);
 		
 		if(valid) {			
 			this.restaurantAdmins = Arrays.copyOf(this.restaurantAdmins, this.restaurantAdminCount + 1);
 			this.restaurantAdmins[this.restaurantAdminCount++] = restaurantAdmin;
-		}
+		} 
+		else System.out.println("invalid restaurant admin already registered");
 	}
 	
 	public void addRetaurant(Restaurant restaurant){
 		// check if already in array
-		boolean valid = Validation.validateNotInArray(restaurant, this.restaurants, "restaurant already registered");
+		boolean valid = Validation.validateNotInArray(restaurant, this.restaurants);
 		
 		if(valid) {
 			this.restaurants = Arrays.copyOf(this.restaurants, this.restaurantCount + 1);
 			this.restaurants[this.restaurantCount++] = restaurant;
-		}	
+		}
+		else System.out.println("invalid, restaurant already registered");
 	}
 	
 	public void addRider(Rider rider){
 		// check if already in array
-		boolean valid = Validation.validateNotInArray(rider, this.riders, "rider already registered");
-		
-		if(valid) {			
+		boolean valid = Validation.validateNotInArray(rider, this.riders);
+
+		if(valid) {
 			this.riders = Arrays.copyOf(this.riders, this.riderCount + 1);
 			this.riders[this.riderCount++] = rider;
 		}
+		else System.out.println("invalid,  rider already registered");
 	}
 	
 	public void addOrder(Order order){
 		// check if already in array
-		boolean valid = Validation.validateNotInArray(order, this.orders, "restaurantAdmin already registered");
+		boolean valid = Validation.validateNotInArray(order, this.orders);
 		
 		if(valid) {
 			this.orders = Arrays.copyOf(this.orders, this.orderCount + 1);
 			this.orders[this.orderCount++] = order;
 		}
+		else System.out.println("invalid,  order already registered");
 	}
 	
 	public void displayAllOrders(Rider rider) {

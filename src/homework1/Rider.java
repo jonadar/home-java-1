@@ -25,31 +25,26 @@ public class Rider {
 	public String getPhoneNumber() { return phoneNumber; }
 	public String getVehicle() { return vehicle; }
 	public Order[] getOrders() { return orders; }
+	public boolean getAvailable() { return isAvailable; }
 
 	public void setId(String id) {
-		boolean valid = Validation.isId(fullName);
-		if (valid) this.id = id;
-		else {
-			System.out.println("invalid id");
-		}
+		if (Validation.isId(fullName)) this.id = id;
+		else System.out.println("invalid id");
 	}
 	
 	public void setFullName(String fullName) {
-		boolean valid = Validation.validate(fullName, "invalid full name");
-		if (valid) this.fullName = fullName;
+		if (Validation.isName(fullName)) this.fullName = fullName;
+		else System.out.println("invalid full name");
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
-		boolean valid = Validation.isPhoneNumber(phoneNumber);
-		if (valid) this.phoneNumber = phoneNumber;
-		else {
-			System.out.println("invalid phone number");
-		}
+		if (Validation.isPhoneNumber(phoneNumber)) this.phoneNumber = phoneNumber;
+		else System.out.println("invalid phone number");
 	}
 
 	public void setVehicle(String vehicle) {
-		boolean valid = Validation.validate(vehicle, "invalid vehicle");
-		if (valid) this.vehicle = vehicle;
+		if (Validation.isName(vehicle)) this.vehicle = vehicle;
+		else System.out.println("invalid vehicle");
 	}
 
 	public void setAvailable(boolean isAvailable) {
@@ -57,7 +52,22 @@ public class Rider {
 	}
 
 	public void setOrders(Order[] orders) {
-		if (orders != null) this.orders = orders;
+		if (orders == null) {
+			System.out.println("cant set null orders");
+			return;
+		}
+		
+		for (Order order : orders) {
+			if (order == null) {
+				System.out.println("cant set orders, null value in array.");
+				return;
+			} else if (!Validation.validateNotInArray(order, orders)) {
+				System.out.println("cant set orders, duplicate in array.");
+				return;
+			}
+		}
+
+		this.orders = orders;
 	}
 	
 	public void menu(DeliverySystem DS) {
@@ -84,7 +94,7 @@ public class Rider {
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof Rider) {
 			Rider other = (Rider) obj;
-			return other.id == this.id;
+			return other.id.equals(this.id);
 		}
 		return false;
 	}

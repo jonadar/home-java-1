@@ -47,12 +47,11 @@ public class Validation {
 	/**
 	 * @param newItem Object to check if already in array
 	 * @param items Object[] of items to compare to newItem
-	 * @param failMessage String message if validation fails
 	 * @return true if newItem not in array
 	 */
-	public static boolean validateNotInArray(Object newItem, Object[] items, String failMessage) {
+	public static boolean validateNotInArray(Object newItem, Object[] items) {
 		for(Object item: items) {
-			if (item.equals(newItem)) return false;
+			if (item != null && item.equals(newItem)) return false;
 		}
 		
 		return true;
@@ -63,7 +62,7 @@ public class Validation {
 	 * @param date String to check
 	 * @return true if valid date otherwise false
 	 */
-	public static boolean validDate(String date) {
+	public static boolean isDate(String date) {
 		if (date == null || date.isBlank()) return false;
 		
 		String[] splitDate = date.split("/");
@@ -73,9 +72,9 @@ public class Validation {
 		if(splitDate[1].length() > 2 || splitDate[1].length() == 0) return false;
 		if(splitDate[2].length() != 4) return false;
 		
-		int day = Utilities.StringToInt(splitDate[0]);
-		int month = Utilities.StringToInt(splitDate[1]);
-		int year = Utilities.StringToInt(splitDate[2]);
+		int day = Utilities.StringToPositiveInt(splitDate[0]);
+		int month = Utilities.StringToPositiveInt(splitDate[1]);
+		int year = Utilities.StringToPositiveInt(splitDate[2]);
 		
 		if (day < 0 || day > 31) return false;
 		if (month < 1 || month > 12) return false;
@@ -154,6 +153,7 @@ public class Validation {
 		return false;
 	}
 	
+	
 	/**
 	 * @param str String to check
 	 * @return true if str is valid adress, otherwise false
@@ -163,6 +163,7 @@ public class Validation {
 		
 		for (char ch: str.toCharArray()) {
 			if (!(Character.isAlphabetic(ch) || ch == ' ')) {
+				return false;
 			}
 		}
 		
@@ -186,6 +187,14 @@ public class Validation {
 		return isOnlyDigits(str);
 	}
 	
+	public static boolean isAddress(String address) {
+		if(address == null || address.isBlank()) return false;
+		
+		String[] split = address.split(" ");
+		return split.length > 3 && isOnlyChars(address) && isMikud(split[split.length-1]);
+	}
+	
+	
 	// not empty, 10 digits
 	public static boolean isPhoneNumber(String phoneNumber) {
 		return isOnlyDigits(phoneNumber) && phoneNumber.length() == 10;
@@ -207,5 +216,20 @@ public class Validation {
 		return true;
 	}
 	
+	public static boolean isNumberInRange(double a, double b, double num, String valueName) {
+		if (!(a <= num && num <= b)) {
+			System.out.println("invalid "+valueName+", must be in range ["+ a +", "+ b +"]");
+			return false;
+		}
+		return true;
+	}
 	
+	
+	public static boolean isUsername(String username) {
+		return Validation.isOnlyNumbersAndChars(username);
+	}
+	
+	public static boolean isPassword(String password) {
+		return Validation.isOnlyNumbersAndChars(password) && password.length() > 3;
+	}
 }

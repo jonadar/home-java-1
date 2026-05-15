@@ -19,26 +19,25 @@ public class Admin {
 	
 	
 	public void setName(String name) {
-		boolean valid = Validation.validate(name, "invalid name");
+		boolean valid = Validation.isName(name);
 		if (valid) this.name = name;
+		else {
+			System.out.println("invalid name");
+		}
 	}
 
 	public void setUsername(String username) {
-		boolean valid = Validation.validate(username, "invalid name");
-		if (valid) this.username = username;
+		if (Validation.isUsername(username)) this.username = username;
+		else System.out.println("invalid username");
 	}
 
 	public void setPassword(String password) {
-		boolean valid = Validation.validate(password, "invalid name");
-		if (valid) this.password = password;
+		if (Validation.isPassword(password)) this.password = password;
+		else System.out.println("invalid password");
 	}
 
 	public boolean login(String username, String password) {
 		return this.username.equals(username) && this.password.equals(password);
-	}
-	
-	public Restaurant addR() {
-		return null;
 	}
 	
 	public void menu(DeliverySystem DS) {
@@ -75,9 +74,6 @@ public class Admin {
 					break;
 			}
 		}
-		
-		
-		// inner loop for admin options
 	}
 	
 	@Override

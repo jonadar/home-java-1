@@ -63,8 +63,9 @@ public class UserInput {
 				userValue = s.nextInt();
 				s.nextLine(); // avoid issues with newline
 				if(userValue <= b && userValue >= a) return userValue;
+			}else {				
+				s.next();
 			}
-			s.next();
 			System.out.println("invalid " + valueName + ". must be in range (" + a + " to "+ b + ")");
 		}
 	}
@@ -154,7 +155,7 @@ public class UserInput {
 		while(true) {
 			System.out.println("enter " + valueName + ": ");
 			userValue = s.nextLine();
-			if(Validation.validDate(userValue)) return userValue;
+			if(Validation.isDate(userValue)) return userValue;
 			System.out.println("invalid date. must be in dd/mm/yyyy format between the years 2000 and 2026");
 		}
 	}
@@ -163,7 +164,7 @@ public class UserInput {
 	 * @param valueName name of value being received for user prompt
 	 * @return date String
 	 */
-	public static String getAdress() {		
+	public static String getAddress() {		
 		String city = "";
 		String street = "";
 		String mikud = "";
@@ -194,15 +195,15 @@ public class UserInput {
 	}
 	
 	public static String getPhoneNumber() {		
-		int userValue = -1;
+		String userValue;
 		
-		// keep asking until user provides correct value 
+		// keep asking until user provides a valid answer 
 		while(true) {	
 			System.out.println("enter phone number: ");
-			if(s.hasNextInt()) {
-				userValue = s.nextInt();
+			if(s.hasNext()) {
+				userValue = s.next();
 				s.nextLine(); // avoid issues with newline
-				if(Validation.isPhoneNumber(userValue+"")) return userValue+"";
+				if(Validation.isPhoneNumber(userValue)) return userValue;
 			} else {
 				s.next();
 			}
@@ -235,15 +236,16 @@ public class UserInput {
 	public static Order getOrder() {
 		return null;
 	}
+
 	
-	public static String getUserName() {			
+	public static String getUsername() {
 		String userValue = "";
 		
 		// keep asking until user provides correct value 
 		while(true) {
 			System.out.println("enter username:");
 			userValue = s.nextLine();
-			if(!userValue.trim().isEmpty() && Validation.isOnlyNumbersAndChars(userValue)) return userValue.trim();
+			if(!Validation.isUsername(userValue)) return userValue.trim();
 			System.out.println("invalid username. must be none empty string");
 		}
 	}
@@ -255,7 +257,7 @@ public class UserInput {
 		while(true) {
 			System.out.println("enter password:");
 			userValue = s.nextLine();
-			if(Validation.isOnlyNumbersAndChars(userValue) && userValue.length() > 3) return userValue;
+			if(Validation.isPassword(userValue)) return userValue;
 			System.out.println("invalid password. must be none empty string of length 3 or more and only using letters and digits");
 		}
 	}

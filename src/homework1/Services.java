@@ -61,7 +61,7 @@ public class Services {
 		}
 		
 		else if (userSelection.equals(options[1])){ // adress
-			String adress = UserInput.getAdress();
+			String adress = UserInput.getAddress();
 			customer.setAdress(adress);
 		}
 		
@@ -87,7 +87,7 @@ public class Services {
 		// get base amount
 		double baseCost = UserInput.getDouble("base cost");
 		
-		// calculate price`
+		// calculate price
 		double price = restaurant.calculatePrice(baseCost);
 		
 		if (restaurant instanceof PremiumRestaurant) {
@@ -105,10 +105,10 @@ public class Services {
 	
 	
 	// TODO, cleanup
-	public static boolean notInAnArry(int code, Customer[] customerArry) {
-		for (int i = 0; i < customerArry.length; i++) {
-			if (customerArry[i] != null && customerArry[i].getCustomerCode() == code) {
-				System.out.println("invalid feald");
+	public static boolean notInAnArray(int code, Customer[] customerArray) {
+		for (int i = 0; i < customerArray.length; i++) {
+			if (customerArray[i] != null && customerArray[i].getCustomerCode() == code) {
+				System.out.println("invalid field");
 				return false;
 			}
 		}
@@ -116,7 +116,7 @@ public class Services {
 	}
 	
 	// TODO, cleanup
-	public static boolean notInAnArry(String code, RestAdmin[] RestAdminArry) {
+	public static boolean notInAnArray(String code, RestAdmin[] RestAdminArry) {
 		for (int i = 0; i < RestAdminArry.length; i++) {
 			if (RestAdminArry[i] != null && RestAdminArry[i].getUsername().equals(code)) {
 				System.out.println("invalid feald");
@@ -156,7 +156,7 @@ public class Services {
 				System.out.println("not a valid familly name");
 			}
 		}
-		String adress = UserInput.getAdress();
+		String adress = UserInput.getAddress();
 		
 		String phoneNumber;
 		while(true) {
@@ -213,7 +213,7 @@ public class Services {
 			System.out.println("enter resturnt admin username");
 			if(scan.hasNextLine()) {
 				String item = scan.nextLine();
-				if (notInAnArry(item, RestAdminArry)) {
+				if (notInAnArray(item, RestAdminArry)) {
 					username = item;
 					break;
 				}
@@ -280,7 +280,7 @@ public class Services {
 	}
 	
 	public static boolean assignRestAdminToRestaurant(RestAdmin[] restaurantAdmins, Restaurant[] restaurants) {
-		RestAdmin restAdmin = findRestAdmin(UserInput.getUserName(), restaurantAdmins);
+		RestAdmin restAdmin = findRestAdmin(UserInput.getUsername(), restaurantAdmins);
 		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
 		if (restAdmin!= null && restaurant!=null) {
 			restAdmin.addRestaurant(restaurant);

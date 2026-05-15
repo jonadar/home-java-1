@@ -62,7 +62,7 @@ public class Main {
 			
 			switch(option) {
 				case(1):
-					String adminUsername = UserInput.getUserName();
+					String adminUsername = UserInput.getUsername();
 					String adminPassword = UserInput.getPassword();
 					// login as admin
 					if(admin.login(adminUsername, adminPassword)) {
@@ -73,7 +73,7 @@ public class Main {
 					break;
 				case(2):
 					// restAdmin login using password and username
-					String username = UserInput.getUserName();
+					String username = UserInput.getUsername();
 					String password = UserInput.getPassword();
 				
 					RestAdmin restaurantAdmin = null;

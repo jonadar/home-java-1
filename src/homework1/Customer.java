@@ -1,6 +1,5 @@
 package homework1;
 
-import Utils.User;
 import Utils.UserInput;
 import Utils.Validation;
 
@@ -37,33 +36,32 @@ public class Customer {
 	}
 	
 	public void setfirstName(String firstName) {
-		boolean valid = Validation.validate(firstName, "invalid firstName");
-		
-		if (valid) this.firstName = firstName;
+		if (Validation.isName(firstName)) this.firstName = firstName;
+		else System.out.println("inavlid first name");
 	}
+	
 	public void setLastName(String lastName) {
-		boolean valid = Validation.validate(lastName, "invalid lastName");
-		
-		if (valid) this.lastName = lastName;
+		if (Validation.isName(lastName)) this.lastName = lastName;
+		else System.out.println("invalid last name");
 	}
+	
 	public void setAdress(String adress) {
-		boolean valid = Validation.validate(adress, "invalid adress");
-		
-		if (valid) this.adress = adress;
+		if (Validation.isAddress(adress)) this.adress = adress;
+		else System.out.println("invalid adress");
 	}
+	
 	public void setPhoneNumber(String phoneNumber) {
-		boolean valid = Validation.isPhoneNumber(phoneNumber);
-		
-		if (valid) this.phoneNumber = phoneNumber;
+		if (Validation.isPhoneNumber(phoneNumber)) this.phoneNumber = phoneNumber;
 		else System.out.println("invalid phone number entered");
 	}
+	
 	public void setEmail(String email) {
-		boolean valid = Validation.validate(email, "invalid email");
-		
-		if (valid) this.email = email;
+		if (Validation.isEmail(email)) this.email = email;
+		else System.out.println("invalid email");
 	}
+	
 	public void setRemainingCredit(double remainingCredit) {
-		boolean valid = Validation.validate(remainingCredit, "invalid remainingCredit");
+		boolean valid = Validation.validate(remainingCredit, "invalid remaining credit");
 		
 		if (valid) this.remainingCredit = remainingCredit;
 	}
