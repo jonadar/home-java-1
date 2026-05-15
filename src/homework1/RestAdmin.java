@@ -47,13 +47,13 @@ public class RestAdmin extends Admin{
 			
 			switch (option) {
 				case 1:
-					Services.addCustomer(UserInput.s, DS.getCustomers()); // doesnt actually add yet, just creates
+					Services.addCustomer(DS.getCustomers()); // doesnt actually add yet, just creates
 					break;
 				case 2:
 					Services.createNewOrderByRestAdmin(this, DS.getCustomers()); // does not add to DS yet
 					break;
 				case 3:
-					Services.addRider(UserInput.s); // does not add to DS
+					Services.addRider(); // does not add to DS
 					break;
 				case 4:
 					Services.assignOrderToRider(DS.getRiders(), DS.getOrders());

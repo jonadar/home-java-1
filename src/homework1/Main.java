@@ -1,13 +1,9 @@
 package homework1;
 
-import java.util.Scanner;
-
 import Utils.UserInput;
 
 public class Main {
 	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-		
 		DeliverySystem DS = new DeliverySystem();
 
 		// 5 riders
@@ -18,30 +14,50 @@ public class Main {
 		DS.addRider(new Rider("5126161","michelle", "126591", "corkinet", false));
 		
 		// 10 customers
-		DS.addCustomer(new Customer("Jonathan", "Mil", "1 green place", "053-2981-2925-12", "cafsaf@gmail.com",0));
-		DS.addCustomer(new Customer("Moulda", "lol", "2 green place", "053-2981-2925-12", "safsaf@gmail.com", 200));
-		DS.addCustomer(new Customer("Jack", "Popler", "3 green place", "053-2981-2925-12", "ra521af@gmail.com", 0));
-		DS.addCustomer(new Customer("iris", "cook", "4 green place", "053-2981-2925-12", "eafssfaf@gmail.com", 20));
-		DS.addCustomer(new Customer("jalta", "katz", "5 fajksf", "053-2981-2925-12", "v2af@gmail.com",1));
-		DS.addCustomer(new Customer("david", "haddad", "6 green place", "053-2981-2925-12", "jafsaf@gmail.com",0));
-		DS.addCustomer(new Customer("ron", "ald", "7 green place", "053-2981-2925-12", "xafsaf@gmail.com",0));
-		DS.addCustomer(new Customer("bob", "dirichle", "8 laf kkfwao", "053-2981-2925-12", "jafsykjaf@gmail.com",0));
-		DS.addCustomer(new Customer("greg", "leibnitz", "9 green place", "053-2981-2925-12", "uabfsaf@gmail.com",0));
-		DS.addCustomer(new Customer("some", "guy", "10 green place", "053-2981-2925-12", "oyaftsaf@gmail.com",0));
+		DS.addCustomer(new Customer("Jonathan", "Mil", "Modiin 1 green place 4415", "3981292512", "cafsaf@gmacom",0));
+		DS.addCustomer(new Customer("Moulda", "lol", "Modiin 2 green place 4415", "5981292512", "safsaf@gmail", 200));
+		DS.addCustomer(new Customer("Jack", "Popler", "Modiin 3 green place 4415", "7981292512", "ra521af@gmail", 0));
+		DS.addCustomer(new Customer("iris", "cook", "Modiin 4 green place 4415", "2981262512", "eafssfaf@gmail", 20));
+		DS.addCustomer(new Customer("jalta", "katz", "Modiin 5 fajksf 4415", "2981292542", "v2af@gmail",1));
+		DS.addCustomer(new Customer("david", "haddad", "Modiin 6 green place 4415", "2588292312", "jafsaf@gmail",0));
+		DS.addCustomer(new Customer("ron", "ald", "Modiin 7 green place 4415", "2981232562", "xafsaf@gmaicom",0));
+		DS.addCustomer(new Customer("bob", "dirichle", "Modiin 8 laf kkfwao 4415", "2983792512", "jafsykjaf@gmaicom",0));
+		DS.addCustomer(new Customer("greg", "leibnitz", "Modiin 9 green place 4415", "2951232512", "uabfsaf@gmaom",0));
+		DS.addCustomer(new Customer("some", "guy", "Modiin 10 green place 4415", "2981294512", "oyaftsaf@gmaim",0));
 		
-		//10 restaurants
-		DS.addRetaurant(new Restaurant("the big fat whale", "big", 5, true, 10));
-		DS.addRetaurant(new Restaurant("flying dutch people", "big", 5, true, 10));
-		DS.addRetaurant(new Restaurant("klint & kang", "small", 5, true, 10));
+		//10 restaurants of each type
+		DS.addRestaurant(new Restaurant("the big fat whale", "big", 5, true, 10));
+		DS.addRestaurant(new Restaurant("flying dutch people", "big", 5, true, 10));
+		DS.addRestaurant(new Restaurant("kuu & kang", "small", 5, true, 10));
+		DS.addRestaurant(new Restaurant("the big fat whale", "big", 5, true, 10));
+		DS.addRestaurant(new Restaurant("faxxxutch people", "big", 5, true, 10));
+		DS.addRestaurant(new Restaurant("kvasnt & kang", "small", 5, true, 10));
+		DS.addRestaurant(new Restaurant("fasf big fat whale", "big", 5, true, 10));
+		DS.addRestaurant(new Restaurant("tttlying dutch people", "big", 5, true, 10));
+		DS.addRestaurant(new Restaurant("yyklint & kang", "small", 5, true, 10));
+		DS.addRestaurant(new Restaurant("xxlint & kang", "small", 5, true, 10));
 		
-		DS.addRetaurant(new FastFoodRestaurant("bob's burgers", "big", 5, true, 10, 15, 20));
-		DS.addRetaurant(new FastFoodRestaurant("greg's ultra delux shwarma", "big", 5, true, 10, 3, 40));
-		DS.addRetaurant(new FastFoodRestaurant("krusty burger", "big", 5, true, 10, 10, 23));
+		DS.addRestaurant(new FastFoodRestaurant("bob's burgers", "big", 5, true, 10, 15, 20));
+		DS.addRestaurant(new FastFoodRestaurant("greg's ultra delux shwarma", "big", 5, true, 10, 3, 40));
+		DS.addRestaurant(new FastFoodRestaurant("krusty burger", "big", 5, true, 10, 10, 23));
+		DS.addRestaurant(new FastFoodRestaurant("kaflsflas", "big", 7, true, 10, 15, 20));
+		DS.addRestaurant(new FastFoodRestaurant("blao xis", "big", 4, true, 10, 3, 40));
+		DS.addRestaurant(new FastFoodRestaurant("dinmpa", "big", 5, true, 10, 10, 23));
+		DS.addRestaurant(new FastFoodRestaurant("doom doom dum dum", "big", 2, true, 10, 15, 20));
+		DS.addRestaurant(new FastFoodRestaurant("lary sucks", "big", 5, true, 10, 3, 40));
+		DS.addRestaurant(new FastFoodRestaurant("michelle enjoyers", "big", 5, true, 10, 10, 23));
+		DS.addRestaurant(new FastFoodRestaurant("big mac", "big", 5, true, 10, 10, 23));
 		
-		DS.addRetaurant(new PremiumRestaurant("cavern on the green", "big", 5, true, 10, 120, 3));
-		DS.addRetaurant(new PremiumRestaurant("little garden", "big", 5, true, 10, 150, 10));
-		DS.addRetaurant(new PremiumRestaurant("canary blue", "big", 5, true, 10, 200, 5));
-		DS.addRetaurant(new PremiumRestaurant("sparrow", "big", 5, true, 10, 100, 10));
+		DS.addRestaurant(new PremiumRestaurant("cavern on the green", "big", 5, true, 10, 120, 3));
+		DS.addRestaurant(new PremiumRestaurant("little garden", "big", 5, true, 10, 150, 10));
+		DS.addRestaurant(new PremiumRestaurant("canary blue", "big", 5, true, 10, 200, 5));
+		DS.addRestaurant(new PremiumRestaurant("sparrow", "big", 5, true, 10, 100, 10));
+		DS.addRestaurant(new PremiumRestaurant("creme pao", "big", 5, true, 10, 120, 3));
+		DS.addRestaurant(new PremiumRestaurant("poxter", "big", 5, true, 10, 150, 10));
+		DS.addRestaurant(new PremiumRestaurant("noding", "big", 5, true, 10, 200, 5));
+		DS.addRestaurant(new PremiumRestaurant("bill and jills dill grill", "big", 5, true, 10, 100, 10));
+		DS.addRestaurant(new PremiumRestaurant("cda", "big", 5, true, 10, 200, 5));
+		DS.addRestaurant(new PremiumRestaurant("BBA", "big", 5, true, 10, 100, 10));
 		
 		//3 restaurant admins
 		DS.addRestaurantAdmin(new RestAdmin("jon", "supfax", "secretpass52"));

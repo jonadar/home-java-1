@@ -37,7 +37,7 @@ public class PremiumRestaurant extends Restaurant {
 
 	@Override
 	public double calculatePrice(double base) {
-		return base + deliveryFee + (base * (1 + orderFeePercentage / 100)); // base + delivery fee + percentage of base
+		return base + deliveryFee + (base * (orderFeePercentage / 100)); // base + delivery fee + percentage of base
 	}
 	
 	@Override

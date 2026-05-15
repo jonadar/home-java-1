@@ -1,7 +1,5 @@
 package homework1;
 
-import java.security.Provider.Service;
-
 import Utils.UserInput;
 import Utils.Validation;
 
@@ -57,19 +55,23 @@ public class Admin {
 			
 			switch (option) {
 				case 1:
-					Services.addCustomer(UserInput.s, DS.getCustomers()); // doesnt actually add yet, just creates
+					Customer c = Services.addCustomer(DS.getCustomers());
+					DS.addCustomer(c);
 					break;
 				case 2:
-					Services.addRestAdmin(UserInput.s, DS.getRestaurantAdmins()); // doesnt actually add yet, just creates
+					RestAdmin rs = Services.addRestAdmin(DS.getRestaurantAdmins()); // doesnt actually add yet, just creates
+					DS.addRestaurantAdmin(rs);
 					break;
 				case 3:
 					Services.assignRestAdminToRestaurant(DS.getRestaurantAdmins(), DS.getRestaurants());
 					break;
 				case 4:
-					Services.addRestaurant(UserInput.s); // need to update code slightly for 3 options of rest type
+					Restaurant rest = Services.addRestaurant(); // need to update code slightly for 3 options of rest type
+					DS.addRestaurant(rest);
 					break;
 				case 5:
-					Services.addRider(UserInput.s); // doesnt add yet to Delivery System
+					Rider rider = Services.addRider(); // doesnt add yet to Delivery System
+					DS.addRider(rider);
 					break;
 				case 6:
 					Services.assignOrderToRider(DS.getRiders(), DS.getOrders());

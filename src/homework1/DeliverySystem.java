@@ -65,7 +65,7 @@ public class DeliverySystem {
 		else System.out.println("invalid restaurant admin already registered");
 	}
 	
-	public void addRetaurant(Restaurant restaurant){
+	public void addRestaurant(Restaurant restaurant){
 		// check if already in array
 		boolean valid = Validation.validateNotInArray(restaurant, this.restaurants);
 		

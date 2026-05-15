@@ -1,7 +1,5 @@
 package Utils;
 
-import java.util.Arrays;
-
 public class Validation {
 	public static void main(String[] args) {}
 	
@@ -191,7 +189,7 @@ public class Validation {
 		if(address == null || address.isBlank()) return false;
 		
 		String[] split = address.split(" ");
-		return split.length > 3 && isOnlyChars(address) && isMikud(split[split.length-1]);
+		return split.length > 3 && isCity(split[0]) && isMikud(split[split.length-1]);
 	}
 	
 	

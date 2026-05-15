@@ -1,5 +1,7 @@
 package homework1;
 
+import java.util.Arrays;
+
 import Utils.UserInput;
 import Utils.Validation;
 
@@ -68,6 +70,19 @@ public class Rider {
 		}
 
 		this.orders = orders;
+	}
+	
+	public boolean addOrder(Order order) {
+		if(order == null) return false;
+		if(!Validation.validateNotInArray(order, this.orders)) {
+			System.out.println("order already in riders list");
+			return false;
+		}
+		
+		this.orders = Arrays.copyOf(this.orders, this.orders.length + 1);
+		this.orders[this.orders.length - 1] = order;
+		return true;
+		
 	}
 	
 	public void menu(DeliverySystem DS) {

@@ -2,8 +2,6 @@ package Utils;
 
 import java.util.Scanner;
 
-import homework1.*;
-
 public class UserInput {
 	public static Scanner s = new Scanner(System.in);
 	
@@ -248,34 +246,6 @@ public class UserInput {
 			System.out.println("invalid id. must be none empty string with 9 digits");
 		}
 	}
-
-	
-	// TODO
-	public static Customer getCustomer() {
-		return null;
-	}
-	
-	// TODO
-	public static RestAdmin getRestaurantAdmin() {
-		return null;
-	}
-	
-	// TODO
-	public static Rider getRider() {
-		return null;
-	}
-	
-	// TODO
-	public static Restaurant getRestaurant() {
-		// can be either Restaurant, Fastfood or premium
-		return null;
-	}
-	
-	// TODO
-	public static Order getOrder() {
-		return null;
-	}
-
 	
 	public static String getUsername() {
 		String userValue = "";
@@ -284,7 +254,7 @@ public class UserInput {
 		while(true) {
 			System.out.println("enter username:");
 			userValue = s.nextLine();
-			if(!Validation.isUsername(userValue)) return userValue.trim();
+			if(Validation.isUsername(userValue)) return userValue.trim();
 			System.out.println("invalid username. must be none empty string");
 		}
 	}
@@ -298,6 +268,18 @@ public class UserInput {
 			userValue = s.nextLine();
 			if(Validation.isPassword(userValue)) return userValue;
 			System.out.println("invalid password. must be none empty string of length 3 or more and only using letters and digits");
+		}
+	}
+	
+	public static String getEmail() {			
+		String userValue = "";
+		
+		// keep asking until user provides correct value 
+		while(true) {
+			System.out.println("enter email:");
+			userValue = s.nextLine();
+			if(Validation.isEmail(userValue)) return userValue;
+			System.out.println("invalid email. must be none empty string with only characters");
 		}
 	}
 }
