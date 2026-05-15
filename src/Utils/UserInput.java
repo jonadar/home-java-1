@@ -18,8 +18,8 @@ public class UserInput {
 		while(true) {
 			System.out.println("enter " + valueName + ": ");
 			userValue = s.nextLine();
-			if(!userValue.trim().isEmpty()) return userValue.trim();
-			System.out.println("invalid " + valueName + ". must be none empty string");
+			if(Validation.isName(userValue)) return userValue;
+			System.out.println("invalid " + valueName + ". must be none empty string with only characters");
 		}
 	}
 	
@@ -66,7 +66,33 @@ public class UserInput {
 			}else {				
 				s.next();
 			}
-			System.out.println("invalid " + valueName + ". must be in range (" + a + " to "+ b + ")");
+			System.out.println("invalid " + valueName + ". must be int in range (" + a + " to "+ b + ")");
+		}
+	}
+	
+	/**
+	 * @param a double bottom of range
+	 * @param b double top of range
+	 * @param valueName name of value being received for user prompt
+	 * @return double such that a <= number <= b
+	 */
+	public static double getDoubleFromRange(double a, double b, String valueName) {		
+		double userValue = a;
+		
+		// avoid infinite loops, if range doesn't make sense
+		if(a > b) return 0;
+		
+		// keep asking until user provides correct value 
+		while(true) {		
+			System.out.println("enter " + valueName + ": [" + a + ", " + b + "]");
+			if(s.hasNextDouble()) {				
+				userValue = s.nextDouble();
+				s.nextLine(); // avoid issues with newline
+				if(Validation.isNumberInRange(a, b, userValue, valueName)) return userValue;
+			}else {				
+				s.next();
+			}
+			System.out.println("invalid " + valueName + ". must be number in range [" + a + ", "+ b + "]");
 		}
 	}
 	
@@ -210,6 +236,19 @@ public class UserInput {
 			System.out.println("invalid phone number. must be 10 digits");
 		}
 	}
+	
+	public static String getId() {			
+		String userValue = "";
+		
+		// keep asking until user provides correct value 
+		while(true) {
+			System.out.println("enter id: ");
+			userValue = s.nextLine();
+			if(Validation.isId(userValue.trim())) return userValue.trim();
+			System.out.println("invalid id. must be none empty string with 9 digits");
+		}
+	}
+
 	
 	// TODO
 	public static Customer getCustomer() {

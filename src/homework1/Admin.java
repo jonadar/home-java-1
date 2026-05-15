@@ -1,5 +1,7 @@
 package homework1;
 
+import java.security.Provider.Service;
+
 import Utils.UserInput;
 import Utils.Validation;
 
@@ -64,13 +66,13 @@ public class Admin {
 					Services.assignRestAdminToRestaurant(DS.getRestaurantAdmins(), DS.getRestaurants());
 					break;
 				case 4:
-					Services.addRestaurant(UserInput.s);
+					Services.addRestaurant(UserInput.s); // need to update code slightly for 3 options of rest type
 					break;
 				case 5:
-					System.out.println("not yet implemented");
+					Services.addRider(UserInput.s); // doesnt add yet to Delivery System
 					break;
 				case 6:
-					System.out.println("not yet implemented");
+					Services.assignOrderToRider(DS.getRiders(), DS.getOrders());
 					break;
 			}
 		}

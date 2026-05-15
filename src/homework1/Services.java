@@ -307,59 +307,82 @@ public class Services {
 		}
 	}
 	
-	public static Restaurant addRestaurant(Scanner scan) {
-		String restName;
-		while(true) {
-			if(scan.hasNextLine()) {
-				String item = scan.nextLine();
-				if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
-					restName = item;
-					System.out.println("the restaurant name is " + restName);
-					break;
-				}
-			}else { 
-				System.out.println("not a valid restaurant name");	
-			}
-		}
-		String kitchenType;
-		while(true) {
-			if(scan.hasNextLine()) {
-				String item = scan.nextLine();
-				if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
-					kitchenType = item;
-					System.out.println("the kitchen type is " + kitchenType);
-					break;
-				}
-			} else { 
-				System.out.println("not a valid kitchen type");
-			}
-		}
+	public static Restaurant addRestaurant() {
+		String restName = UserInput.getName("resaurant name");
 		
-		double rating;
+		String kitchenType = UserInput.getName("kitchen type");
+		
+		double rating = UserInput.getDoubleFromRange(0, 10, "rating");
+
+		boolean isOpen = UserInput.getBoolean("is restaurant open?");
+		
+		double deliveryFee = UserInput.getDouble(kitchenType);
+
+		return new Restaurant(restName, kitchenType, rating, isOpen, deliveryFee);
+	}
+	
+	public static PremiumRestaurant addPremiumRestaurant(Scanner scan) {
+		Restaurant bacicRest = addRestaurant();
+		double minOrderValue;
 		while(true) {
 			if(scan.hasNextDouble()) {
 				Double item = scan.nextDouble();
 				if (item!=null) {
-					rating = item;
+					minOrderValue = item;
 					scan.nextLine();
-					System.out.println("the restaurant rating is " + rating);
+					System.out.println("the restaurant rating is " + minOrderValue);
 					break;
 				}
 			} else { 
-				System.out.println("not a valid restaurant rating");
+				System.out.println("not a valid restaurant minimum order value");
 				scan.next();
 			}
 		}
-		boolean isOpen = UserInput.getBoolean("is restaurant open");
-		
-		double deliveryFee;
+		double orderFeePercentage;
 		while(true) {
 			if(scan.hasNextDouble()) {
 				Double item = scan.nextDouble();
-				if (item != null) {
-					deliveryFee = item;
+				if (item!=null) {
+					orderFeePercentage = item;
 					scan.nextLine();
-					System.out.println("the restaurant delivery fee is " + deliveryFee);
+					System.out.println("the restaurant rating is " + orderFeePercentage);
+					break;
+				}
+			} else { 
+				System.out.println("not a valid restaurant order fee percentage");
+				scan.next();
+			}
+		}
+
+		return new PremiumRestaurant(bacicRest.getName(), bacicRest.getKitchenType(), bacicRest.getRating(), bacicRest.isOpen(), bacicRest.getDeliveryFee(), minOrderValue, orderFeePercentage);
+	}
+	
+	public static PremiumRestaurant addFastFoodRestaurant(Scanner scan) {
+		Restaurant bacicRest = addRestaurant();
+		double averageCookTime;
+		while(true) {
+			if(scan.hasNextDouble()) {
+				Double item = scan.nextDouble();
+				if (item!=null) {
+					averageCookTime = item;
+					scan.nextLine();
+					System.out.println("the restaurant rating is " + averageCookTime);
+					break;
+				}
+			} else { 
+				System.out.println("not a valid restaurant average cook time");
+				scan.next();
+			}
+		}
+		
+		double fastDeliveryFee;
+		while(true) {
+			if(scan.hasNextDouble()) {
+				Double item = scan.nextDouble();
+				if (item!=null) {
+					fastDeliveryFee = item;
+					scan.nextLine();
+					System.out.println("the restaurant rating is " + fastDeliveryFee);
 					break;
 				}
 			} else { 
@@ -367,7 +390,148 @@ public class Services {
 				scan.next();
 			}
 		}
+		return new PremiumRestaurant(bacicRest.getName(), bacicRest.getKitchenType(), bacicRest.getRating(), bacicRest.isOpen(), bacicRest.getDeliveryFee(), averageCookTime, fastDeliveryFee);
+	}
+	
+	public static Rider addRider(Scanner scan) {
+		String id = UserInput.getId();
+	
+		String fullName;
+		while(true) {
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
+					fullName = item;
+					System.out.println("the kitchen type is " + fullName);
+					break;
+				}
+			} else { 
+				System.out.println("not a valid full name");
+			}
+		}
+		String phoneNumber;
+		while(true) {
+			System.out.println("enter phone number");
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyDigits(item) && item.length() == 10) {
+					phoneNumber = item;
+					break;
+				} else { 
+					System.out.println("invalid phone number");
+				}
+			}
+		}
+		String vehicle;
+		while(true) {
+			if(scan.hasNextLine()) {
+				String item = scan.nextLine();
+				if (!Validation.isEmptyString(item) && Validation.isOnlyChars(item)) {
+					vehicle = item;
+					System.out.println("the kitchen type is " + vehicle);
+					break;
+				}
+			} else { 
+				System.out.println("not a valid vehicle");
+			}
+		}
+		boolean isAvailable = UserInput.getBoolean("is is available");
 		
-		return new Restaurant(restName, kitchenType, rating, isOpen, deliveryFee);
+		return new Rider(id, fullName, phoneNumber, vehicle, isAvailable);
+	}
+	
+	public static Rider findRider(String id, Rider[] riders) {
+		if(!Validation.isId(id)) {
+			return null;
+		}
+		
+		for (Rider rider : riders) {
+			if (rider != null && id.equals(rider.getId())) {
+				return rider;
+			}
+		}
+		
+		return null;
+	}
+	
+	public static Order findOrder(int orderCode, Order[] orders) {
+		for (int i = 0 ; i<orders.length ; i++) {
+			if (orders[i] != null) {
+				if (orderCode == orders[i].getOrderCode()) {
+					return orders[i];
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static boolean assignOrderToRider(Rider[] riders, Order[] orders) {
+		Rider rider = findRider(UserInput.getId(), riders);
+		Order order = findOrder(UserInput.getInt("order"), orders);
+		if (rider != null && order !=null && rider.getAvailable()){
+			order.setDriverId(rider.getId());
+			return true;
+		}
+		System.out.println("the order or the rider can not be found");
+		return false;
+	}
+	
+//	 מחפש מסעדה ומוודא שהיא שייכת למנהל מסעדה ושהם קיימים
+	public static boolean RestAdminAddOrder(RestAdmin[] restaurantAdmins, Restaurant[] restaurants) {
+		RestAdmin restAdmin = findRestAdmin(UserInput.getUsername(), restaurantAdmins);
+		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
+		Restaurant restforAdmin = findRestaurant(restaurant.getRestaurantCode(), restAdmin.getRestaurants());
+		if (restAdmin!= null && restforAdmin!=null) {
+			return true;
+		}
+		System.out.println("the restaurant admins or the restaurant can not be found");
+		return false;
+	}
+	
+	public static Customer findCustomer(int customerCode, Customer[] customers) {
+		for (int i = 0 ; i<customers.length ; i++) {
+			if (customers[i] != null) {
+				if (customerCode == customers[i].getCustomerCode()) {
+					return customers[i];
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static Order createNewOrderByRestAdmin(RestAdmin restAdmin, Customer[] customers) {
+		
+		//print options
+		for (int i = 0; i < restAdmin.getRestaurantCount(); i++) {
+			System.out.println(i + ". " + restAdmin.getRestaurants()[i]);
+		}
+		
+		// choose restaurant
+		int restaurantIndex = UserInput.getIntFromRange(1, restAdmin.getRestaurantCount(), "restaurant");
+		Restaurant restaurant = restAdmin.getRestaurants()[restaurantIndex];
+		
+		// choose customer code if it not exsist it breaks out of the func
+		Customer customer = findCustomer(UserInput.getInt("customer code"), customers);
+		if (customer == null) {
+			return null;
+		}
+		
+		// get base amount
+		double baseCost = UserInput.getDouble("base cost");
+		
+		// calculate price`
+		double price = restaurant.calculatePrice(baseCost);
+		
+		if (restaurant instanceof PremiumRestaurant) {
+			if(price < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
+				System.out.println("cost too low for order, must be more than " + ((PremiumRestaurant) restaurant).getMinOrderValue());
+				return null;	
+			}
+		}
+		
+		// get date
+		String date = UserInput.getDate("todays date");
+		
+		return new Order(customer.getCustomerCode(), restaurant, baseCost, price, date);
 	}
 }

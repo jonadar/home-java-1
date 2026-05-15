@@ -98,7 +98,7 @@ public class Main {
 					break;
 				case(3):
 					// rider login using id
-					String id = UserInput.getName("rider id");
+					String id = UserInput.getId();
 				
 					Rider rider = null;
 					for (Rider r: DS.getRiders()) {

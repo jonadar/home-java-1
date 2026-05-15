@@ -7,7 +7,7 @@ public class Order {
 	private int customerCode;
 	private Restaurant restaurant;
 	private int restaurantCode;
-	private int driverId;
+	private String driverId;
 	private String orderDate;
 	private String deliveryDate;
 	private double basePrice;
@@ -20,7 +20,7 @@ public class Order {
 	public int getCustomerCode() {return customerCode;}
 	public Restaurant getRest() {return restaurant;}
 	public int getRestaurantCode() {return restaurantCode;}
-	public int getDriverId() {return driverId;}
+	public String getDriverId() {return driverId;}
 	public String getOrderDate() {return orderDate;}
 	public String getDeliveryDate() {return deliveryDate;}
 	public double getBasePrice() {return basePrice;}
@@ -33,7 +33,7 @@ public class Order {
 		this.customerCode = customerCode;
 		this.restaurant = restaurant;
 		this.restaurantCode = restaurant.getRestaurantCode();
-		this.driverId = -1;
+		this.driverId = null;
 		this.orderDate = orderDate;
 		this.deliveryDate = "0";
 		this.basePrice = basePrice;
@@ -64,9 +64,9 @@ public class Order {
 		if(valid) this.restaurantCode = restaurantCode;
 	}
 	
-	public void setDriverId(int driverId) {
-		boolean valid = Validation.validate(driverId, "invalid driver id code");
-		if(valid) this.driverId = driverId;
+	public void setDriverId(String driverId) {
+		if(Validation.isId(driverId)) this.driverId = driverId;
+		else System.out.println("invalid driver id");
 	}
 	
 	public void setOrderDate(String orderDate) {
@@ -91,8 +91,10 @@ public class Order {
 	
 	public void setDeliveryStatus(String deliveryStatus) {
 		String[] statuses = {"sent", "on the way", "delivered"};
-		boolean valid = Validation.validate(deliveryStatus, "invalid delivery status");
+		boolean valid = Validation.validateNotInArray(deliveryStatus, statuses);
+		
 		if(valid) this.deliveryStatus = deliveryStatus;
+		else System.out.println("invalid delivery status");
 	}
 	
 	@Override
