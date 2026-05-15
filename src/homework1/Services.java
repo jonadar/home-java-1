@@ -74,7 +74,7 @@ public class Services {
 		
 		//print options
 		for (int i = 0; i < restaurants.length; i++) {
-			System.out.println(i + ". " + restaurants[i]);
+			System.out.println((i+1) + ". " + restaurants[i]);
 		}
 		
 		// choose restaurant
@@ -221,7 +221,7 @@ public class Services {
 
 		boolean isOpen = UserInput.getBoolean("is restaurant open?");
 		
-		double deliveryFee = UserInput.getDouble(kitchenType);
+		double deliveryFee = UserInput.getDouble("delivery fee");
 
 		return new Restaurant(restName, kitchenType, rating, isOpen, deliveryFee);
 	}
@@ -328,7 +328,7 @@ public class Services {
 		
 		//print options
 		for (int i = 0; i < restAdmin.getRestaurantCount(); i++) {
-			System.out.println(i + ". " + restAdmin.getRestaurants()[i]);
+			System.out.println((i+1) + ". " + restAdmin.getRestaurants()[i]);
 		}
 		
 		// choose restaurant

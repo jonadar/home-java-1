@@ -108,8 +108,9 @@ public class UserInput {
 				userValue = s.nextDouble();
 				s.nextLine(); // avoid issues with newline
 				if(userValue >= 0) return userValue;
+			} else {				
+				s.next();
 			}
-			s.next();
 			System.out.println("invalid " + valueName + ". must be positive number");
 		}
 	}
@@ -129,8 +130,9 @@ public class UserInput {
 				s.nextLine(); // avoid issues with newline
 				if(userValue == 1) return true;
 				if(userValue == 2) return false;
+			} else {
+				s.next();
 			}
-			s.next();
 			System.out.println("invalid value. choose (1 - yes, 2 - no)");
 		}
 	}

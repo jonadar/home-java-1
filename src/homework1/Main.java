@@ -84,6 +84,8 @@ public class Main {
 					if(admin.login(adminUsername, adminPassword)) {
 						System.out.println("you are admin");
 						admin.menu(DS);
+					} else {
+						System.out.println("username or password incorrect.");
 					}
 					
 					break;
@@ -109,6 +111,8 @@ public class Main {
 					if(restaurantAdmin.login(username, password)) {
 						System.out.println("you are restaurant admin");
 						restaurantAdmin.menu(DS);
+					} else {
+						System.out.println("username or password incorrect.");
 					}
 					
 					break;
