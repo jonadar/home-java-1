@@ -45,7 +45,9 @@ public class Services {
 		if (deliveryOption.equals("delivered")) {
 			String deliveryDate = UserInput.getDate("delivery date");
 			order.setDeliveryDate(deliveryDate);
-		}	
+		}
+		
+		System.out.println("updated order.");
 	}
 	
 	public static void updatePersonalInfo(Customer customer) {
@@ -56,13 +58,14 @@ public class Services {
 		if(userSelection.equals(options[0])) { // phone number
 			String phoneNumber = UserInput.getPhoneNumber();
 			customer.setPhoneNumber(phoneNumber);
+			System.out.println("updated phone number");
 		}
 		
 		else if (userSelection.equals(options[1])){ // adress
 			String adress = UserInput.getAddress();
 			customer.setAdress(adress);
+			System.out.println("updated address");
 		}
-		
 	}
 	
 	/**
@@ -71,7 +74,10 @@ public class Services {
 	 * @return Order if created successfully otherwise null
 	 */
 	public static Order createNewOrder(Customer customer, Restaurant[] restaurants) {
-		
+		if(restaurants.length == 0) {
+			System.out.println("no restaurants to order from");
+			return null;
+		}
 		//print options
 		for (int i = 0; i < restaurants.length; i++) {
 			System.out.println((i+1) + ". " + restaurants[i]);
@@ -79,16 +85,13 @@ public class Services {
 		
 		// choose restaurant
 		int restaurantIndex = UserInput.getIntFromRange(1, restaurants.length, "restaurant");
-		Restaurant restaurant = restaurants[restaurantIndex];
+		Restaurant restaurant = restaurants[restaurantIndex-1];
 		
 		// get base amount
 		double baseCost = UserInput.getDouble("base cost");
 		
-		// calculate price
-		double price = restaurant.calculatePrice(baseCost);
-		
 		if (restaurant instanceof PremiumRestaurant) {
-			if(price < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
+			if(baseCost < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
 				System.out.println("cost too low for order, must be more than " + ((PremiumRestaurant) restaurant).getMinOrderValue());
 				return null;	
 			}
@@ -97,7 +100,7 @@ public class Services {
 		// get date
 		String date = UserInput.getDate("todays date");
 		
-		return new Order(customer.getCustomerCode(), restaurant, baseCost, price, date);
+		return new Order(customer.getCustomerCode(), restaurant, baseCost, date);
 	}
 	
 	
@@ -176,8 +179,11 @@ public class Services {
 		RestAdmin restAdmin = findRestAdmin(UserInput.getUsername(), restaurantAdmins);
 		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
 		if (restAdmin!= null && restaurant!=null) {
-			restAdmin.addRestaurant(restaurant);
-			return true;
+			boolean success = restAdmin.addRestaurant(restaurant);
+			if (success) {
+				System.out.println("assigned admin " + restAdmin.getUsername() + " to restaurant " + restaurant.getName());
+				return true;
+			} else return false;
 		}
 		System.out.println("the restaurant admin or the restaurant can not be found");
 		return false;
@@ -290,6 +296,7 @@ public class Services {
 		if (rider != null && order != null && rider.getAvailable()){
 			boolean added = rider.addOrder(order);
 			if(added) {
+				System.out.println("assigned rider " + rider.getFullName() + " to order " + order.getOrderCode());
 				order.setDriverId(rider.getId());
 				return true;
 			} else {
@@ -325,7 +332,10 @@ public class Services {
 	}
 	
 	public static Order createNewOrderByRestAdmin(RestAdmin restAdmin, Customer[] customers) {
-		
+		if(restAdmin.getRestaurantCount() == 0) {
+			System.out.println("no restaurants found for admin, cant add order");
+			return null;
+		}
 		//print options
 		for (int i = 0; i < restAdmin.getRestaurantCount(); i++) {
 			System.out.println((i+1) + ". " + restAdmin.getRestaurants()[i]);
@@ -333,7 +343,7 @@ public class Services {
 		
 		// choose restaurant
 		int restaurantIndex = UserInput.getIntFromRange(1, restAdmin.getRestaurantCount(), "restaurant");
-		Restaurant restaurant = restAdmin.getRestaurants()[restaurantIndex];
+		Restaurant restaurant = restAdmin.getRestaurants()[restaurantIndex-1];
 		
 		// choose customer code if it not exsist it breaks out of the func
 		Customer customer = findCustomer(UserInput.getInt("customer code"), customers);
@@ -344,19 +354,17 @@ public class Services {
 		// get base amount
 		double baseCost = UserInput.getDouble("base cost");
 		
-		// calculate price
-		double price = restaurant.calculatePrice(baseCost);
 		
 		if (restaurant instanceof PremiumRestaurant) {
-			if(price < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
+			if(baseCost < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
 				System.out.println("cost too low for order, must be more than " + ((PremiumRestaurant) restaurant).getMinOrderValue());
-				return null;	
+				return null;
 			}
 		}
 		
 		// get date
 		String date = UserInput.getDate("todays date");
 		
-		return new Order(customer.getCustomerCode(), restaurant, baseCost, price, date);
+		return new Order(customer.getCustomerCode(), restaurant, baseCost, date);
 	}
 }

@@ -81,7 +81,8 @@ public class Customer {
 			
 			switch (option) {
 				case 1:
-					Services.createNewOrder(this, DS.getRestaurants());
+					Order o = Services.createNewOrder(this, DS.getRestaurants());
+					DS.addOrder(o);
 					break;
 				case 2:
 					DS.displayAllOrders(this);

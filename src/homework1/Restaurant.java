@@ -84,7 +84,7 @@ public class Restaurant {
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof Restaurant) {
 			Restaurant other = (Restaurant) obj;
-			return other.restaurantCode == this.restaurantCode;
+			return other.restaurantCode == this.restaurantCode; // didnt do by name aswell since it is sometimes possible to have 2 restuarants with the same name
 		}
 		return false;
 	}

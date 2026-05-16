@@ -48,6 +48,7 @@ public class Validation {
 	 * @return true if newItem not in array
 	 */
 	public static boolean validateNotInArray(Object newItem, Object[] items) {
+		if(newItem == null) return false;
 		for(Object item: items) {
 			if (item != null && item.equals(newItem)) return false;
 		}
@@ -223,11 +224,13 @@ public class Validation {
 	}
 	
 	
+	// only numbers and characters
 	public static boolean isUsername(String username) {
 		return Validation.isOnlyNumbersAndChars(username);
 	}
 	
+	// only numbers and characters and of length minimum 3
 	public static boolean isPassword(String password) {
-		return Validation.isOnlyNumbersAndChars(password) && password.length() > 3;
+		return Validation.isOnlyNumbersAndChars(password) && password.length() >= 3;
 	}
 }

@@ -13,6 +13,8 @@ public class RestAdmin extends Admin{
 		super(name, username, password);
 		this.restaurants = new Restaurant[0];
 		this.restaurantCount = 0;
+		
+		System.out.println("restaurant admin with username: " + this.username + " has been created.");
 	}
 
 	public Restaurant[] getRestaurants() { return restaurants; }
@@ -47,13 +49,16 @@ public class RestAdmin extends Admin{
 			
 			switch (option) {
 				case 1:
-					Services.addCustomer(DS.getCustomers()); // doesnt actually add yet, just creates
+					Customer c = Services.addCustomer(DS.getCustomers());
+					DS.addCustomer(c);
 					break;
 				case 2:
-					Services.createNewOrderByRestAdmin(this, DS.getCustomers()); // does not add to DS yet
+					Order o = Services.createNewOrderByRestAdmin(this, DS.getCustomers());
+					DS.addOrder(o);
 					break;
 				case 3:
-					Services.addRider(); // does not add to DS
+					Rider r = Services.addRider(); // does not add to DS
+					DS.addRider(r);
 					break;
 				case 4:
 					Services.assignOrderToRider(DS.getRiders(), DS.getOrders());

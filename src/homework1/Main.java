@@ -7,11 +7,11 @@ public class Main {
 		DeliverySystem DS = new DeliverySystem();
 
 		// 5 riders
-		DS.addRider(new Rider("1242154","Jhon man", "126591", "car", true));
-		DS.addRider(new Rider("163262","miriam", "126591", "car", false));
-		DS.addRider(new Rider("21252152","eden", "126591", "skateboard", true));
-		DS.addRider(new Rider("16261242","gregor", "126591", "car", true));
-		DS.addRider(new Rider("5126161","michelle", "126591", "corkinet", false));
+		DS.addRider(new Rider("116591425","Jhon man", "0116591325", "car", true));
+		DS.addRider(new Rider("026521423","miriam", "0026321423", "car", false));
+		DS.addRider(new Rider("424591424","eden", "0424391424", "skateboard", true));
+		DS.addRider(new Rider("426591428","gregor", "0423591428", "car", true));
+		DS.addRider(new Rider("826591429","michelle", "0823531439", "corkinet", false));
 		
 		// 10 customers
 		DS.addCustomer(new Customer("Jonathan", "Mil", "Modiin 1 green place 4415", "3981292512", "cafsaf@gmacom",0));
@@ -29,7 +29,7 @@ public class Main {
 		DS.addRestaurant(new Restaurant("the big fat whale", "big", 5, true, 10));
 		DS.addRestaurant(new Restaurant("flying dutch people", "big", 5, true, 10));
 		DS.addRestaurant(new Restaurant("kuu & kang", "small", 5, true, 10));
-		DS.addRestaurant(new Restaurant("the big fat whale", "big", 5, true, 10));
+		DS.addRestaurant(new Restaurant("the small not fat whale", "big", 5, true, 10));
 		DS.addRestaurant(new Restaurant("faxxxutch people", "big", 5, true, 10));
 		DS.addRestaurant(new Restaurant("kvasnt & kang", "small", 5, true, 10));
 		DS.addRestaurant(new Restaurant("fasf big fat whale", "big", 5, true, 10));
@@ -60,7 +60,7 @@ public class Main {
 		DS.addRestaurant(new PremiumRestaurant("BBA", "big", 5, true, 10, 100, 10));
 		
 		//3 restaurant admins
-		DS.addRestaurantAdmin(new RestAdmin("jon", "supfax", "secretpass52"));
+		DS.addRestaurantAdmin(new RestAdmin("jonathan", "jon", "123"));
 		DS.addRestaurantAdmin(new RestAdmin("eden", "gasca", "IH8Michelle"));
 		DS.addRestaurantAdmin(new RestAdmin("bill", "lapdaz", "sec51pass52"));
 		

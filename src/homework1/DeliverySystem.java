@@ -72,6 +72,8 @@ public class DeliverySystem {
 		if(valid) {
 			this.restaurants = Arrays.copyOf(this.restaurants, this.restaurantCount + 1);
 			this.restaurants[this.restaurantCount++] = restaurant;
+			
+			System.out.println("restaurant with code: " + restaurant.getRestaurantCode() + " has been created.");
 		}
 		else System.out.println("invalid, restaurant already registered");
 	}
@@ -110,6 +112,7 @@ public class DeliverySystem {
 		for (int i = 0; i < orders.length; i++) {
 			System.out.println((i+1) + ". " + orders[i]);
 		}
+		System.out.println("-----------------------------");
 	}
 	
 	public void displayAllOrders(Customer customer) {
@@ -131,6 +134,7 @@ public class DeliverySystem {
 		for (int i = 0; i < orders.length; i++) {
 			System.out.println((i+1) + ". " + orders[i]);
 		}
+		System.out.println("-----------------------------");
 	}
 	
 	// get restaurant code and display its info

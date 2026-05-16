@@ -20,6 +20,8 @@ public class Rider {
 		this.vehicle = vehicle;
 		this.orders = new Order[0];
 		this.isAvailable = isAvailable;
+		
+		System.out.println("rider with id: " + this.id + " has been created.");
 	}
 	
 	public String getId() { return id; }
