@@ -7,7 +7,7 @@ public class Customer {
 	private int customerCode;
 	private String firstName;
 	private String lastName;
-	private String adress;
+	private String address;
 	private String phoneNumber;
 	private String email;
 	private double remainingCredit;
@@ -17,17 +17,17 @@ public class Customer {
 	public int getCustomerCode() { return customerCode; }
 	public String getfirstName() { return firstName; }
 	public String getLastName() { return lastName; }
-	public String getAdress() { return adress; }
+	public String getAddress() { return address; }
 	public String getPhoneNumber() { return phoneNumber; }
 	public String getEmail() { return email; }
 	public double getRemainingCredit() { return remainingCredit; }
 
 	
-	public Customer(String firstName, String lastName, String adress, String phoneNumber, String email, double remainingCredit) {
+	public Customer(String firstName, String lastName, String address, String phoneNumber, String email, double remainingCredit) {
 		this.customerCode = customerCount++;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.adress = adress;
+		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.remainingCredit = remainingCredit;
@@ -45,8 +45,8 @@ public class Customer {
 		else System.out.println("invalid last name");
 	}
 	
-	public void setAdress(String adress) {
-		if (Validation.isAddress(adress)) this.adress = adress;
+	public void setAddress(String address) {
+		if (Validation.isAddress(address)) this.address = address;
 		else System.out.println("invalid adress");
 	}
 	
@@ -95,6 +95,14 @@ public class Customer {
 					break;
 			}
 		}
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Customer [customerCode=" + customerCode + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", address=" + address + ", phoneNumber=" + phoneNumber + ", email=" + email + ", remainingCredit="
+				+ remainingCredit + "]";
 	}
 	
 	@Override

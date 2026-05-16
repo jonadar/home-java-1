@@ -61,7 +61,7 @@ public class Restaurant {
 	}
 	
 	public void setDeliveryFee(double deliveryFee) {
-		boolean valid = Validation.validate(deliveryFee, "invalid rating");
+		boolean valid = Validation.validate(deliveryFee, "invalid delivery fee");
 		
 		if(valid) this.deliveryFee = deliveryFee;
 	}

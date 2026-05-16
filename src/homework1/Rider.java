@@ -32,7 +32,7 @@ public class Rider {
 	public boolean getAvailable() { return isAvailable; }
 
 	public void setId(String id) {
-		if (Validation.isId(fullName)) this.id = id;
+		if (Validation.isId(id)) this.id = id;
 		else System.out.println("invalid id");
 	}
 	
@@ -59,16 +59,6 @@ public class Rider {
 		if (orders == null) {
 			System.out.println("cant set null orders");
 			return;
-		}
-		
-		for (Order order : orders) {
-			if (order == null) {
-				System.out.println("cant set orders, null value in array.");
-				return;
-			} else if (!Validation.validateNotInArray(order, orders)) {
-				System.out.println("cant set orders, duplicate in array.");
-				return;
-			}
 		}
 
 		this.orders = orders;
@@ -107,6 +97,13 @@ public class Rider {
 		}
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Rider [id=" + id + ", fullName=" + fullName + ", phoneNumber=" + phoneNumber + ", vehicle=" + vehicle
+				+ ", isAvailable=" + isAvailable + ", orders=" + Arrays.toString(orders) + "]";
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof Rider) {

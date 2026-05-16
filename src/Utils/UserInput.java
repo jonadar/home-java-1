@@ -226,13 +226,9 @@ public class UserInput {
 		// keep asking until user provides a valid answer 
 		while(true) {	
 			System.out.println("enter phone number: ");
-			if(s.hasNext()) {
-				userValue = s.next();
-				s.nextLine(); // avoid issues with newline
-				if(Validation.isPhoneNumber(userValue)) return userValue;
-			} else {
-				s.next();
-			}
+			userValue = s.next();
+			s.nextLine(); // avoid issues with newline
+			if(Validation.isPhoneNumber(userValue)) return userValue;
 			System.out.println("invalid phone number. must be 10 digits");
 		}
 	}

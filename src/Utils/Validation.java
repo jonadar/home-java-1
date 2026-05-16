@@ -141,7 +141,7 @@ public class Validation {
 		if (str == null || str.isBlank()) return false;
 		
 		for (char ch: str.toCharArray()) {
-			if (!(Character.isLetterOrDigit(ch) || ch == '@')) {
+			if (!(Character.isLetterOrDigit(ch) || ch == '@' || ch == '.')) {
 				return false;
 			}
 		}
@@ -190,7 +190,7 @@ public class Validation {
 		if(address == null || address.isBlank()) return false;
 		
 		String[] split = address.split(" ");
-		return split.length > 3 && isCity(split[0]) && isMikud(split[split.length-1]);
+		return split.length >= 3 && isStreet(split[0]) && isMikud(split[split.length-1]);
 	}
 	
 	

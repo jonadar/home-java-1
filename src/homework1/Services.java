@@ -63,7 +63,7 @@ public class Services {
 		
 		else if (userSelection.equals(options[1])){ // adress
 			String adress = UserInput.getAddress();
-			customer.setAdress(adress);
+			customer.setAddress(adress);
 			System.out.println("updated address");
 		}
 	}
@@ -345,9 +345,24 @@ public class Services {
 		int restaurantIndex = UserInput.getIntFromRange(1, restAdmin.getRestaurantCount(), "restaurant");
 		Restaurant restaurant = restAdmin.getRestaurants()[restaurantIndex-1];
 		
+		//check if belongs to rest admin
+		boolean hasRestaurant = false;
+		for (Restaurant r: restAdmin.getRestaurants()) {
+			if(restaurant.equals(r)) {
+				hasRestaurant = true;
+				break;
+			}
+		}
+		
+		if(!hasRestaurant) {
+			System.out.println("restaurant does not belong to this rest admin.");
+			return null;
+		}
+		
 		// choose customer code if it not exsist it breaks out of the func
 		Customer customer = findCustomer(UserInput.getInt("customer code"), customers);
 		if (customer == null) {
+			System.out.println("could not find customer");
 			return null;
 		}
 		

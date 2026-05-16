@@ -42,11 +42,6 @@ public class Order {
 		System.out.println("Order with code: " + this.orderCode + " has been created.");
 	}
 	
-	public void setOrderCode(int orderCode) {
-		boolean valid = Validation.validate(customerCode, "invalid order code");
-		if (valid) this.orderCode = orderCode;
-	}
-	
 	public void setCustomerCode(int customerCode) {
 		boolean valid = Validation.validate(customerCode, "invalid customer code");
 		if(valid) this.customerCode = customerCode;
