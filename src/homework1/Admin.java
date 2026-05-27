@@ -40,7 +40,7 @@ public class Admin {
 		return this.username.equals(username) && this.password.equals(password);
 	}
 	
-	public void menu(DeliverySystem DS) {
+	public void menu(DeliveryDataBase DDB) {
 		while(true) {
 			System.out.println("1. add customer");
 			System.out.println("2. add restaurant admin");
@@ -55,26 +55,26 @@ public class Admin {
 			
 			switch (option) {
 				case 1:
-					Customer c = Services.addCustomer(DS.getCustomers());
-					DS.addCustomer(c);
+					Customer c = Services.addCustomer();
+					DDB.addCustomer(c);
 					break;
 				case 2:
-					RestAdmin rs = Services.addRestAdmin(DS.getRestaurantAdmins()); // doesnt actually add yet, just creates
-					DS.addRestaurantAdmin(rs);
+					RestAdmin rs = Services.addRestAdmin(); // doesnt actually add yet, just creates
+					DDB.addRestaurantAdmin(rs);
 					break;
 				case 3:
-					Services.assignRestAdminToRestaurant(DS.getRestaurantAdmins(), DS.getRestaurants());
+					Services.assignRestAdminToRestaurant(DDB.getRestaurantAdmins(), DDB.getRestaurants());
 					break;
 				case 4:
 					Restaurant rest = Services.addRestaurant(); // need to update code slightly for 3 options of rest type
-					DS.addRestaurant(rest);
+					DDB.addRestaurant(rest);
 					break;
 				case 5:
 					Rider rider = Services.addRider(); // doesnt add yet to Delivery System
-					DS.addRider(rider);
+					DDB.addRider(rider);
 					break;
 				case 6:
-					Services.assignOrderToRider(DS.getRiders(), DS.getOrders());
+					Services.assignOrderToRider(DDB.getRiders(), DDB.getOrders());
 					break;
 			}
 		}

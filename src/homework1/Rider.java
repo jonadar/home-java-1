@@ -1,6 +1,6 @@
 package homework1;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import Utils.UserInput;
 import Utils.Validation;
@@ -11,15 +11,15 @@ public class Rider {
 	private String phoneNumber;
 	private String vehicle;
 	private boolean isAvailable;
-	private Order[] orders;
+	private ArrayList<Order> orders;
 	
 	public Rider(String id, String fullName, String phoneNumber, String vehicle, boolean isAvailable) {
 		this.id = id;
 		this.fullName = fullName;
 		this.phoneNumber = phoneNumber;
 		this.vehicle = vehicle;
-		this.orders = new Order[0];
 		this.isAvailable = isAvailable;
+		this.orders = new ArrayList<Order>();
 		
 		System.out.println("rider with id: " + this.id + " has been created.");
 	}
@@ -28,7 +28,7 @@ public class Rider {
 	public String getFullName() { return fullName; }
 	public String getPhoneNumber() { return phoneNumber; }
 	public String getVehicle() { return vehicle; }
-	public Order[] getOrders() { return orders; }
+	public ArrayList<Order> getOrders() { return orders; }
 	public boolean getAvailable() { return isAvailable; }
 
 	public void setId(String id) {
@@ -55,14 +55,14 @@ public class Rider {
 		this.isAvailable = isAvailable;
 	}
 
-	public void setOrders(Order[] orders) {
-		if (orders == null) {
-			System.out.println("cant set null orders");
-			return;
-		}
-
-		this.orders = orders;
-	}
+//	public void setOrders(ArrayList<Order> orders) {
+//		if (orders == null) {
+//			System.out.println("cant set null orders");
+//			return;
+//		}
+//
+//		this.orders = orders;
+//	}
 	
 	public boolean addOrder(Order order) {
 		if(order == null) return false;
@@ -71,13 +71,13 @@ public class Rider {
 			return false;
 		}
 		
-		this.orders = Arrays.copyOf(this.orders, this.orders.length + 1);
-		this.orders[this.orders.length - 1] = order;
+		this.orders.add(order);
+		
 		return true;
 		
 	}
 	
-	public void menu(DeliverySystem DS) {
+	public void menu(DeliveryDataBase DDB) {
 		System.out.println("you are rider");
 		while(true) {
 			System.out.println("1. update order status");
@@ -91,7 +91,7 @@ public class Rider {
 					Services.updateOrderStatus(this);
 					break;
 				case 2:
-					DS.displayAllOrders(this);
+					DDB.displayAllOrders(this);
 					break;
 			}
 		}
@@ -101,7 +101,7 @@ public class Rider {
 	@Override
 	public String toString() {
 		return "Rider [id=" + id + ", fullName=" + fullName + ", phoneNumber=" + phoneNumber + ", vehicle=" + vehicle
-				+ ", isAvailable=" + isAvailable + ", orders=" + Arrays.toString(orders) + "]";
+				+ ", isAvailable=" + isAvailable + ", orders=" + this.orders + "]";
 	}
 
 	@Override

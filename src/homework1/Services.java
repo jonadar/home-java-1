@@ -1,5 +1,7 @@
 package homework1;
 
+import java.util.ArrayList;
+
 import Utils.UserInput;
 import Utils.Validation;
 
@@ -9,16 +11,16 @@ public class Services {
 
 	
 	public static void updateOrderStatus(Rider rider) {
-		Order[] orders = rider.getOrders();
+		ArrayList<Order> orders = rider.getOrders();
 		
-		if(orders == null || orders.length == 0) {
+		if(orders == null || orders.size() == 0) {
 			System.out.println("no orders to update");
 			return;
 		}
 		
 		// pick order from list
-		for (int i = 0; i < orders.length; i++) {
-			System.out.println((i+1) + ". " + orders[i]);
+		for (int i = 0; i < orders.size(); i++) {
+			System.out.println((i+1) + ". " + orders.get(i));
 		}
 		
 		int orderCode = UserInput.getInt("order code");
@@ -73,19 +75,19 @@ public class Services {
 	 * @param restaurants array of available restaurants
 	 * @return Order if created successfully otherwise null
 	 */
-	public static Order createNewOrder(Customer customer, Restaurant[] restaurants) {
-		if(restaurants.length == 0) {
+	public static Order createNewOrder(Customer customer, ArrayList<Restaurant> restaurants) {
+		if(restaurants.size() == 0) {
 			System.out.println("no restaurants to order from");
 			return null;
 		}
 		//print options
-		for (int i = 0; i < restaurants.length; i++) {
-			System.out.println((i+1) + ". " + restaurants[i]);
+		for (int i = 0; i < restaurants.size(); i++) {
+			System.out.println((i+1) + ". " + restaurants.get(i));
 		}
 		
 		// choose restaurant
-		int restaurantIndex = UserInput.getIntFromRange(1, restaurants.length, "restaurant");
-		Restaurant restaurant = restaurants[restaurantIndex-1];
+		int restaurantIndex = UserInput.getIntFromRange(1, restaurants.size(), "restaurant");
+		Restaurant restaurant = restaurants.get(restaurantIndex-1);
 		
 		// get base amount
 		double baseCost = UserInput.getDouble("base cost");
@@ -104,9 +106,9 @@ public class Services {
 	}
 	
 	
-	public static boolean notInAnArray(int code, Customer[] customerArray) {
-		for (int i = 0; i < customerArray.length; i++) {
-			if (customerArray[i] != null && customerArray[i].getCustomerCode() == code) {
+	public static boolean notInAnArray(int code, ArrayList<Customer> customerArray) {
+		for (int i = 0; i < customerArray.size(); i++) {
+			if (customerArray.get(i) != null && customerArray.get(i).getCustomerCode() == code) {
 				System.out.println("invalid field");
 				return false;
 			}
@@ -114,10 +116,10 @@ public class Services {
 		return true;
 	}
 	
-	public static boolean notInAnArray(String code, RestAdmin[] RestAdminArry) {
-		for (int i = 0; i < RestAdminArry.length; i++) {
-			if (RestAdminArry[i] != null && RestAdminArry[i].getUsername().equals(code)) {
-				System.out.println("invalid feald");
+	public static boolean notInAnArray(String code, ArrayList<RestAdmin> RestAdminArray) {
+		for (int i = 0; i < RestAdminArray.size(); i++) {
+			if (RestAdminArray.get(i) != null && RestAdminArray.get(i).getUsername().equals(code)) {
+				System.out.println("invalid field");
 				return false;
 			}
 		}
@@ -125,8 +127,8 @@ public class Services {
 	}
 	
 	
-	public static Customer addCustomer(Customer[] CustomerArry) {
-		String name =  UserInput.getName("name");
+	public static Customer addCustomer() { // TODO: add customer to Database array
+		String name = UserInput.getName("name");
 		
 		String famillyName = UserInput.getName("familly name");
 		
@@ -142,7 +144,7 @@ public class Services {
 		
 		
 		
-	public static RestAdmin addRestAdmin(RestAdmin[] RestAdminArry) {
+	public static RestAdmin addRestAdmin() { // TODO: add rest admin to Database array
 		String username = UserInput.getUsername();
 	
 		String restAdminName = UserInput.getName("resturnt admin name");
@@ -153,29 +155,29 @@ public class Services {
 	}
 		
 		
-	public static RestAdmin findRestAdmin(String username, RestAdmin[] restaurantAdmins) {
-		for (int i = 0 ; i<restaurantAdmins.length ; i++) {
-			if (restaurantAdmins[i] != null) {
-				if (username.equals(restaurantAdmins[i].getUsername())) {
-					return restaurantAdmins[i];
+	public static RestAdmin findRestAdmin(String username, ArrayList<RestAdmin> restaurantAdmins) {
+		for (int i = 0 ; i<restaurantAdmins.size() ; i++) {
+			if (restaurantAdmins.get(i) != null) {
+				if (username.equals(restaurantAdmins.get(i).getUsername())) {
+					return restaurantAdmins.get(i);
 				}
 			}
 		}
 		return null;
 	}
 	
-	public static Restaurant findRestaurant(int restCode, Restaurant[] restaurants) {
-		for (int i = 0 ; i<restaurants.length ; i++) {
-			if (restaurants[i] != null) {
-				if (restCode == restaurants[i].getRestaurantCode()) {
-					return restaurants[i];
+	public static Restaurant findRestaurant(int restCode, ArrayList<Restaurant> restaurants) {
+		for (int i = 0 ; i<restaurants.size() ; i++) {
+			if (restaurants.get(i) != null) {
+				if (restCode == restaurants.get(i).getRestaurantCode()) {
+					return restaurants.get(i);
 				}
 			}
 		}
 		return null;
 	}
 	
-	public static boolean assignRestAdminToRestaurant(RestAdmin[] restaurantAdmins, Restaurant[] restaurants) {
+	public static boolean assignRestAdminToRestaurant(ArrayList<RestAdmin> restaurantAdmins, ArrayList<Restaurant> restaurants) {
 		RestAdmin restAdmin = findRestAdmin(UserInput.getUsername(), restaurantAdmins);
 		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
 		if (restAdmin!= null && restaurant!=null) {
@@ -265,12 +267,12 @@ public class Services {
 		return new Rider(id, fullName, phoneNumber, vehicle, isAvailable);
 	}
 	
-	public static Rider findRider(String id, Rider[] riders) {
+	public static Rider findRider(String id, ArrayList<Rider> riders) {
 		if(!Validation.isId(id)) {
 			return null;
 		}
 		
-		for (Rider rider : riders) {
+		for (Rider rider :riders) {
 			if (rider != null && id.equals(rider.getId())) {
 				return rider;
 			}
@@ -279,18 +281,18 @@ public class Services {
 		return null;
 	}
 	
-	public static Order findOrder(int orderCode, Order[] orders) {
-		for (int i = 0 ; i<orders.length ; i++) {
-			if (orders[i] != null) {
-				if (orderCode == orders[i].getOrderCode()) {
-					return orders[i];
+	public static Order findOrder(int orderCode, ArrayList<Order> orders) {
+		for (int i = 0; i < orders.size() ; i++) {
+			if (orders.get(i) != null) {
+				if (orderCode == orders.get(i).getOrderCode()) {
+					return orders.get(i);
 				}
 			}
 		}
 		return null;
 	}
 	
-	public static boolean assignOrderToRider(Rider[] riders, Order[] orders) {
+	public static boolean assignOrderToRider(ArrayList<Rider> riders, ArrayList<Order> orders) {
 		Rider rider = findRider(UserInput.getId(), riders);
 		Order order = findOrder(UserInput.getInt("order"), orders);
 		if (rider != null && order != null && rider.getAvailable()){
@@ -309,7 +311,7 @@ public class Services {
 	}
 	
 //	 מחפש מסעדה ומוודא שהיא שייכת למנהל מסעדה ושהם קיימים
-	public static boolean RestAdminAddOrder(RestAdmin[] restaurantAdmins, Restaurant[] restaurants) {
+	public static boolean RestAdminAddOrder( ArrayList<RestAdmin> restaurantAdmins,  ArrayList<Restaurant> restaurants) {
 		RestAdmin restAdmin = findRestAdmin(UserInput.getUsername(), restaurantAdmins);
 		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
 		Restaurant restforAdmin = findRestaurant(restaurant.getRestaurantCode(), restAdmin.getRestaurants());
@@ -320,30 +322,32 @@ public class Services {
 		return false;
 	}
 	
-	public static Customer findCustomer(int customerCode, Customer[] customers) {
-		for (int i = 0 ; i<customers.length ; i++) {
-			if (customers[i] != null) {
-				if (customerCode == customers[i].getCustomerCode()) {
-					return customers[i];
+	public static Customer findCustomer(int customerCode, ArrayList<Customer> customers) {
+		for (int i = 0 ; i<customers.size() ; i++) {
+			if (customers.get(i) != null) {
+				if (customerCode == customers.get(i).getCustomerCode()) {
+					return customers.get(i);
 				}
 			}
 		}
 		return null;
 	}
 	
-	public static Order createNewOrderByRestAdmin(RestAdmin restAdmin, Customer[] customers) {
-		if(restAdmin.getRestaurantCount() == 0) {
+	public static Order createNewOrderByRestAdmin(RestAdmin restAdmin, ArrayList<Customer> customers) {
+		ArrayList<Restaurant> adminRestaurants = restAdmin.getRestaurants();
+		
+		if(adminRestaurants.size() == 0) {
 			System.out.println("no restaurants found for admin, cant add order");
 			return null;
 		}
 		//print options
-		for (int i = 0; i < restAdmin.getRestaurantCount(); i++) {
-			System.out.println((i+1) + ". " + restAdmin.getRestaurants()[i]);
+		for (int i = 0; i < adminRestaurants.size(); i++) {
+			System.out.println((i+1) + ". " + adminRestaurants.get(i));
 		}
 		
 		// choose restaurant
-		int restaurantIndex = UserInput.getIntFromRange(1, restAdmin.getRestaurantCount(), "restaurant");
-		Restaurant restaurant = restAdmin.getRestaurants()[restaurantIndex-1];
+		int restaurantIndex = UserInput.getIntFromRange(1, adminRestaurants.size(), "restaurant");
+		Restaurant restaurant = adminRestaurants.get(restaurantIndex-1);
 		
 		//check if belongs to rest admin
 		boolean hasRestaurant = false;

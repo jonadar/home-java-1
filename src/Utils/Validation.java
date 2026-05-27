@@ -1,5 +1,7 @@
 package Utils;
 
+import java.util.ArrayList;
+
 public class Validation {
 	public static void main(String[] args) {}
 	
@@ -47,7 +49,18 @@ public class Validation {
 	 * @param items Object[] of items to compare to newItem
 	 * @return true if newItem not in array
 	 */
+	// TODO: remove
 	public static boolean validateNotInArray(Object newItem, Object[] items) {
+		if(newItem == null) return false;
+		for(Object item: items) {
+			if (item != null && item.equals(newItem)) return false;
+		}
+		
+		return true;
+	}
+	
+	// TODO: check that works, and ask if generics okay.
+	public static <T> boolean validateNotInArray(Object newItem, ArrayList<T> items) {
 		if(newItem == null) return false;
 		for(Object item: items) {
 			if (item != null && item.equals(newItem)) return false;

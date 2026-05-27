@@ -1,24 +1,21 @@
 package homework1;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import Utils.UserInput;
 import Utils.Validation;
 
 public class RestAdmin extends Admin{
-	private Restaurant[] restaurants;
-	private int restaurantCount;
+	private ArrayList<Restaurant> restaurants;
 	
 	public RestAdmin(String name, String username, String password) {
 		super(name, username, password);
-		this.restaurants = new Restaurant[0];
-		this.restaurantCount = 0;
+		this.restaurants = new ArrayList<Restaurant>();
 		
 		System.out.println("restaurant admin with username: " + this.username + " has been created.");
 	}
 
-	public Restaurant[] getRestaurants() { return restaurants; }
-	public int getRestaurantCount() { return restaurantCount; }
+	public ArrayList<Restaurant> getRestaurants() { return restaurants; }
 	
 	public boolean addRestaurant(Restaurant rest) {
 		if(rest == null) return false;
@@ -30,13 +27,13 @@ public class RestAdmin extends Admin{
 			return false;
 		}
 		
-		this.restaurants =	Arrays.copyOf(this.restaurants, this.restaurantCount+1);
-		this.restaurants[this.restaurantCount++] = rest;
+		this.restaurants.add(rest);
+
 		return true;
 	}
 	
 	@Override
-	public void menu(DeliverySystem DS) {
+	public void menu(DeliveryDataBase DDB) {
 		while(true) {
 			System.out.println("1. add customer");
 			System.out.println("2. create new order");
@@ -49,19 +46,19 @@ public class RestAdmin extends Admin{
 			
 			switch (option) {
 				case 1:
-					Customer c = Services.addCustomer(DS.getCustomers());
-					DS.addCustomer(c);
+					Customer c = Services.addCustomer();
+					DDB.addCustomer(c);
 					break;
 				case 2:
-					Order o = Services.createNewOrderByRestAdmin(this, DS.getCustomers());
-					DS.addOrder(o);
+					Order o = Services.createNewOrderByRestAdmin(this, DDB.getCustomers());
+					DDB.addOrder(o);
 					break;
 				case 3:
 					Rider r = Services.addRider(); // does not add to DS
-					DS.addRider(r);
+					DDB.addRider(r);
 					break;
 				case 4:
-					Services.assignOrderToRider(DS.getRiders(), DS.getOrders());
+					Services.assignOrderToRider(DDB.getRiders(), DDB.getOrders());
 					break;
 			}
 		}

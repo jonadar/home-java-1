@@ -66,7 +66,7 @@ public class Customer {
 		if (valid) this.remainingCredit = remainingCredit;
 	}
 	
-	public void menu(DeliverySystem DS) {
+	public void menu(DeliveryDataBase DDB) {
 		System.out.println("you are customer");
 		
 		while(true) {
@@ -81,17 +81,17 @@ public class Customer {
 			
 			switch (option) {
 				case 1:
-					Order o = Services.createNewOrder(this, DS.getRestaurants());
-					DS.addOrder(o);
+					Order o = Services.createNewOrder(this, DDB.getRestaurants());
+					DDB.addOrder(o);
 					break;
 				case 2:
-					DS.displayAllOrders(this);
+					DDB.displayAllOrders(this);
 					break;
 				case 3:
 					Services.updatePersonalInfo(this);
 					break;
 				case 4:
-					DS.displayRestaurantDetailsByCode();
+					DDB.displayRestaurantDetailsByCode();
 					break;
 			}
 		}
