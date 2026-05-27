@@ -81,7 +81,7 @@ public class UserInput {
 		if(a > b) return 0;
 		
 		// keep asking until user provides correct value 
-		while(true) {		
+		while(true) {	
 			System.out.println("enter " + valueName + ": [" + a + ", " + b + "]");
 			if(s.hasNextDouble()) {				
 				userValue = s.nextDouble();
@@ -102,7 +102,7 @@ public class UserInput {
 		double userValue = -1.0;
 		
 		// keep asking until user provides correct value 
-		while(true) {			
+		while(true) {
 			System.out.println("enter " + valueName + ": ");
 			if(s.hasNextDouble()) {				
 				userValue = s.nextDouble();
@@ -187,7 +187,6 @@ public class UserInput {
 	}
 	
 	/**
-	 * @param valueName name of value being received for user prompt
 	 * @return date String
 	 */
 	public static String getAddress() {		
@@ -220,6 +219,9 @@ public class UserInput {
 		return street + " " + city + " " + mikud; 
 	}
 	
+	/**
+	 * @return phone number from user
+	 */
 	public static String getPhoneNumber() {		
 		String userValue;
 		
@@ -233,6 +235,9 @@ public class UserInput {
 		}
 	}
 	
+	/**
+	 * @return id from user
+	 */
 	public static String getId() {			
 		String userValue = "";
 		
@@ -245,6 +250,9 @@ public class UserInput {
 		}
 	}
 	
+	/**
+	 * @return username from user
+	 */
 	public static String getUsername() {
 		String userValue = "";
 		
@@ -257,6 +265,9 @@ public class UserInput {
 		}
 	}
 	
+	/**
+	 * @return password from user
+	 */
 	public static String getPassword() {			
 		String userValue = "";
 		
@@ -269,6 +280,9 @@ public class UserInput {
 		}
 	}
 	
+	/**
+	 * @return email from user
+	 */
 	public static String getEmail() {			
 		String userValue = "";
 		

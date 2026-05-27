@@ -169,6 +169,7 @@ public class Validation {
 		return true;
 	}
 	
+	// true if is only letters numbers and spaces but not blank
 	public static boolean isStreet(String str) {
 		if (str == null || str.isBlank()) return false;
 		
@@ -182,10 +183,12 @@ public class Validation {
 		return true;
 	}
 	
+	// true if only numbers
 	public static boolean isMikud(String str) {
 		return isOnlyDigits(str);
 	}
 	
+	// true if atleast 3 words, not blank and first word is a numbers and chars, and last word is numbers
 	public static boolean isAddress(String address) {
 		if(address == null || address.isBlank()) return false;
 		
@@ -215,6 +218,7 @@ public class Validation {
 		return true;
 	}
 	
+	// true if nu,ber between a and b including. num in [a,b]
 	public static boolean isNumberInRange(double a, double b, double num, String valueName) {
 		if (!(a <= num && num <= b)) {
 			System.out.println("invalid "+valueName+", must be in range ["+ a +", "+ b +"]");
