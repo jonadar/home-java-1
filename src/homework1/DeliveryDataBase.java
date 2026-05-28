@@ -147,4 +147,43 @@ public class DeliveryDataBase {
 		
 		System.out.println(restaurant);
 	}
+	
+	public void addOrderToCustomer(int customerCode, Order order) {
+		if (!this.customerOrders.containsKey(customerCode)) {
+			this.customerOrders.put(customerCode, new ArrayList<Order>());
+		}
+		if (this.customerOrders.get(customerCode).contains(order)) {
+			System.out.println("order alraedy exsist for the customer");
+			return;
+		}
+		this.customerOrders.get(customerCode).add(order);
+		System.out.println("order was conected to customer");
+	}
+	
+	public ArrayList<Order> riderOrders(String riderCode){
+		ArrayList<Order> ordersToReturn = new ArrayList<Order>();
+		ArrayList<Order> listOfOrders = new ArrayList<Order>();
+		for (Rider rider : this.riders) {
+			if (riderCode.equals(rider.getId())) {
+				listOfOrders = rider.getOrders();
+				break;
+			}
+		}
+		for (Order order : listOfOrders) {
+			if (order.getDeliveryStatus().equals("on the way") || order.getDeliveryStatus().equals("sent")) {
+				ordersToReturn.add(order);
+			}
+		}
+		return ordersToReturn;
+	}
+	
+	public ArrayList<Restaurant> customerOrdersFromPremiumRest(Customer customer){
+		ArrayList<Restaurant> listToReturn = new ArrayList<Restaurant>();
+		for (Order o : this.customerOrders.get(customer.getCustomerCode())) {
+			if (o.getRest() instanceof PremiumRestaurant) {
+				listToReturn.add(o.getRest());
+			}
+		}
+		return listToReturn;
+	}
 }
