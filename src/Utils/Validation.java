@@ -3,8 +3,6 @@ package Utils;
 import java.util.ArrayList;
 
 public class Validation {
-	public static void main(String[] args) {}
-	
 	/**
 	 * @param str String to check
 	 * @param failMessage String message if validation fails
@@ -59,14 +57,16 @@ public class Validation {
 		return true;
 	}
 	
+	/**
+	 * @param newItem to check if already in array
+	 * @param items ArrayList of items to compare to newItem
+	 * @return true if newItem not in array
+	 */
 	// TODO: check that works, and ask if generics okay.
-	public static <T> boolean validateNotInArray(Object newItem, ArrayList<T> items) {
+	public static <T> boolean validateNotInArray(T newItem, ArrayList<T> items) {
 		if(newItem == null) return false;
-		for(Object item: items) {
-			if (item != null && item.equals(newItem)) return false;
-		}
 		
-		return true;
+		return items.contains(newItem);
 	}
 	
 	
@@ -108,7 +108,7 @@ public class Validation {
 	 * @return true if only contains alphabetic and number chars
 	 */
 	public static boolean isOnlyNumbersAndChars(String str) {
-		if (str == null || str.isBlank()) return false;
+		if (isEmptyString(str)) return false;
 		
 		for (char ch: str.toCharArray()) {
 			if (!Character.isLetterOrDigit(ch)) return false;
@@ -122,7 +122,7 @@ public class Validation {
 	 * @return true if only contains alphabetic chars
 	 */
 	public static boolean isOnlyChars(String str) {
-		if (str == null || str.isBlank()) return false;
+		if (isEmptyString(str)) return false;
 		
 		for (char ch: str.toCharArray()) {
 			if (!Character.isAlphabetic(ch)) return false;
@@ -136,7 +136,7 @@ public class Validation {
 	 * @return true if only contains digits
 	 */
 	public static boolean isOnlyDigits(String str) {
-		if (str == null || str.isBlank()) return false;
+		if (isEmptyString(str)) return false;
 		
 		for (char ch: str.toCharArray()) {
 			if (!Character.isDigit(ch)) return false;
@@ -151,7 +151,7 @@ public class Validation {
 	 * @return true if str is valid email, otherwise false
 	 */
 	public static boolean isEmail(String str) {
-		if (str == null || str.isBlank()) return false;
+		if (isEmptyString(str)) return false;
 		
 		for (char ch: str.toCharArray()) {
 			if (!(Character.isLetterOrDigit(ch) || ch == '@' || ch == '.')) {
@@ -171,7 +171,7 @@ public class Validation {
 	 * @return true if str is valid adress, otherwise false
 	 */
 	public static boolean isCity(String str) {
-		if (str == null || str.isBlank()) return false;
+		if (isEmptyString(str)) return false;
 		
 		for (char ch: str.toCharArray()) {
 			if (!(Character.isAlphabetic(ch) || ch == ' ')) {
@@ -182,9 +182,12 @@ public class Validation {
 		return true;
 	}
 	
-	// true if is only letters numbers and spaces but not blank
+	/**
+	 * @param str String to check
+	 * @return true if is only letters numbers and spaces but not blank
+	 */
 	public static boolean isStreet(String str) {
-		if (str == null || str.isBlank()) return false;
+		if (isEmptyString(str)) return false;
 		
 		// street city mikud
 		for (char ch: str.toCharArray()) {
@@ -196,33 +199,47 @@ public class Validation {
 		return true;
 	}
 	
-	// true if only numbers
+	/**
+	 * @param str String to check
+	 * @return true if only numbers
+	 */
 	public static boolean isMikud(String str) {
 		return isOnlyDigits(str);
 	}
 	
-	// true if atleast 3 words, not blank and first word is a numbers and chars, and last word is numbers
+	/**
+	 * @param address String to check
+	 * @return true if atleast 3 words, not blank and first word is a numbers and chars (street), and last word is numbers (mikud)
+	 */
 	public static boolean isAddress(String address) {
-		if(address == null || address.isBlank()) return false;
+		if(isEmptyString(address)) return false;
 		
 		String[] split = address.split(" ");
 		return split.length >= 3 && isStreet(split[0]) && isMikud(split[split.length-1]);
 	}
 	
-	
-	// not empty, 10 digits
+	/**
+	 * @param phoneNumber String to check
+	 * @return true if not empty & 10 digits
+	 */
 	public static boolean isPhoneNumber(String phoneNumber) {
 		return isOnlyDigits(phoneNumber) && phoneNumber.length() == 10;
 	}
 	
-	// not empty, numbers only, length of 9
+	/**
+	 * @param id String to check
+	 * @return true if not empty, numbers only & length of 9
+	 */
 	public static boolean isId(String id) {
 		return isOnlyDigits(id) && id.length() == 9;
 	}
 	
-	// not empty, not only spaces, letters only
+	/**
+	 * @param name String to check
+	 * @return true if not empty, not only spaces, letters and spaces only
+	 */
 	public static boolean isName(String name) {
-		if (name == null || name.isBlank()) return false;
+		if (isEmptyString(name)) return false;
 		
 		for (char ch: name.toCharArray()) {
 			if (!(Character.isAlphabetic(ch) || ch == ' ')) return false;
@@ -231,22 +248,33 @@ public class Validation {
 		return true;
 	}
 	
-	// true if nu,ber between a and b including. num in [a,b]
+	/**
+	 * @param a lower bound
+	 * @param b upper bound
+	 * @param num value to check
+	 * @param valueName String name of value for error printing
+	 * @return true if number between a and b including. num in [a,b]
+	 */
 	public static boolean isNumberInRange(double a, double b, double num, String valueName) {
 		if (!(a <= num && num <= b)) {
-			System.out.println("invalid "+valueName+", must be in range ["+ a +", "+ b +"]");
+			System.out.println("invalid "+ valueName +", must be in range ["+ a +", "+ b +"]");
 			return false;
 		}
 		return true;
 	}
 	
-	
-	// only numbers and characters
+	/**
+	 * @param username String to check
+	 * @return true if only numbers and characters
+	 */
 	public static boolean isUsername(String username) {
 		return Validation.isOnlyNumbersAndChars(username);
 	}
 	
-	// only numbers and characters and of length minimum 3
+	/**
+	 * @param password String to check
+	 * @return true if only numbers and characters and of length minimum 3
+	 */
 	public static boolean isPassword(String password) {
 		return Validation.isOnlyNumbersAndChars(password) && password.length() >= 3;
 	}

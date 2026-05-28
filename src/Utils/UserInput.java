@@ -193,7 +193,7 @@ public class UserInput {
 		String city = "";
 		String street = "";
 		String mikud = "";
-				
+		
 		// keep asking until user provides correct value 
 		while(true) {
 			System.out.println("enter city: ");
@@ -238,7 +238,7 @@ public class UserInput {
 	/**
 	 * @return id from user
 	 */
-	public static String getId() {			
+	public static String getId() {
 		String userValue = "";
 		
 		// keep asking until user provides correct value 
