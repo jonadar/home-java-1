@@ -4,7 +4,6 @@ import Utils.UserInput;
 
 public class Main {
 	public static void main(String[] args) {
-//		DeliverySystem DS = new DeliverySystem();
 		DeliveryDataBase DDB = new DeliveryDataBase();
 
 		// 5 riders
@@ -79,8 +78,8 @@ public class Main {
 			
 			switch(option) {
 				case(1):
-					String adminUsername = UserInput.getUsername();
-					String adminPassword = UserInput.getPassword();
+					String adminUsername = UserInput.getUsername(); // doesnt have to be get username, can be any string and just fail
+					String adminPassword = UserInput.getPassword(); // same here
 					// login as admin
 					if(DDB.getSystemAdministrator().login(adminUsername, adminPassword)) {
 						System.out.println("you are admin");
@@ -92,8 +91,8 @@ public class Main {
 					break;
 				case(2):
 					// restAdmin login using password and username
-					String username = UserInput.getUsername();
-					String password = UserInput.getPassword();
+					String username = UserInput.getUsername(); // doesnt have to be get username, can be any string and just fail
+					String password = UserInput.getPassword(); // same here
 				
 					RestAdmin restaurantAdmin = null;
 					for (RestAdmin ra: DDB.getRestaurantAdmins()) {
@@ -119,7 +118,7 @@ public class Main {
 					break;
 				case(3):
 					// rider login using id
-					String id = UserInput.getId();
+					String id = UserInput.getId(); // can be any string and just fail
 				
 					Rider rider = null;
 					for (Rider r: DDB.getRiders()) {

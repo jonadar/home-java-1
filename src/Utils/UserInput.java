@@ -116,7 +116,7 @@ public class UserInput {
 	}
 	
 	/**
-	 * @param valueName name of value being received for user prompt
+	 * @param question to prompt user
 	 * @return true if user entered 1 or false if user entered 2
 	 */
 	public static boolean getBoolean(String question) {		
@@ -291,7 +291,7 @@ public class UserInput {
 			System.out.println("enter email:");
 			userValue = s.nextLine();
 			if(Validation.isEmail(userValue)) return userValue;
-			System.out.println("invalid email. must be none empty string with only characters");
+			System.out.println("invalid email. must be none empty string with only characters, digits, '.' and @ but only one @ symbol");
 		}
 	}
 }

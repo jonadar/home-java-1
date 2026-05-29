@@ -74,11 +74,10 @@ public class Rider {
 		this.orders.add(order);
 		
 		return true;
-		
 	}
 	
 	public void menu(DeliveryDataBase DDB) {
-		System.out.println("you are rider");
+		System.out.println("welcome rider " + this.fullName + ". what would you like to do?");
 		while(true) {
 			System.out.println("1. update order status");
 			System.out.println("2. view orders");

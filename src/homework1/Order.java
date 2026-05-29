@@ -12,8 +12,8 @@ public class Order {
 	private String deliveryDate;
 	private double basePrice;
 	private double finalPrice;
-	private String deliveryStatus = "sent"; // sent, on the way, delivered
-	
+	private String deliveryStatus;
+	private static final String[] VALID_STATUSES = {"sent", "on the way", "delivered"}; 
 	private static int orderCount = 1;
 	
 	public int getOrderCode() {return orderCode;}
@@ -26,7 +26,7 @@ public class Order {
 	public double getBasePrice() {return basePrice;}
 	public double getFinalPrice() {return finalPrice;}
 	public String getDeliveryStatus() {return deliveryStatus;}
-	
+	public static String[] getValidStatuses() {return VALID_STATUSES;}
 	
 	public Order(int customerCode, Restaurant restaurant, double basePrice, String orderDate) {
 		this.orderCode = orderCount++;
@@ -35,8 +35,9 @@ public class Order {
 		this.restaurantCode = restaurant.getRestaurantCode();
 		this.driverId = null;
 		this.orderDate = orderDate;
-		this.deliveryDate = "0";
 		this.basePrice = basePrice;
+		this.deliveryDate = "0";
+		this.deliveryStatus = VALID_STATUSES[0];
 		this.finalPrice = restaurant.calculatePrice(basePrice);
 		
 		System.out.println("Order with code: " + this.orderCode + " has been created.");
@@ -84,8 +85,7 @@ public class Order {
 	}
 	
 	public void setDeliveryStatus(String deliveryStatus) {
-		String[] statuses = {"sent", "on the way", "delivered"};
-		boolean inArray = !Validation.validateNotInArray(deliveryStatus, statuses);
+		boolean inArray = !Validation.validateNotInArray(deliveryStatus, VALID_STATUSES);
 		
 		if(inArray) this.deliveryStatus = deliveryStatus;
 		else System.out.println("invalid delivery status");

@@ -62,9 +62,8 @@ public class Validation {
 	 * @param items ArrayList of items to compare to newItem
 	 * @return true if newItem not in array
 	 */
-	// TODO: check that works, and ask if generics okay.
 	public static <T> boolean validateNotInArray(T newItem, ArrayList<T> items) {
-		if(newItem == null) return false;
+		if(newItem == null || items == null) return false;
 		
 		return items.contains(newItem);
 	}
@@ -84,9 +83,9 @@ public class Validation {
 		if(splitDate[1].length() > 2 || splitDate[1].length() == 0) return false;
 		if(splitDate[2].length() != 4) return false;
 		
-		int day = Utilities.StringToPositiveInt(splitDate[0]);
-		int month = Utilities.StringToPositiveInt(splitDate[1]);
-		int year = Utilities.StringToPositiveInt(splitDate[2]);
+		int day = Integer.parseInt(splitDate[0]);
+		int month = Integer.parseInt(splitDate[1]);
+		int year = Integer.parseInt(splitDate[2]);
 		
 		if (day < 0 || day > 31) return false;
 		if (month < 1 || month > 12) return false;

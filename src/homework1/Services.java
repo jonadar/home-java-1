@@ -38,7 +38,7 @@ public class Services {
 		}
 
 		// choose order status (on the way), (delivered)
-		String[] options = {"on the way", "delivered"};
+		final String[] options = {"on the way", "delivered"};
 		String deliveryOption = UserInput.getStringFromOptions(options);
 		
 		order.setDeliveryStatus(deliveryOption);
@@ -54,7 +54,7 @@ public class Services {
 	
 	public static void updatePersonalInfo(Customer customer) {
 		System.out.println("what would you like to update?");
-		String[] options = {"phone number", "adress", "none"};
+		final String[] options = {"phone number", "adress", "none"};
 		String userSelection = UserInput.getStringFromOptions(options);
 		
 		if(userSelection.equals(options[0])) { // phone number
