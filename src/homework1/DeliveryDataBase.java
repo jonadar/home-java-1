@@ -179,15 +179,20 @@ public class DeliveryDataBase {
 	
 	public ArrayList<Restaurant> customerOrdersFromPremiumRest(Customer customer){
 		ArrayList<Restaurant> listToReturn = new ArrayList<Restaurant>();
-		for (Order o : this.customerOrders.get(customer.getCustomerCode())) {
-			if (o.getRest() instanceof PremiumRestaurant) {
-				listToReturn.add(o.getRest());
+		
+		if (!this.customersOrderedRestaurants.containsKey(customer.getCustomerCode())) {
+			return listToReturn;
+		}
+		
+		for (Restaurant r : this.customersOrderedRestaurants.get(customer.getCustomerCode())) {
+			if (r instanceof PremiumRestaurant) {
+				listToReturn.add(r);
 			}
 		}
 		return listToReturn;
 	}
 	
-	public Customer customerWithHighstOrders() {
+	public Customer customerWithHighestOrders() {
 		int currntHighstId = -1;
 		int currntHighstOrders = -1;
 		for (Integer customerId : customerOrders.keySet()) {
@@ -219,7 +224,7 @@ public class DeliveryDataBase {
 		return bestRider;
 	}
 	
-	public ArrayList<Restaurant> openRestByCategory(String kitchenType){
+	public ArrayList<Restaurant> openRestaurantsByKitchenType(String kitchenType){
 		ArrayList<Restaurant> openRst = new ArrayList<Restaurant>();
 		for (Restaurant restaurant : this.restaurants) {
 			if (restaurant.getKitchenType().equals(kitchenType) && restaurant.isOpen()) {
