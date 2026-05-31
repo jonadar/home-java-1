@@ -186,4 +186,49 @@ public class DeliveryDataBase {
 		}
 		return listToReturn;
 	}
+	
+	public Customer customerWithHighstOrders() {
+		int currntHighstId = -1;
+		int currntHighstOrders = -1;
+		for (Integer customerId : customerOrders.keySet()) {
+			int cuurntSum = customerOrders.get(customerId).size();
+			if (cuurntSum > currntHighstOrders) {
+				currntHighstId = customerId;
+				currntHighstOrders = cuurntSum;
+			}
+		}
+		for (Customer customer : this.customers) {
+			if (currntHighstId == customer.getCustomerCode()) {
+				return customer;
+			}
+		}
+		return null; // למקרה ואין בכלל לקוחות
+	}
+	
+	
+	public Rider riderWithHighstOrders() {
+		Rider bestRider = null;
+		int currntHighstOrders = -1;
+		for (Rider rider : this.riders) {
+			int ridersOrdersCunt = rider.getOrders().size();
+			if (ridersOrdersCunt > currntHighstOrders) {
+				bestRider = rider;
+				currntHighstOrders = ridersOrdersCunt;
+			}
+		}
+		return bestRider;
+	}
+	
+	public ArrayList<Restaurant> openRestByCategory(String kitchenType){
+		ArrayList<Restaurant> openRst = new ArrayList<Restaurant>();
+		for (Restaurant restaurant : this.restaurants) {
+			if (restaurant.getKitchenType().equals(kitchenType) && restaurant.isOpen()) {
+				openRst.add(restaurant);
+			}
+		}
+		return openRst;
+	}
+	
+	
+	
 }
