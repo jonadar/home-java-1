@@ -96,6 +96,7 @@ public class DeliveryDataBase {
 		else System.out.println("invalid,  order already registered");
 	}
 	
+	// display all rider orders
 	public void displayAllOrders(Rider rider) {
 		ArrayList<Order> orders = rider.getOrders();
 		
@@ -112,6 +113,7 @@ public class DeliveryDataBase {
 		System.out.println("-----------------------------");
 	}
 	
+	// display all customer orders
 	public void displayAllOrders(Customer customer) {
 		ArrayList<Order> customerOrders = this.customerOrders.get(customer.getCustomerCode());
 		
@@ -148,6 +150,10 @@ public class DeliveryDataBase {
 		System.out.println(restaurant);
 	}
 	
+	/**
+	 * @param customerCode of customer to add order to
+	 * @param Order to add to customer
+	 */
 	public void addOrderToCustomer(int customerCode, Order order) {
 		if (!this.customerOrders.containsKey(customerCode)) {
 			this.customerOrders.put(customerCode, new ArrayList<Order>());
@@ -160,11 +166,15 @@ public class DeliveryDataBase {
 		System.out.println("order was conected to customer");
 	}
 	
-	public ArrayList<Order> riderOrders(String riderCode){
+	/**
+	 * @param String rider id
+	 * @return ArrayList of orders that are not delivered
+	 */
+	public ArrayList<Order> riderPedningOrders(String riderId){
 		ArrayList<Order> ordersToReturn = new ArrayList<Order>();
 		ArrayList<Order> listOfOrders = new ArrayList<Order>();
 		for (Rider rider : this.riders) {
-			if (riderCode.equals(rider.getId())) {
+			if (riderId.equals(rider.getId())) {
 				listOfOrders = rider.getOrders();
 				break;
 			}
@@ -177,6 +187,10 @@ public class DeliveryDataBase {
 		return ordersToReturn;
 	}
 	
+	/**
+	 * @param customer to check
+	 * @return ArrayList of premium restaurants that customer ordered from
+	 */
 	public ArrayList<Restaurant> customerOrdersFromPremiumRest(Customer customer){
 		ArrayList<Restaurant> listToReturn = new ArrayList<Restaurant>();
 		
@@ -192,7 +206,10 @@ public class DeliveryDataBase {
 		return listToReturn;
 	}
 	
-	public Customer customerWithHighestOrders() {
+	/**
+	 * @return Customer who has highest order count
+	 */
+	public Customer customerWithMostOrders() {
 		int currntHighstId = -1;
 		int currntHighstOrders = -1;
 		for (Integer customerId : customerOrders.keySet()) {
@@ -211,7 +228,10 @@ public class DeliveryDataBase {
 	}
 	
 	
-	public Rider riderWithHighstOrders() {
+	/**
+	 * @return Rider who has highest order count
+	 */
+	public Rider riderWithMostOrders() { // issue, might need to check order status to make sure they are delivered
 		Rider bestRider = null;
 		int currntHighstOrders = -1;
 		for (Rider rider : this.riders) {
@@ -224,6 +244,10 @@ public class DeliveryDataBase {
 		return bestRider;
 	}
 	
+	/**
+	 * @param kitchenType type of kitchen to check for
+	 * @return ArrayList of open restaurants with given kitchen type
+	 */
 	public ArrayList<Restaurant> openRestaurantsByKitchenType(String kitchenType){
 		ArrayList<Restaurant> openRst = new ArrayList<Restaurant>();
 		for (Restaurant restaurant : this.restaurants) {

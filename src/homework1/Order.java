@@ -52,7 +52,8 @@ public class Order {
 		if (rest != null) {
 			this.restaurant = rest;
 		}
-		else {System.out.println("invalid field");
+		else {
+			System.out.println("invalid field");
 		}
 	}
 	
@@ -78,7 +79,7 @@ public class Order {
 	
 	public void setBasePrice(double basePrice) {
 		boolean valid = Validation.validate(basePrice, "invalid base price");
-		if(valid) {			
+		if(valid) {
 			this.basePrice = basePrice;
 			this.finalPrice = restaurant.calculatePrice(basePrice);
 		} 
