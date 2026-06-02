@@ -76,13 +76,18 @@ public class Validation {
 	public static boolean isDate(String date) {
 		if (date == null || date.isBlank()) return false;
 		
+		// check that date without slashes is only digits
+		if(!isOnlyDigits(date.replace("/", ""))) {
+			return false;
+		}
+		
 		String[] splitDate = date.split("/");
 		if(splitDate.length != 3) return false;
 		
 		if(splitDate[0].length() > 2 || splitDate[0].length() == 0) return false;
 		if(splitDate[1].length() > 2 || splitDate[1].length() == 0) return false;
 		if(splitDate[2].length() != 4) return false;
-		
+
 		int day = Integer.parseInt(splitDate[0]);
 		int month = Integer.parseInt(splitDate[1]);
 		int year = Integer.parseInt(splitDate[2]);
