@@ -39,10 +39,12 @@ public class RestAdmin extends Admin{
 			System.out.println("2. create new order");
 			System.out.println("3. add rider");
 			System.out.println("4. assign rider to order");
-			System.out.println("5. logout");
+			System.out.println("5. view restaurant orders");
+			System.out.println("6. view restaurants by kitchen type");
+			System.out.println("7. logout");
 			
-			int option = UserInput.getIntFromRange(1, 5, "option");
-			if(option == 5) break;
+			int option = UserInput.getIntFromRange(1, 7, "option");
+			if(option == 7) break;
 			
 			switch (option) {
 				case 1:
@@ -59,6 +61,12 @@ public class RestAdmin extends Admin{
 					break;
 				case 4:
 					Services.assignOrderToRider(DDB.getRiders(), DDB.getOrders());
+					break;
+				case 5:
+					DDB.showOrdersOfRestaurant(this);
+					break;
+				case 6:
+					DDB.showOpenRestaurantsByKitchenType(this);
 					break;
 			}
 		}

@@ -48,14 +48,18 @@ public class Admin {
 			System.out.println("4. add restaurant");
 			System.out.println("5. add rider");
 			System.out.println("6. assign rider to order");
-			System.out.println("7. logout");
+			System.out.println("7. view all system orders");
+			System.out.println("8. show customer with most orders");
+			System.out.println("9. show rider with most deliveries");
+			System.out.println("10. update restaurant status");
+			System.out.println("11. logout");
 			
-			int option = UserInput.getIntFromRange(1, 7, "option");
-			if(option == 7) break;
+			int option = UserInput.getIntFromRange(1, 11, "option");
+			if(option == 11) break;
 			
 			switch (option) {
 				case 1:
-					Customer c = Services.addCustomer();
+					Customer c = Services.addCustomer(); // should add customer in function
 					DDB.addCustomer(c);
 					break;
 				case 2:
@@ -75,6 +79,18 @@ public class Admin {
 					break;
 				case 6:
 					Services.assignOrderToRider(DDB.getRiders(), DDB.getOrders());
+					break;
+				case 7:
+					DDB.displayAllOrders(); // show all system orders
+					break;
+				case 8:
+					System.out.println(DDB.customerWithMostOrders());
+					break;
+				case 9:
+					System.out.println(DDB.riderWithMostOrders()); 
+					break;
+				case 10:
+					Services.updateRestaurantStatus(DDB.getRestaurants());
 					break;
 			}
 		}

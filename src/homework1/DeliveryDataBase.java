@@ -90,10 +90,48 @@ public class DeliveryDataBase {
 		// check if already in array
 		boolean valid = Validation.validateNotInArray(order, this.orders);
 		
-		if(valid) {
-			this.orders.add(order);
+		if(!valid) {
+			System.out.println("invalid,  order already registered");
+			return;
 		}
-		else System.out.println("invalid,  order already registered");
+		// add order to list and update hash maps
+		this.orders.add(order);
+		
+		// update hashmaps and tables
+		this.addOrderToCustomer(order.getCustomerCode(), order);
+		this.updateCustomerOrderedRestaurants(order.getCustomerCode(), order.getRest());
+		this.updateCustomerExpenses(order.getCustomerCode(), order.getFinalPrice());
+	}
+	
+	// display all system orders
+	public void displayAllOrders() {
+		if(this.orders == null || this.orders.size() == 0) {
+			System.out.println("no orders to display");
+			return;
+		}
+		
+		System.out.println("all system orders:");
+		Services.displayArrayAsNumberedList(orders);
+		
+		System.out.println("-----------------------------");
+	}
+	
+	// display all restaurant orders
+	public void displayAllOrders(Restaurant restaurant) {
+		if(this.orders == null || this.orders.size() == 0) {
+			System.out.println("no orders to display");
+			return;
+		}
+		int num = 0;
+		
+		System.out.println("restaurant orders:");
+		for (Order order : this.orders) {
+			if(order.getRest().equals(restaurant)) {				
+				System.out.println((++num) + ". " + order);
+			}
+		}
+		
+		System.out.println("-----------------------------");
 	}
 	
 	// display all rider orders
@@ -106,9 +144,7 @@ public class DeliveryDataBase {
 		}
 		
 		System.out.println("your orders are: ");
-		for (int i = 0; i < orders.size(); i++) {
-			System.out.println((i+1) + ". " + orders.get(i));
-		}
+		Services.displayArrayAsNumberedList(orders);
 		
 		System.out.println("-----------------------------");
 	}
@@ -123,9 +159,7 @@ public class DeliveryDataBase {
 		}
 		
 		System.out.println("your orders are: ");
-		for (int i = 0; i < customerOrders.size(); i++) {
-			System.out.println((i+1) + ". " + customerOrders.get(i));
-		}
+		Services.displayArrayAsNumberedList(customerOrders);
 		
 		System.out.println("-----------------------------");
 	}
@@ -151,6 +185,31 @@ public class DeliveryDataBase {
 	}
 	
 	/**
+	 * @param customerCode of customer to update map
+	 * @param Restaurant 
+	 */
+	public void updateCustomerOrderedRestaurants(int customerCode, Restaurant restaurant) {
+		if (!this.customersOrderedRestaurants.containsKey(customerCode)) {
+			this.customersOrderedRestaurants.put(customerCode, new ArrayList<Restaurant>());
+		}
+		
+		if (this.customersOrderedRestaurants.get(customerCode).contains(restaurant)) return;
+		
+		this.customersOrderedRestaurants.get(customerCode).add(restaurant);
+	}
+	/**
+	 * @param customerCode of customer to update expenses of
+	 * @param newExpense to add to customer
+	 */
+	public void updateCustomerExpenses(int customerCode, double newExpense) {
+		if (!this.customerExpenses.containsKey(customerCode)) {
+			this.customerExpenses.put(customerCode, 0.0);
+		}
+		
+		this.customerExpenses.put(customerCode, this.customerExpenses.get(customerCode) + newExpense);
+	}
+	
+	/**
 	 * @param customerCode of customer to add order to
 	 * @param Order to add to customer
 	 */
@@ -159,11 +218,11 @@ public class DeliveryDataBase {
 			this.customerOrders.put(customerCode, new ArrayList<Order>());
 		}
 		if (this.customerOrders.get(customerCode).contains(order)) {
-			System.out.println("order alraedy exsist for the customer");
+			System.out.println("order already exists for customer");
 			return;
 		}
 		this.customerOrders.get(customerCode).add(order);
-		System.out.println("order was conected to customer");
+		System.out.println("order was connected to customer");
 	}
 	
 	/**
@@ -258,6 +317,61 @@ public class DeliveryDataBase {
 		return openRst;
 	}
 	
+	// pick and show orders from a restaurant owned by a restaurant admin
+	public void showOrdersOfRestaurant(RestAdmin restAdmin) {
+		ArrayList<Restaurant> adminRestaurants = restAdmin.getRestaurants();
+		
+		if(restAdmin.getRestaurants().size() == 0) {
+			System.out.println("restaurant admin has no assigned restaurants yet.");
+			return;
+		}
+		//print options
+		Services.displayArrayAsNumberedList(adminRestaurants);
+		
+		// choose restaurant
+		int restaurantIndex = UserInput.getIntFromRange(1, adminRestaurants.size(), "restaurant");
+		Restaurant restaurant = adminRestaurants.get(restaurantIndex-1);
+		
+		this.displayAllOrders(restaurant);
+	}
 	
+	public void showOpenRestaurantsByKitchenType(RestAdmin restAdmin) {
+		String kitchenType = UserInput.getName("kitchen type");
+		ArrayList<Restaurant> restaurantsWithType =  this.openRestaurantsByKitchenType(kitchenType);
+		ArrayList<Restaurant> filtered = new ArrayList<Restaurant>();
+		
+		for (Restaurant restaurant: restaurantsWithType) {
+			if (restAdmin.getRestaurants().contains(restaurant)) filtered.add(restaurant);
+		}
+		
+		if (filtered.size() == 0) {
+			System.out.println("no restaurants with type " + kitchenType + " found for this admin");
+			return;
+		}
+		//print options
+		Services.displayArrayAsNumberedList(filtered);
+		
+		System.out.println("-----------------------------------");
+	}
 	
+	public void displayOrderedRestaurants(Customer customer) {
+		ArrayList<Restaurant> customerRestaurants = this.customersOrderedRestaurants.get(customer.getCustomerCode());
+		
+		if(customerRestaurants == null || customerRestaurants.size() == 0) {
+			System.out.println("customer has no ordered restaurants yet.");
+			return;
+		}
+		
+		Services.displayArrayAsNumberedList(customerRestaurants);
+	}
+	public void displayOrderedPremiumRestaurants(Customer customer) {
+		ArrayList<Restaurant> customerRestaurants = this.customerOrdersFromPremiumRest(customer);
+		
+		if(customerRestaurants == null || customerRestaurants.size() == 0) {
+			System.out.println("customer has no ordered premium restaurants yet.");
+			return;
+		}
+		
+		Services.displayArrayAsNumberedList(customerRestaurants);
+	}
 }

@@ -73,11 +73,15 @@ public class Customer {
 			System.out.println("1. create new order");
 			System.out.println("2. view my orders");
 			System.out.println("3. update my personal info");
-			System.out.println("4. view restaurant info");
-			System.out.println("5. logout");
+			System.out.println("4. view restaurants ordered from");
+			System.out.println("5. view premium restaurants ordered from");
+			System.out.println("6. view my current balance");
+			System.out.println("7. add to my balance");
+			System.out.println("8. take money out of balance");
+			System.out.println("9. logout");
 			
-			int option = UserInput.getIntFromRange(1,5, "option");
-			if(option == 5) break;
+			int option = UserInput.getIntFromRange(1,9, "option");
+			if(option == 9) break;
 			
 			switch (option) {
 				case 1:
@@ -91,7 +95,20 @@ public class Customer {
 					Services.updatePersonalInfo(this);
 					break;
 				case 4:
-					DDB.displayRestaurantDetailsByCode();
+					//DDB.displayRestaurantDetailsByCode(); // function might be removeable, not using anymore
+					DDB.displayOrderedRestaurants(this);
+					break;
+				case 5:
+					DDB.displayOrderedPremiumRestaurants(this);
+					break;
+				case 6:
+					System.out.println("customer balance is: " + this.getRemainingCredit());
+					break;
+				case 7:
+					Services.chargeCustomerBalance(this);
+					break;
+				case 8:
+					Services.withdrawCustomerBalance(this);
 					break;
 			}
 		}

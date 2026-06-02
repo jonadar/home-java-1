@@ -19,9 +19,7 @@ public class Services {
 		}
 		
 		// pick order from list
-		for (int i = 0; i < orders.size(); i++) {
-			System.out.println((i+1) + ". " + orders.get(i));
-		}
+		displayArrayAsNumberedList(orders);
 		
 		int orderCode = UserInput.getInt("order code");
 		Order order = null;
@@ -54,7 +52,7 @@ public class Services {
 	
 	public static void updatePersonalInfo(Customer customer) {
 		System.out.println("what would you like to update?");
-		final String[] options = {"phone number", "adress", "none"};
+		final String[] options = {"phone number", "adress", "email", "none"};
 		String userSelection = UserInput.getStringFromOptions(options);
 		
 		if(userSelection.equals(options[0])) { // phone number
@@ -68,6 +66,12 @@ public class Services {
 			customer.setAddress(adress);
 			System.out.println("updated address");
 		}
+		
+		else if (userSelection.equals(options[2])){ // email
+			String email = UserInput.getEmail();
+			customer.setEmail(email);
+			System.out.println("updated email address");
+		}
 	}
 	
 	/**
@@ -80,10 +84,8 @@ public class Services {
 			System.out.println("no restaurants to order from");
 			return null;
 		}
-		//print options
-		for (int i = 0; i < restaurants.size(); i++) {
-			System.out.println((i+1) + ". " + restaurants.get(i));
-		}
+		
+		displayArrayAsNumberedList(restaurants);
 		
 		// choose restaurant
 		int restaurantIndex = UserInput.getIntFromRange(1, restaurants.size(), "restaurant");
@@ -91,6 +93,12 @@ public class Services {
 		
 		// get base amount
 		double baseCost = UserInput.getDouble("base cost");
+		
+		// check customer has enough money
+		if(customer.getRemainingCredit() < restaurant.calculatePrice(baseCost)) {
+			System.out.println("customer does not have enough remaining credit to place order. cost is " + restaurant.calculatePrice(baseCost));
+			return null;
+		}
 		
 		if (restaurant instanceof PremiumRestaurant) {
 			if(baseCost < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
@@ -105,7 +113,11 @@ public class Services {
 		return new Order(customer.getCustomerCode(), restaurant, baseCost, date);
 	}
 	
-	
+	/** 
+	 * @param customer code
+	 * @param customerArray
+	 * @return true if customer is not in array
+	 */
 	public static boolean notInAnArray(int code, ArrayList<Customer> customerArray) {
 		for (int i = 0; i < customerArray.size(); i++) {
 			if (customerArray.get(i) != null && customerArray.get(i).getCustomerCode() == code) {
@@ -116,6 +128,11 @@ public class Services {
 		return true;
 	}
 	
+	/** 
+	 * @param code username of admin
+	 * @param restAdminArray
+	 * @return true if restAdmin is not in array
+	 */
 	public static boolean notInAnArray(String code, ArrayList<RestAdmin> RestAdminArray) {
 		for (int i = 0; i < RestAdminArray.size(); i++) {
 			if (RestAdminArray.get(i) != null && RestAdminArray.get(i).getUsername().equals(code)) {
@@ -155,6 +172,7 @@ public class Services {
 	}
 		
 		
+	// TODO: swap these with contains
 	public static RestAdmin findRestAdmin(String username, ArrayList<RestAdmin> restaurantAdmins) {
 		for (int i = 0 ; i<restaurantAdmins.size() ; i++) {
 			if (restaurantAdmins.get(i) != null) {
@@ -295,11 +313,20 @@ public class Services {
 	public static boolean assignOrderToRider(ArrayList<Rider> riders, ArrayList<Order> orders) {
 		Rider rider = findRider(UserInput.getId(), riders);
 		Order order = findOrder(UserInput.getInt("order"), orders);
-		if (rider != null && order != null && rider.getAvailable()){
+		
+		if (rider == null || order == null) {
+			System.out.println("rider or order could not be found");
+			return false;
+		}
+		
+		// rider is available and order does not have a rider assigned yet
+		if (rider.getAvailable() && order.getDriverId() == null){
 			boolean added = rider.addOrder(order);
 			if(added) {
-				System.out.println("assigned rider " + rider.getFullName() + " to order " + order.getOrderCode());
+				System.out.println("assigned rider " + rider.getId() + " to order " + order.getOrderCode());
+				// update order
 				order.setDriverId(rider.getId());
+				order.setDeliveryStatus("on the way");
 				return true;
 			} else {
 				System.out.println("failed to add order to rider");
@@ -340,25 +367,23 @@ public class Services {
 			System.out.println("no restaurants found for admin, cant add order");
 			return null;
 		}
-		//print options
-		for (int i = 0; i < adminRestaurants.size(); i++) {
-			System.out.println((i+1) + ". " + adminRestaurants.get(i));
-		}
+
+		displayArrayAsNumberedList(adminRestaurants);
 		
 		// choose restaurant
 		int restaurantIndex = UserInput.getIntFromRange(1, adminRestaurants.size(), "restaurant");
 		Restaurant restaurant = adminRestaurants.get(restaurantIndex-1);
 		
 		//check if belongs to rest admin
-		boolean hasRestaurant = false;
-		for (Restaurant r: restAdmin.getRestaurants()) {
-			if(restaurant.equals(r)) {
-				hasRestaurant = true;
-				break;
-			}
-		}
-		
-		if(!hasRestaurant) {
+//		boolean hasRestaurant = false;
+//		for (Restaurant r: restAdmin.getRestaurants()) {
+//			if(restaurant.equals(r)) {
+//				hasRestaurant = true;
+//				break;
+//			}
+//		}
+		// TODO: this if is not really needed as we pass through admins restaurants
+		if(!adminRestaurants.contains(restaurant)) {
 			System.out.println("restaurant does not belong to this rest admin.");
 			return null;
 		}
@@ -373,7 +398,10 @@ public class Services {
 		// get base amount
 		double baseCost = UserInput.getDouble("base cost");
 		
-		
+		if(customer.getRemainingCredit() < restaurant.calculatePrice(baseCost)) {
+			System.out.println("customer does not have enough remaining credit to place order. cost is " + restaurant.calculatePrice(baseCost));
+			return null;
+		}
 		if (restaurant instanceof PremiumRestaurant) {
 			if(baseCost < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
 				System.out.println("cost too low for order, must be more than " + ((PremiumRestaurant) restaurant).getMinOrderValue());
@@ -386,4 +414,46 @@ public class Services {
 		
 		return new Order(customer.getCustomerCode(), restaurant, baseCost, date);
 	}
+	
+	// get restaurant code and decide if open or closed
+	public static void updateRestaurantStatus(ArrayList<Restaurant> restaurants) {
+		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
+		
+		if(restaurant == null) System.out.println("restaurant not found");
+		
+		String currently = restaurant.isOpen() ? "open" : "closed";
+		String canBe = restaurant.isOpen() ? "closed" : "open";
+		
+		System.out.println("restaurant is currently " + currently);
+		boolean shouldChange = UserInput.getBoolean("set restaurant as " + canBe + "?");
+		
+		if(shouldChange) restaurant.setOpen(!restaurant.isOpen()); // if user asks to change, change to opposit of what it has
+	}
+	
+	/**
+	 * @param <T>
+	 * @param items array to print with numbers
+	 */
+	public static <T> void displayArrayAsNumberedList(ArrayList<T> items) {
+		for (int i = 0; i < items.size(); i++) {
+			System.out.println((i+1) + ". " + items.get(i));
+		}
+	}
+	
+	/**
+	 * @param customer to add to balance
+	 */
+	public static void chargeCustomerBalance(Customer customer) {
+		double chargeAmount = UserInput.getDouble("amount to add");
+		customer.setRemainingCredit(customer.getRemainingCredit() + chargeAmount);
+	}
+	
+	/**
+	 * @param customer to withdraw from balance
+	 */
+	public static void withdrawCustomerBalance(Customer customer) {
+		double withdrawAmount = UserInput.getDoubleFromRange(0, customer.getRemainingCredit(), "amount to withdraw");
+		customer.setRemainingCredit(customer.getRemainingCredit() - withdrawAmount);
+	}
+	
 }

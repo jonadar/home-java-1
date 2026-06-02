@@ -72,25 +72,45 @@ public class Rider {
 		}
 		
 		this.orders.add(order);
+		this.setAvailable(false);
 		
 		return true;
+	}
+	
+	// look for active order show it
+	public void showActiveOrder() {
+//		if(isAvailable) { // might be wrong, ask shadi if only 1 active order per rider
+//			System.out.println("rider is not currently working on an order");
+//			return;
+//		}
+		for (Order order : this.orders) {
+			if(order.getDeliveryStatus().equals("on the way")) {
+				System.out.println("active order: " + order);
+				return;
+			}
+		}
+		System.out.println("no active order found");
 	}
 	
 	public void menu(DeliveryDataBase DDB) {
 		System.out.println("welcome rider " + this.fullName + ". what would you like to do?");
 		while(true) {
 			System.out.println("1. update order status");
-			System.out.println("2. view orders");
-			System.out.println("3. logout");
+			System.out.println("2. view active order");
+			System.out.println("3. view order history");
+			System.out.println("4. logout");
 			int option = UserInput.getIntFromRange(1, 3, "option");
-			if(option == 3) break;
+			if(option == 4) break;
 			
 			switch (option) {
 				case 1:
 					Services.updateOrderStatus(this);
 					break;
 				case 2:
-					DDB.displayAllOrders(this);
+					this.showActiveOrder();
+					break;
+				case 3:
+					DDB.displayAllOrders(this); // TODO: check if this does correctly
 					break;
 			}
 		}
