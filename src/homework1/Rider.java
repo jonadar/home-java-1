@@ -99,7 +99,7 @@ public class Rider {
 			System.out.println("2. view active order");
 			System.out.println("3. view order history");
 			System.out.println("4. logout");
-			int option = UserInput.getIntFromRange(1, 3, "option");
+			int option = UserInput.getIntFromRange(1, 4, "option");
 			if(option == 4) break;
 			
 			switch (option) {

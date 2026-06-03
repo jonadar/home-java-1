@@ -95,7 +95,6 @@ public class Customer {
 					Services.updatePersonalInfo(this);
 					break;
 				case 4:
-					//DDB.displayRestaurantDetailsByCode(); // function might be removeable, not using anymore
 					DDB.displayOrderedRestaurants(this);
 					break;
 				case 5:

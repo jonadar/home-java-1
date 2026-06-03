@@ -111,7 +111,11 @@ public class Services {
 		// get date
 		String date = UserInput.getDate("todays date");
 		
-		return new Order(customer.getCustomerCode(), restaurant, baseCost, date);
+		Order newOrder = new Order(customer.getCustomerCode(), restaurant, baseCost, date);
+		
+		customer.setRemainingCredit(customer.getRemainingCredit() - restaurant.calculatePrice(baseCost)); // pay order cost
+		
+		return newOrder; 
 	}
 	
 	/** 
@@ -159,8 +163,6 @@ public class Services {
 		double remainingCredit = UserInput.getDouble("remaining credit");
 		return new Customer(name, famillyName, adress, phoneNumber, email, remainingCredit);
 	}
-		
-		
 		
 	public static RestAdmin addRestAdmin() { // TODO: add rest admin to Database array
 		String username = UserInput.getUsername();
@@ -338,18 +340,6 @@ public class Services {
 		return false;
 	}
 	
-//	 מחפש מסעדה ומוודא שהיא שייכת למנהל מסעדה ושהם קיימים
-	public static boolean RestAdminAddOrder( ArrayList<RestAdmin> restaurantAdmins,  ArrayList<Restaurant> restaurants) {
-		RestAdmin restAdmin = findRestAdmin(UserInput.getUsername(), restaurantAdmins);
-		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
-		Restaurant restforAdmin = findRestaurant(restaurant.getRestaurantCode(), restAdmin.getRestaurants());
-		if (restAdmin!= null && restforAdmin!=null) {
-			return true;
-		}
-		System.out.println("the restaurant admins or the restaurant can not be found");
-		return false;
-	}
-	
 	public static Customer findCustomer(int customerCode, ArrayList<Customer> customers) {
 		for (int i = 0 ; i<customers.size() ; i++) {
 			if (customers.get(i) != null) {
@@ -389,6 +379,7 @@ public class Services {
 			System.out.println("customer does not have enough remaining credit to place order. cost is " + restaurant.calculatePrice(baseCost));
 			return null;
 		}
+		
 		if (restaurant instanceof PremiumRestaurant) {
 			if(baseCost < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
 				System.out.println("cost too low for order, must be more than " + ((PremiumRestaurant) restaurant).getMinOrderValue());
@@ -399,7 +390,11 @@ public class Services {
 		// get date
 		String date = UserInput.getDate("todays date");
 		
-		return new Order(customer.getCustomerCode(), restaurant, baseCost, date);
+		Order newOrder = new Order(customer.getCustomerCode(), restaurant, baseCost, date);
+		
+		customer.setRemainingCredit(customer.getRemainingCredit() - restaurant.calculatePrice(baseCost)); // customer needs to pay for the order
+		
+		return newOrder;
 	}
 	
 	// get restaurant code and decide if open or closed

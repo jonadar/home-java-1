@@ -165,7 +165,7 @@ public class DeliveryDataBase {
 	}
 	
 	// get restaurant code and display its info
-	public void displayRestaurantDetailsByCode() {
+	public void displayRestaurantDetailsByCode() { // removeable? not in use, but from first homework
 		int restaurantCode = UserInput.getInt("restaurant code");
 		
 		Restaurant restaurant = null;
