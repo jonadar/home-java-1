@@ -65,7 +65,7 @@ public class Validation {
 	public static <T> boolean validateNotInArray(T newItem, ArrayList<T> items) {
 		if(newItem == null || items == null) return false;
 		
-		return items.contains(newItem);
+		return !items.contains(newItem);
 	}
 	
 	

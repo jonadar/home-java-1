@@ -91,7 +91,7 @@ public class DeliveryDataBase {
 		boolean valid = Validation.validateNotInArray(order, this.orders);
 		
 		if(!valid) {
-			System.out.println("invalid,  order already registered");
+			System.out.println("invalid, order already registered");
 			return;
 		}
 		// add order to list and update hash maps
@@ -337,7 +337,7 @@ public class DeliveryDataBase {
 	
 	public void showOpenRestaurantsByKitchenType(RestAdmin restAdmin) {
 		String kitchenType = UserInput.getName("kitchen type");
-		ArrayList<Restaurant> restaurantsWithType =  this.openRestaurantsByKitchenType(kitchenType);
+		ArrayList<Restaurant> restaurantsWithType = this.openRestaurantsByKitchenType(kitchenType);
 		ArrayList<Restaurant> filtered = new ArrayList<Restaurant>();
 		
 		for (Restaurant restaurant: restaurantsWithType) {
@@ -374,4 +374,6 @@ public class DeliveryDataBase {
 		
 		Services.displayArrayAsNumberedList(customerRestaurants);
 	}
+	
+	
 }

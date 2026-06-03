@@ -79,10 +79,10 @@ public class Rider {
 	
 	// look for active order show it
 	public void showActiveOrder() {
-//		if(isAvailable) { // might be wrong, ask shadi if only 1 active order per rider
-//			System.out.println("rider is not currently working on an order");
-//			return;
-//		}
+		if(isAvailable) {
+			System.out.println("rider is not currently working on an order");
+			return;
+		}
 		for (Order order : this.orders) {
 			if(order.getDeliveryStatus().equals("on the way")) {
 				System.out.println("active order: " + order);

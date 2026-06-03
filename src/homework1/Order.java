@@ -13,7 +13,7 @@ public class Order {
 	private double basePrice;
 	private double finalPrice;
 	private String deliveryStatus;
-	private static final String[] VALID_STATUSES = {"sent", "on the way", "delivered"}; 
+	private static final String[] VALID_STATUSES = {"sent", "on the way", "delivered"};  // order sent - sent  to system, order on the way - rider is delivering, delivered - order arrived
 	private static int orderCount = 1;
 	
 	public int getOrderCode() {return orderCode;}

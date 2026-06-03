@@ -7,8 +7,6 @@ import Utils.Validation;
 
 public class Services {
 	
-	public static void main(String[] args) {}
-
 	
 	public static void updateOrderStatus(Rider rider) {
 		ArrayList<Order> orders = rider.getOrders();
@@ -22,7 +20,7 @@ public class Services {
 		displayArrayAsNumberedList(orders);
 		
 		int orderCode = UserInput.getInt("order code");
-		Order order = null;
+		Order order = null ;
 		for (Order o: orders) {
 			if(o.getOrderCode() == orderCode) {
 				order = o;
@@ -41,10 +39,13 @@ public class Services {
 		
 		order.setDeliveryStatus(deliveryOption);
 		
-		// if chose (delivered) update order delivery date
+		// if chose (delivered) update order delivery date and rider is available
 		if (deliveryOption.equals("delivered")) {
 			String deliveryDate = UserInput.getDate("delivery date");
 			order.setDeliveryDate(deliveryDate);
+			rider.setAvailable(true);
+		} else if (deliveryOption.equals("on the way")) {
+			rider.setAvailable(false);
 		}
 		
 		System.out.println("updated order.");
@@ -61,7 +62,7 @@ public class Services {
 			System.out.println("updated phone number");
 		}
 		
-		else if (userSelection.equals(options[1])){ // adress
+		else if (userSelection.equals(options[1])){ // address
 			String adress = UserInput.getAddress();
 			customer.setAddress(adress);
 			System.out.println("updated address");
@@ -373,20 +374,6 @@ public class Services {
 		// choose restaurant
 		int restaurantIndex = UserInput.getIntFromRange(1, adminRestaurants.size(), "restaurant");
 		Restaurant restaurant = adminRestaurants.get(restaurantIndex-1);
-		
-		//check if belongs to rest admin
-//		boolean hasRestaurant = false;
-//		for (Restaurant r: restAdmin.getRestaurants()) {
-//			if(restaurant.equals(r)) {
-//				hasRestaurant = true;
-//				break;
-//			}
-//		}
-		// TODO: this if is not really needed as we pass through admins restaurants
-		if(!adminRestaurants.contains(restaurant)) {
-			System.out.println("restaurant does not belong to this rest admin.");
-			return null;
-		}
 		
 		// choose customer code if it not exsist it breaks out of the func
 		Customer customer = findCustomer(UserInput.getInt("customer code"), customers);
