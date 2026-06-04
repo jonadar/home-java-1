@@ -7,21 +7,20 @@ import Utils.Validation;
 
 public class Services {
 	
-	
 	public static void updateOrderStatus(Rider rider) {
-		ArrayList<Order> orders = rider.getOrders();
+		ArrayList<Order> riderOrders = rider.getOrders();
 		
-		if(orders == null || orders.size() == 0) {
+		if(riderOrders == null || riderOrders.size() == 0) {
 			System.out.println("no orders to update");
 			return;
 		}
 		
 		// pick order from list
-		displayArrayAsNumberedList(orders);
+		displayArrayAsNumberedList(riderOrders);
 		
 		int orderCode = UserInput.getInt("order code");
 		Order order = null ;
-		for (Order o: orders) {
+		for (Order o: riderOrders) {
 			if(o.getOrderCode() == orderCode) {
 				order = o;
 				break;
@@ -51,6 +50,7 @@ public class Services {
 		System.out.println("updated order.");
 	}
 	
+	// offer customer to update phone, address or email details
 	public static void updatePersonalInfo(Customer customer) {
 		System.out.println("what would you like to update?");
 		final String[] options = {"phone number", "adress", "email", "none"};
@@ -149,7 +149,7 @@ public class Services {
 	}
 	
 	
-	public static Customer addCustomer() { // TODO: add customer to Database array
+	public static Customer addCustomer() {
 		String name = UserInput.getName("name");
 		
 		String famillyName = UserInput.getName("familly name");
@@ -164,7 +164,7 @@ public class Services {
 		return new Customer(name, famillyName, adress, phoneNumber, email, remainingCredit);
 	}
 		
-	public static RestAdmin addRestAdmin() { // TODO: add rest admin to Database array
+	public static RestAdmin addRestAdmin() {
 		String username = UserInput.getUsername();
 	
 		String restAdminName = UserInput.getName("resturnt admin name");
@@ -336,7 +336,10 @@ public class Services {
 				return false;
 			}
 		}
-		System.out.println("the order or the rider can not be found");
+		
+		if(!rider.getAvailable()) System.out.println("rider not available");
+		else if(order.getDriverId() != null) System.out.println("order already has rider assigned");
+
 		return false;
 	}
 	
@@ -401,8 +404,12 @@ public class Services {
 	public static void updateRestaurantStatus(ArrayList<Restaurant> restaurants) {
 		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
 		
-		if(restaurant == null) System.out.println("restaurant not found");
+		if(restaurant == null) {
+			System.out.println("restaurant not found");
+			return;
+		}
 		
+		// tell user current state, and offer to change
 		String currently = restaurant.isOpen() ? "open" : "closed";
 		String canBe = restaurant.isOpen() ? "closed" : "open";
 		

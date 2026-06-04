@@ -290,18 +290,26 @@ public class DeliveryDataBase {
 	/**
 	 * @return Rider who has highest order count
 	 */
-	public Rider riderWithMostOrders() { // issue, might need to check order status to make sure they are delivered
+	public Rider riderWithMostOrders() {
 		Rider bestRider = null;
 		int currntHighstOrders = -1;
-		for (Rider rider : this.riders) {
-			int ridersOrdersCunt = rider.getOrders().size();
-			if (ridersOrdersCunt > currntHighstOrders) {
+
+		for (Rider rider: this.riders) {
+			int ridersOrdersCount = 0;
+
+			for (Order order: rider.getOrders()) {
+				if (order.getDeliveryStatus().equals("delivered")) ridersOrdersCount++;
+			}
+			
+			if (ridersOrdersCount > currntHighstOrders) {
 				bestRider = rider;
-				currntHighstOrders = ridersOrdersCunt;
+				currntHighstOrders = ridersOrdersCount;
 			}
 		}
+
 		return bestRider;
 	}
+	
 	
 	/**
 	 * @param kitchenType type of kitchen to check for
