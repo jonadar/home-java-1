@@ -73,7 +73,7 @@ public class Main {
 		
 		//3 restaurant admins
 		DDB.addRestaurantAdmin(new RestAdmin("jonathan", "jon", "123"));
-		DDB.addRestaurantAdmin(new RestAdmin("eden", "faye", "michelle123"));
+		DDB.addRestaurantAdmin(new RestAdmin("eden", "michelle", "michelle123"));
 		DDB.addRestaurantAdmin(new RestAdmin("bill", "lapdaz", "sec51pass52"));
 		
 		//Admin admin = new Admin("Steve", "admin", "12345");
