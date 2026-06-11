@@ -1,9 +1,11 @@
 package homework1;
 
+import java.util.function.Predicate;
+
 import Utils.UserInput;
 import Utils.Validation;
 
-public class Customer {
+public class Customer implements Comparable<Customer> {
 	private int customerCode;
 	private String firstName;
 	private String lastName;
@@ -128,5 +130,10 @@ public class Customer {
 			return other.customerCode == this.customerCode;
 		}
 		return false;
+	}
+	
+	@Override
+	public int compareTo(Customer other) {
+		return Double.compare(this.remainingCredit, other.remainingCredit);
 	}
 }

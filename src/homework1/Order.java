@@ -1,5 +1,7 @@
 package homework1;
 
+import java.util.Comparator;
+
 import Utils.Validation;
 
 public class Order {
@@ -13,8 +15,11 @@ public class Order {
 	private double basePrice;
 	private double finalPrice;
 	private String deliveryStatus;
-	private static final String[] VALID_STATUSES = {"sent", "on the way", "delivered"};  // order sent - sent  to system, order on the way - rider is delivering, delivered - order arrived
+	
 	private static int orderCount = 1;
+	
+	private static final String[] VALID_STATUSES = {"sent", "on the way", "delivered"};  // order sent - sent  to system, order on the way - rider is delivering, delivered - order arrived
+	private static final Comparator<Order> comparator = (c1, c2) -> Double.compare(c2.finalPrice, c1.finalPrice);
 	
 	public int getOrderCode() {return orderCode;}
 	public int getCustomerCode() {return customerCode;}
@@ -107,5 +112,9 @@ public class Order {
 			return other.orderCode == this.orderCode;
 		}
 		return false;
+	}
+	
+	public static int compare(Order o1, Order o2) {
+		return comparator.compare(o1, o2);
 	}
 }

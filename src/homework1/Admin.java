@@ -52,10 +52,11 @@ public class Admin {
 			System.out.println("8. show customer with most orders");
 			System.out.println("9. show rider with most deliveries");
 			System.out.println("10. update restaurant status");
-			System.out.println("11. logout");
+			System.out.println("11. sort lists");
+			System.out.println("12. logout");
 			
-			int option = UserInput.getIntFromRange(1, 11, "option");
-			if(option == 11) break;
+			int option = UserInput.getIntFromRange(1, 12, "option");
+			if(option == 12) break;
 			
 			switch (option) {
 				case 1:
@@ -91,6 +92,10 @@ public class Admin {
 					break;
 				case 10:
 					Services.updateRestaurantStatus(DDB.getRestaurants());
+					break;
+				case 11:
+					// TODO: check this works
+					DDB.sortByOption();
 					break;
 			}
 		}

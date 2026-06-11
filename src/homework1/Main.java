@@ -1,11 +1,15 @@
 package homework1;
 
+import MyExceptions.CustomerNotFoundException;
+import MyExceptions.RiderNotFoundException;
+import Utils.ConsolePrinter;
 import Utils.UserInput;
 
 public class Main {
+
 	public static void main(String[] args) {
 		DeliveryDataBase DDB = new DeliveryDataBase();
-
+		
 		// 5 riders
 		DDB.addRider(new Rider("116591425","Jhon man", "0116591325", "car", true));
 		DDB.addRider(new Rider("026521423","miriam", "0026321423", "car", false));
@@ -130,42 +134,39 @@ public class Main {
 					break;
 				case(3):
 					// rider login using id
-					String id = UserInput.getId(); // can be any string and just fail
+					String id = UserInput.getName("rider id"); // can be any string and just fail
 				
-					Rider rider = null;
-					for (Rider r: DDB.getRiders()) {
-						if(r.getId().equals(id)) {
-							rider = r;
+					try {						
+						Rider rider = Services.findRider(id, DDB.getRiders());
+						
+						if(rider == null) { // this line might be useless now
+							System.out.println("rider not found.");
 							break;
 						}
+						
+						rider.menu(DDB);
+					} catch (RiderNotFoundException e) {
+						ConsolePrinter.printError(e);
 					}
-					
-					if(rider == null) {
-						System.out.println("rider not found.");
-						break;
-					}
-					
-					rider.menu(DDB);
 					
 					break;
 				case(4):
 					// customer login with customer code
 					int code = UserInput.getInt("customer code");
 				
-					Customer customer = null;
-					for (Customer c: DDB.getCustomers()) {
-						if(c.getCustomerCode() == code) {
-							customer = c;
+					try {
+						Customer customer = Services.findCustomer(code, DDB.getCustomers());
+						
+						if(customer == null) { // might not be relevant anymore
+							System.out.println("customer not found.");
 							break;
 						}
+						
+						customer.menu(DDB);
+					} catch (CustomerNotFoundException e) {
+						ConsolePrinter.printError(e);
 					}
 					
-					if(customer == null) {
-						System.out.println("customer not found.");
-						break;
-					}
-					
-					customer.menu(DDB);
 				
 					break;
 				default:

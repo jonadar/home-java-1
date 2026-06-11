@@ -1,16 +1,18 @@
 package homework1;
 
+import java.util.Comparator;
+
 import Utils.Validation;
 
-public class Restaurant {
+public class Restaurant{
 	protected int restaurantCode;
 	protected String name;
 	protected String kitchenType;
 	protected double rating;
 	protected boolean isOpen;
 	protected double deliveryFee;
-	
 	private static int restaurantCount = 1;
+	private final static Comparator<Restaurant> comparator = (r1, r2) -> Double.compare(r2.rating, r1.rating);
 	
 	public int getRestaurantCode() { return restaurantCode; }
 	public String getName() { return name; }
@@ -89,4 +91,7 @@ public class Restaurant {
 		return false;
 	}
 	
+	public static int compare(Restaurant r1, Restaurant r2) {
+		return comparator.compare(r1, r2);
+	}
 }

@@ -1,16 +1,19 @@
 package homework1;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Predicate;
 
-import Utils.UserInput;
-import Utils.Validation;
+import MyExceptions.*;
+import Utils.*;
 
 public class Services {
+	private static Predicate<Collection<?>> isEmptyCollection = (n) -> n.size() == 0; // bonus, creating predicate
 	
 	public static void updateOrderStatus(Rider rider) {
 		ArrayList<Order> riderOrders = rider.getOrders();
 		
-		if(riderOrders == null || riderOrders.size() == 0) {
+		if(riderOrders == null || isEmptyCollection.test(riderOrders)) { // using predicate
 			System.out.println("no orders to update");
 			return;
 		}
@@ -147,7 +150,7 @@ public class Services {
 		
 		
 	// find restaurant admin from array using their username, returns admin or null if not found
-	public static RestAdmin findRestAdmin(String username, ArrayList<RestAdmin> restaurantAdmins) {
+	public static RestAdmin findRestAdmin(String username, ArrayList<RestAdmin> restaurantAdmins) throws RestAdminNotFoundException {
 		for (int i = 0 ; i<restaurantAdmins.size() ; i++) {
 			if (restaurantAdmins.get(i) != null) {
 				if (username.equals(restaurantAdmins.get(i).getUsername())) {
@@ -155,11 +158,11 @@ public class Services {
 				}
 			}
 		}
-		return null;
+		throw new RestAdminNotFoundException();
 	}
 	
 	// find restaurant from array using their code, returns restaurant or null if not found
-	public static Restaurant findRestaurant(int restCode, ArrayList<Restaurant> restaurants) {
+	public static Restaurant findRestaurant(int restCode, ArrayList<Restaurant> restaurants) throws RestaurantNotFoundException {
 		for (int i = 0 ; i<restaurants.size() ; i++) {
 			if (restaurants.get(i) != null) {
 				if (restCode == restaurants.get(i).getRestaurantCode()) {
@@ -167,21 +170,24 @@ public class Services {
 				}
 			}
 		}
-		return null;
+		throw new RestaurantNotFoundException();
 	}
 	
 	// prompt user for restaurant and restaurant admin and assign that admin to the restaurant
 	public static boolean assignRestAdminToRestaurant(ArrayList<RestAdmin> restaurantAdmins, ArrayList<Restaurant> restaurants) {
-		RestAdmin restAdmin = findRestAdmin(UserInput.getUsername(), restaurantAdmins);
-		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
-		if (restAdmin!= null && restaurant!=null) {
-			boolean success = restAdmin.addRestaurant(restaurant);
-			if (success) {
-				System.out.println("assigned admin " + restAdmin.getUsername() + " to restaurant " + restaurant.getName());
-				return true;
-			} else return false;
-		}
-		System.out.println("the restaurant admin or the restaurant can not be found");
+		try {			
+			RestAdmin restAdmin = findRestAdmin(UserInput.getUsername(), restaurantAdmins);
+			Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
+			if (restAdmin!= null && restaurant!=null) {
+				boolean success = restAdmin.addRestaurant(restaurant);
+				if (success) {
+					System.out.println("assigned admin " + restAdmin.getUsername() + " to restaurant " + restaurant.getName());
+					return true;
+				} else return false;
+			}
+		} catch (Exception e) {
+			ConsolePrinter.printError(e);
+		} 
 		return false;
 	}
 	
@@ -267,9 +273,9 @@ public class Services {
 	}
 	
 	// find rider from array using their id, returns rider or null if not found
-	public static Rider findRider(String id, ArrayList<Rider> riders) {
+	public static Rider findRider(String id, ArrayList<Rider> riders) throws RiderNotFoundException{
 		if(!Validation.isId(id)) { // no point in looking if not valid id
-			return null;
+			throw new RiderNotFoundException();
 		}
 		
 		for (Rider rider :riders) {
@@ -278,7 +284,7 @@ public class Services {
 			}
 		}
 		
-		return null;
+		throw new RiderNotFoundException();
 	}
 	
 	// find order from array using their code, returns order or null if not found
@@ -295,37 +301,42 @@ public class Services {
 	
 	// propt for rider and order and attempt to assign them to eachother, returns true if succeded
 	public static boolean assignOrderToRider(ArrayList<Rider> riders, ArrayList<Order> orders) {
-		Rider rider = findRider(UserInput.getId(), riders);
-		Order order = findOrder(UserInput.getInt("order"), orders);
-		
-		if (rider == null || order == null) {
-			System.out.println("rider or order could not be found");
-			return false;
-		}
-		
-		// rider is available and order does not have a rider assigned yet
-		if (rider.getAvailable() && order.getDriverId() == null){
-			boolean added = rider.addOrder(order);
-			if(added) {
-				System.out.println("assigned rider " + rider.getId() + " to order " + order.getOrderCode());
-				// update order
-				order.setDriverId(rider.getId());
-				order.setDeliveryStatus("on the way");
-				return true;
-			} else {
-				System.out.println("failed to add order to rider");
-				return false;
+		try {
+			Rider rider = findRider(UserInput.getId(), riders);
+			Order order = findOrder(UserInput.getInt("order"), orders);
+			
+			if (rider == null || order == null) {
+				throw new Exception("rider or order could not be found");
 			}
+			
+			// rider is available and order does not have a rider assigned yet
+			if (rider.getAvailable() && order.getDriverId() == null){
+				boolean added = rider.addOrder(order);
+				if(added) {
+					System.out.println("assigned rider " + rider.getId() + " to order " + order.getOrderCode());
+					// update order
+					order.setDriverId(rider.getId());
+					order.setDeliveryStatus("on the way");
+					return true;
+				} else {
+					throw new Exception("failed to add order to rider");
+				}
+			}
+			
+			if(!rider.getAvailable()) System.out.println("rider not available");
+			else if(order.getDriverId() != null) System.out.println("order already has rider assigned");
+			
+		} catch (RiderNotFoundException e) {
+			ConsolePrinter.printError(e);
+		} catch (Exception e) {
+			ConsolePrinter.printError(e);
 		}
 		
-		if(!rider.getAvailable()) System.out.println("rider not available");
-		else if(order.getDriverId() != null) System.out.println("order already has rider assigned");
-
 		return false;
 	}
 	
 	// find customer from array using their code, returns customer or null if not found
-	public static Customer findCustomer(int customerCode, ArrayList<Customer> customers) {
+	public static Customer findCustomer(int customerCode, ArrayList<Customer> customers) throws CustomerNotFoundException {
 		for (int i = 0 ; i<customers.size() ; i++) {
 			if (customers.get(i) != null) {
 				if (customerCode == customers.get(i).getCustomerCode()) {
@@ -333,11 +344,13 @@ public class Services {
 				}
 			}
 		}
-		return null;
+		throw new CustomerNotFoundException();
 	}
 	
 	// creates new order from a restaurant admin is in charge of
 	public static Order createNewOrderByRestAdmin(RestAdmin restAdmin, ArrayList<Customer> customers) {
+		Order newOrder = null;
+		
 		ArrayList<Restaurant> adminRestaurants = restAdmin.getRestaurants();
 		
 		if(adminRestaurants.size() == 0) {
@@ -351,55 +364,62 @@ public class Services {
 		int restaurantIndex = UserInput.getIntFromRange(1, adminRestaurants.size(), "restaurant");
 		Restaurant restaurant = adminRestaurants.get(restaurantIndex-1);
 		
-		// choose customer code if it not exsist it breaks out of the func
-		Customer customer = findCustomer(UserInput.getInt("customer code"), customers);
-		if (customer == null) {
-			System.out.println("could not find customer");
-			return null;
-		}
-		
-		// get base amount
-		double baseCost = UserInput.getDouble("base cost");
-		
-		if(customer.getRemainingCredit() < restaurant.calculatePrice(baseCost)) {
-			System.out.println("customer does not have enough remaining credit to place order. cost is " + restaurant.calculatePrice(baseCost));
-			return null;
-		}
-		
-		if (restaurant instanceof PremiumRestaurant) {
-			if(baseCost < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
-				System.out.println("cost too low for order, must be more than " + ((PremiumRestaurant) restaurant).getMinOrderValue());
-				return null;
+		try {
+			// choose customer code if it not exsist it breaks out of the func
+			Customer customer = findCustomer(UserInput.getInt("customer code"), customers);
+			if (customer == null) {
+				throw new Exception("could not find customer");
 			}
+			
+			// get base amount
+			double baseCost = UserInput.getDouble("base cost");
+			
+			if(customer.getRemainingCredit() < restaurant.calculatePrice(baseCost)) {
+				throw new Exception("customer does not have enough remaining credit to place order. cost is " + restaurant.calculatePrice(baseCost));
+			}
+			
+			if (restaurant instanceof PremiumRestaurant) {
+				if(baseCost < ((PremiumRestaurant) restaurant).getMinOrderValue()) {				
+					throw new Exception("cost too low for order, must be more than " + ((PremiumRestaurant) restaurant).getMinOrderValue());
+				}
+			}
+			
+			// get date
+			String date = UserInput.getDate("todays date");
+			
+			newOrder = new Order(customer.getCustomerCode(), restaurant, baseCost, date);
+			
+			customer.setRemainingCredit(customer.getRemainingCredit() - restaurant.calculatePrice(baseCost)); // customer needs to pay for the order
+		} catch (CustomerNotFoundException e) {
+			ConsolePrinter.printError(e);
+		} catch (Exception e) {
+			ConsolePrinter.printError(e);
 		}
-		
-		// get date
-		String date = UserInput.getDate("todays date");
-		
-		Order newOrder = new Order(customer.getCustomerCode(), restaurant, baseCost, date);
-		
-		customer.setRemainingCredit(customer.getRemainingCredit() - restaurant.calculatePrice(baseCost)); // customer needs to pay for the order
 		
 		return newOrder;
 	}
 	
 	// get restaurant code and decide if open or closed
 	public static void updateRestaurantStatus(ArrayList<Restaurant> restaurants) {
-		Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
-		
-		if(restaurant == null) {
-			System.out.println("restaurant not found");
-			return;
+		try {
+			Restaurant restaurant = findRestaurant(UserInput.getInt("restaurant code"), restaurants);
+			
+			if(restaurant == null) {
+				System.out.println("restaurant not found");
+				return;
+			}
+			
+			// tell user current state, and offer to change
+			String currently = restaurant.isOpen() ? "open" : "closed";
+			String canBe = restaurant.isOpen() ? "closed" : "open";
+			
+			System.out.println("restaurant is currently " + currently);
+			boolean shouldChange = UserInput.getBoolean("set restaurant as " + canBe + "?");
+			
+			if(shouldChange) restaurant.setOpen(!restaurant.isOpen()); // if user asks to change, change to opposit of what it has
+		} catch (RestaurantNotFoundException e) {
+			ConsolePrinter.printError(e);
 		}
-		
-		// tell user current state, and offer to change
-		String currently = restaurant.isOpen() ? "open" : "closed";
-		String canBe = restaurant.isOpen() ? "closed" : "open";
-		
-		System.out.println("restaurant is currently " + currently);
-		boolean shouldChange = UserInput.getBoolean("set restaurant as " + canBe + "?");
-		
-		if(shouldChange) restaurant.setOpen(!restaurant.isOpen()); // if user asks to change, change to opposit of what it has
 	}
 	
 	/**
