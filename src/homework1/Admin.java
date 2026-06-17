@@ -99,6 +99,7 @@ public class Admin {
 					break;
 				case 11:
 					// TODO: check this works
+					// currently sorts strings but is case sensitive
 					DDB.sortByOption();
 					break;
 				case 12:

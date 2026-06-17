@@ -134,9 +134,9 @@ public class Main {
 					break;
 				case(3):
 					// rider login using id
-					String id = UserInput.getName("rider id"); // can be any string and just fail
+					String id = UserInput.getId();
 				
-					try {						
+					try {
 						Rider rider = Services.findRider(id, DDB.getRiders());
 						
 						if(rider == null) { // this line might be useless now

@@ -392,6 +392,7 @@ public class DeliveryDataBase {
 	}
 	
 	// pick a list to sort then get sort types to pick from
+	// currently sorts strings but is case sensitive
 	public void sortByOption() {
 		final ArrayList<String> options = new ArrayList<>(List.of("1. sort customers by credit",
 				"2. sort customers by first name",
