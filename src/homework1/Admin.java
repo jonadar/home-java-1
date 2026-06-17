@@ -109,7 +109,9 @@ public class Admin {
 					System.out.println("=====================   system report  ====================");
 					System.out.println("system restaurants: ");
 					SystemReports.displayWildcardList(DDB.getRestaurants());
-					System.out.println("with " + DDB.getOrders().size() + " orders.");
+					System.out.println("system has " + DDB.getOrders().size() + " orders.");
+					System.out.println("system has " + DDB.getRiders().size() + " riders.");
+					System.out.println("system has " + DDB.getRestaurantAdmins().size() + " restaurant admins.");
 					System.out.println("total orders value is " + SystemReports.getTotalOrderFinalPriceSum(DDB.getOrders()));
 					Customer bestCustomer = SystemReports.getGreatestItem(DDB.getCustomers());
 					if(bestCustomer != null) {

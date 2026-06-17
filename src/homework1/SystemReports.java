@@ -23,6 +23,7 @@ public class SystemReports {
 		FastFoodRestaurant res = Services.createFastFoodRestaurant();
 		
 		obj.add(res);
+		System.out.println("added " + res);
 	}
 	
 	public static <T extends Comparable<T>> T getGreatestItem(Collection<T> collection) {
